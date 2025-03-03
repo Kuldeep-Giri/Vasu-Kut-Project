@@ -1,0 +1,95 @@
+.home{
+    width: 100%;
+    display: flex;
+}
+
+@media screen and (max-width: 768px) {
+    .Sidebar{
+        width: 0%;
+    }
+  
+    .content{
+        width: 100%;
+    }
+  }
+  
+  // Laptop/Desktop: Always show sidebar, hide hamburger
+  @media screen and (min-width: 769px) {
+    .Sidebar{
+        width: 15%;
+    }
+  
+    .content{
+        width: 80%;
+        padding-left: 10%;
+    
+    }
+}
+  
+  
+.dashboard-container {
+  padding: 1rem;
+
+  .profile-banner {
+    background: red;
+    padding: 1rem;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+  }
+
+  .card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .profile-image img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+  }
+
+  .overview-box {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 5px;
+    font-size: 14px;
+    i {
+      font-size: 24px;
+      color: #007bff;
+    }
+  }
+
+  .insight-card {
+    background: #f1f1f1;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-radius: 5px;
+    overflow: hidden;
+    background-image: url('https://via.placeholder.com/600x300'); // Add relevant background images
+    background-size: cover;
+    background-position: center;
+
+    .lock-overlay {
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      i {
+        font-size: 30px;
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+}

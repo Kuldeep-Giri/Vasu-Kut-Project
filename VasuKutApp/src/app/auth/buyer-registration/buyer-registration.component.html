@@ -1,0 +1,40 @@
+
+<div style="display: flex;justify-content: center;align-items: center;">
+<img  src="vasu-kutlogo.png" class="" style="width: 20vh;display: flex;justify-content: center;align-items: center;"/>
+</div>
+<div class="register-container">
+    <div class="register-card">
+      <h2 class="text-center">Create account</h2>
+      <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+        <div class="mb-3">
+          <label class="form-label">Your name</label>
+          <input type="text" formControlName="fullName" class="form-control" placeholder="First and last name">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Mobile number or email</label>
+          <input type="email" formControlName="email" class="form-control">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input type="password" formControlName="password" class="form-control" placeholder="At least 6 characters">
+          <div class="password-info">
+            <i class="bi bi-info-circle"></i> Passwords must be at least 6 characters.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Re-enter password</label>
+          <input type="password" formControlName="confirmPassword" class="form-control">
+        </div>
+        <button type="submit" class="btn amazon-btn">Continue</button>
+      </form>
+      <div class="terms-text">
+        By creating an account, you agree to our  
+        <a href="#">Conditions of Use</a> and <a href="#">Privacy Notice</a>.
+      </div>
+    </div>
+  
+    <div class="existing-account">
+      Already have an account? <a href="/auth/login">Sign in </a>
+    </div>
+  </div>
+  
