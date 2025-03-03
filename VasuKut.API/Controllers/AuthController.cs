@@ -13,6 +13,8 @@ namespace VasuKut.API.Controllers
 {
     [Route("api/auth")]
     [ApiController]
+
+
     public class AuthController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
