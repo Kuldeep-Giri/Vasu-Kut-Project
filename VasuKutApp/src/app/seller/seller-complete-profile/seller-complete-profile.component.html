@@ -1,0 +1,166 @@
+<div class="add-product-page">
+    <div class="heading">
+        <p>Company</p>
+        <h5>Profile</h5>
+        <p class="description d-flex align-items-center p-2"  style="background-color: #f57474; height: 5vh;">Your company verification is pending. <span style="font-size: 10px; font-family: italic;">(Hint : Kindly post some products to speed up the process.)</span>
+        </p>
+
+    </div>
+    <form action="">
+        <div class="product-form container p-4">
+            <div class="form-group">
+              <label class="form-label">Industry</label>
+              <p class="form-subtext">Please enter the keyword to search industry (e.g. Rice)</p>
+              <input type="text" class="form-control" placeholder="Search Industry">
+            </div>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label">Title</label>
+                  <p class="form-subtext">Please enter the product's title</p>
+                  <input type="text" class="form-control" placeholder="Please enter product title" name="title">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label">Product Group</label>
+                  <p class="form-subtext">Please select the product group</p>
+                  <select class="form-control" name="productGroup">
+                    <option>Select product group</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          
+            <div class="form-group">
+              <label class="form-label">Product Video</label>
+              <p class="form-subtext">Max 10 MB (.mp4 format only)</p>
+              <input  type="file" class="form-control-file" name="productVideo" style="font-size: 12px;">
+            </div>
+          
+            <div class="form-group">
+              <label class="form-label">Product Images</label>
+              <p class="form-subtext">Please upload images of product (1000*1000). Maximum file size of image is 5 MB</p>
+              <div class="d-flex justify-content-between image-upload-section">
+                <div class="image-upload-box" *ngFor="let img of [1,2,3,4,5]">
+                  <div class="upload-icon">+</div>
+                  <input type="file" class="form-control-file" name="productImage{{img}}">
+                  <button class="browse-btn">Browse</button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Product Description</label>
+              <p class="form-subtext">Please enter the product's description</p>
+              <div class="editor-container">
+                <!-- This would be your WYSIWYG editor like TinyMCE or Quill -->
+                <textarea class="form-control" rows="6" name="productDescription"></textarea>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label">Keywords</label>
+                  <p class="form-subtext">Please enter the product keywords, separated by comma</p>
+                  <input type="text" class="form-control" placeholder="Keywords" name="keywords">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label">Packaging</label>
+                  <p class="form-subtext">Please enter details about product's packaging</p>
+                  <input type="text" class="form-control" placeholder="Packaging Details" name="packaging">
+                </div>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label">Price</label>
+                  <p class="form-subtext">Please enter the product's price</p>
+                  <div class="d-flex gap-2">
+                    <input type="text" class="form-control" placeholder="Min Price" name="minPrice">
+                    <input type="text" class="form-control" placeholder="Max Price" name="maxPrice">
+                    <input type="text" class="form-control" placeholder="Unit e.g: 1 piece" name="priceUnit">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label">Minimum Order</label>
+                  <p class="form-subtext">Please enter the product's minimum order quantity</p>
+                  <div class="d-flex gap-2">
+                    <input type="text" class="form-control" placeholder="Min Order" name="minOrder">
+                    <input type="text" class="form-control" placeholder="Unit" name="orderUnit">
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label">Port</label>
+                  <p class="form-subtext">Please enter the nearest port of lading of goods</p>
+                  <input type="text" class="form-control" placeholder="Port" name="port">
+                </div>
+              </div>
+            
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label">Lead Time</label>
+                  <p class="form-subtext">Please enter time (days) required to dispatch the order</p>
+                  <input type="text" class="form-control" placeholder="Lead Time" name="leadTime">
+                </div>
+              </div>
+            </div>
+            
+            <!-- Attributes Section -->
+            <div class="form-group">
+              <label class="form-label">Attributes</label>
+              <p class="form-subtext">Please enter specification about the product e.g. Color:Red</p>
+              <div *ngFor="let attr of attributes; let i = index" class="d-flex gap-2">
+                <input type="text" class="form-control" placeholder="Label" [(ngModel)]="attr.label" name="attrLabel{{i}}">
+                <input type="text" class="form-control" placeholder="Value" [(ngModel)]="attr.value" name="attrValue{{i}}">
+                <button type="button" class="btn btn-dark" (click)="addAttribute()" *ngIf="i === attributes.length - 1">+</button>
+              </div>
+            </div>
+            
+            <!-- Price Range Section -->
+            <div class="form-group">
+              <label class="form-label">Price Range</label>
+              <p class="form-subtext">Set Dynamic Price based on Quantity</p>
+              <div *ngFor="let price of priceRanges; let j = index" class="d-flex gap-2">
+                <input type="text" class="form-control" placeholder="Min Quantity" [(ngModel)]="price.minQuantity" name="minQuantity{{j}}">
+                <input type="text" class="form-control" placeholder="Max Quantity" [(ngModel)]="price.maxQuantity" name="maxQuantity{{j}}">
+                <input type="text" class="form-control" placeholder="Price" [(ngModel)]="price.price" name="price{{j}}">
+                <button type="button" class="btn btn-dark" (click)="addPriceRange()" *ngIf="j === priceRanges.length - 1">+</button>
+              </div>
+            </div>
+            
+            <!-- Showcase Section -->
+            <div class="form-group">
+              <label class="form-label">Mark as Showcase</label>
+              <p class="form-subtext">Please select showcase status</p>
+              <select class="form-control" name="showcaseStatus">
+                <option>No</option>
+                <option>Yes</option>
+              </select>
+            </div>
+            
+            <!-- Upload Product Button -->
+            <div class="form-group text-end">
+              <button type="button" class="btn btn-success mt-2 rounded-0	">UPLOAD PRODUCT</button>
+            </div>
+            
+          </div>
+          
+    </form>
+    
+      
+  </div>
+  

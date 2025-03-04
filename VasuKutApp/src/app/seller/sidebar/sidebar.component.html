@@ -1,17 +1,40 @@
 <input type="checkbox" id="check">
-    <label for="check">
-      <i class="fas fa-bars" id="btn"></i>
-      <i class="fas fa-times" id="cancel"></i>
-    </label>
-    <div class="sidebar">
-    <header>My App</header>
-    <ul>
-     <li><a href="#"><i class="fas fa-qrcode"></i>Dashboard</a></li>
-     <li><a href="#"><i class="fas fa-link"></i>Shortcuts</a></li>
-     <li><a href="#"><i class="fas fa-stream"></i>Overview</a></li>
-     <li><a href="#"><i class="fas fa-calendar-week"></i>Events</a></li>
-     <li><a href="#"><i class="far fa-question-circle"></i>About</a></li>
-     <li><a href="#"><i class="fas fa-sliders-h"></i>Services</a></li>
-     <li><a href="#"><i class="far fa-envelope"></i>Contact</a></li>
-    </ul>
-   </div>
+<label for="check">
+  <i class="fas fa-bars" id="btn"></i>
+  <i class="fas fa-times" id="cancel"></i>
+</label>
+
+<div class="sidebar">
+  <header>My App</header>
+  <ul>
+    <li><a routerLink="/seller/home"><i class="fas fa-qrcode"></i>Dashboard</a></li>
+
+   
+    <li class="nav-item has-submenu" [class.open]="currentOpenMenu === 'product'">
+      <a href="#" (click)="toggleDropdown('product', $event)" class="submenu-toggle">
+          <i class="fas fa-link"></i> Product <i class="fas" [ngClass]="currentOpenMenu === 'product' ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+      </a>
+      <ul class="submenu" *ngIf="currentOpenMenu === 'product'">
+          <li><a class="submenu-item" routerLink="/seller/home/add-product">Add Product</a></li>
+          <li><a class="submenu-item" routerLink="/seller/home/all-products">All Products</a></li>
+      </ul>
+  </li>
+  
+  <li class="nav-item has-submenu" [class.open]="currentOpenMenu === 'Company'">
+      <a href="#" (click)="toggleDropdown('Company', $event)" class="submenu-toggle">
+          <i class="fas fa-sliders-h"></i> Services <i class="fas" [ngClass]="currentOpenMenu === 'Company' ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+      </a>
+      <ul class="submenu" *ngIf="currentOpenMenu === 'Company'">
+          <li><a class="submenu-item" routerLink="/seller/home/profile">Profile</a></li>
+          <li><a class="submenu-item" routerLink="/seller/home/profile">Factory Information 2</a></li>
+      </ul>
+  </li>
+  
+    
+    <li><a href="#"><i class="fas fa-stream"></i>Overview</a></li>
+    <li><a href="#"><i class="fas fa-calendar-week"></i>Events</a></li>
+    <li><a href="#"><i class="far fa-question-circle"></i>About</a></li>
+    <li><a href="#"><i class="fas fa-sliders-h"></i>Services</a></li>
+    <li><a href="#"><i class="far fa-envelope"></i>Contact</a></li>
+  </ul>
+</div>

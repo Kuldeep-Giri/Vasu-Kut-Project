@@ -7,7 +7,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatListModule} from '@angular/material/list'; 
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 interface MenuItem {
   icon: string;
@@ -22,12 +22,17 @@ interface MenuItem {
     MatButtonModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatListModule],
+    MatListModule,RouterLink],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent {
- 
+  currentOpenMenu: string | null = null;
 
+  toggleDropdown(menuName: string, event: Event): void {
+      event.preventDefault();
+      this.currentOpenMenu = (this.currentOpenMenu === menuName) ? null : menuName;
+  }
+  }
   
-}
+  
