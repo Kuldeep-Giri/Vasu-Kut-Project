@@ -1,0 +1,30 @@
+
+<div class="container mt-4">
+    <h3>Category Management</h3>
+
+    <form [formGroup]="categoryForm" (ngSubmit)="createCategory()" class="mb-4">
+        <div class="row">
+            <div class="col-md-4">
+                <input type="text" class="form-control" formControlName="name" placeholder="Category Name">
+            </div>
+            <div class="col-md-4">
+                <select class="form-select" formControlName="parentCategoryId">
+                    <option [ngValue]="0">No Parent (Root)</option>
+                    <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-success" type="submit">Add Category</button>
+            </div>
+        </div>
+    </form>
+
+    <ul class="list-group">
+        <li *ngFor="let cat of categories" class="list-group-item">
+            {{ cat.name }}
+            <ul *ngIf="cat.subCategories?.length">
+                <li *ngFor="let sub of cat.subCategories">{{ sub.name }}</li>
+            </ul>
+        </li>
+    </ul>
+</div>

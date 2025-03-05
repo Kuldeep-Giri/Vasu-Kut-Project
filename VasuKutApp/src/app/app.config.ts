@@ -7,7 +7,9 @@ import { provideToastr } from 'ngx-toastr';
 const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
-  { path: 'seller', loadChildren: () => import('./seller/seller.module').then(m => m.SellerModule) }
+  { path: 'seller', loadChildren: () => import('./seller/seller.module').then(m => m.SellerModule) },
+  
+  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
 ];
 
 

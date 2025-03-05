@@ -2,58 +2,49 @@
     <div class="heading">
         <p>Company</p>
         <h5>Profile</h5>
-        <p class="description d-flex align-items-center p-2"  style="background-color: #f57474; height: 5vh;">Your company verification is pending. <span style="font-size: 10px; font-family: italic;">(Hint : Kindly post some products to speed up the process.)</span>
+        <p class="description d-flex align-items-center p-2"  style="background-color: #f57474;  height: 5vh;color: #fff;">Your company verification is pending. <span style="font-size: 10px; font-family: italic; ">(Hint : Kindly post some products to speed up the process.)</span>
         </p>
 
     </div>
     <form action="">
         <div class="product-form container p-4">
-            <div class="form-group">
-              <label class="form-label">Industry</label>
-              <p class="form-subtext">Please enter the keyword to search industry (e.g. Rice)</p>
-              <input type="text" class="form-control" placeholder="Search Industry">
-            </div>
-            
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                  <label class="form-label">Title</label>
-                  <p class="form-subtext">Please enter the product's title</p>
+                  <label class="form-label">Company Name</label>
+                  <p class="form-subtext">Please enter your company name</p>
                   <input type="text" class="form-control" placeholder="Please enter product title" name="title">
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label class="form-label">Product Group</label>
-                  <p class="form-subtext">Please select the product group</p>
-                  <select class="form-control" name="productGroup">
-                    <option>Select product group</option>
-                  </select>
-                </div>
+                    <label class="form-label">Business Type</label>
+                    <p class="form-subtext">Please select your business type</p>
+                    <select class="form-control" name="showcaseStatus">
+                      <option>Trader</option>
+                      <option>Supperlier</option>
+                      <option>Business Service</option>
+                    </select>
+                  </div>
               </div>
             </div>
           
             <div class="form-group">
-              <label class="form-label">Product Video</label>
-              <p class="form-subtext">Max 10 MB (.mp4 format only)</p>
-              <input  type="file" class="form-control-file" name="productVideo" style="font-size: 12px;">
-            </div>
-          
-            <div class="form-group">
-              <label class="form-label">Product Images</label>
-              <p class="form-subtext">Please upload images of product (1000*1000). Maximum file size of image is 5 MB</p>
+              <label class="form-label">Logo</label>
+              <p class="form-subtext">Please upload logo (500*500). Maximum file size of logo is 512 KB
+              </p>
               <div class="d-flex justify-content-between image-upload-section">
-                <div class="image-upload-box" *ngFor="let img of [1,2,3,4,5]">
+                <div class="image-upload-box" style="height: 28vh;">
                   <div class="upload-icon">+</div>
-                  <input type="file" class="form-control-file" name="productImage{{img}}">
+                  <input type="file" class="form-control-file">
                   <button class="browse-btn">Browse</button>
                 </div>
               </div>
             </div>
             
-            <div class="form-group">
-              <label class="form-label">Product Description</label>
-              <p class="form-subtext">Please enter the product's description</p>
+            <div class="form-group ">
+              <label class="form-label"> Introlduction</label>
+              <p class="form-subtext">Please enter your comany introduction</p>
               <div class="editor-container">
                 <!-- This would be your WYSIWYG editor like TinyMCE or Quill -->
                 <textarea class="form-control" rows="6" name="productDescription"></textarea>
@@ -63,19 +54,51 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                  <label class="form-label">Keywords</label>
-                  <p class="form-subtext">Please enter the product keywords, separated by comma</p>
-                  <input type="text" class="form-control" placeholder="Keywords" name="keywords">
-                </div>
+                    <label class="form-label">Profile Banner</label>
+                    <p class="form-subtext">Banner Size (1440*400) . Maximum file size of Banner is 5 MB
+                    </p>
+                    <div class="d-flex justify-content-between image-upload-section">
+                      <div class="image-upload-box" style="height: 28vh; width: 35%;">
+                        <div class="upload-icon">+</div>
+                        <input type="file" class="form-control-file">
+                        <button class="browse-btn">Browse</button>
+                      </div>
+                    </div>
+                  </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label class="form-label">Packaging</label>
-                  <p class="form-subtext">Please enter details about product's packaging</p>
-                  <input type="text" class="form-control" placeholder="Packaging Details" name="packaging">
-                </div>
+                    <label class="form-label">Secondary Banner</label>
+                    <p class="form-subtext">Banner Size (1440 * 250). Maximum file size of secondary banner is 5 MB
+                    </p>
+                    <div class="d-flex justify-content-between image-upload-section">
+                      <div class="image-upload-box" style="height: 28vh; width: 35%;">
+                        <div class="upload-icon">+</div>
+                        <input type="file" class="form-control-file">
+                        <button class="browse-btn">Browse</button>
+                      </div>
+                    </div>
+                  </div>
               </div>
             </div>
+            <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-label">Main Product</label>
+                    <p class="form-subtext">Please enter the products that you deal in</p>
+                    <input type="text" class="form-control" placeholder="Please enter product title" name="title">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                    
+                        <div class="form-group">
+                          <label class="form-label">Website</label>
+                          <p class="form-subtext">Website Please enter your company website if any</p>
+                          <input type="text" class="form-control" placeholder="Please enter product title" name="title">
+                        </div>
+                    
+                </div>
+              </div>
             
             <div class="row">
               <div class="col-md-6">
@@ -142,16 +165,7 @@
               </div>
             </div>
             
-            <!-- Showcase Section -->
-            <div class="form-group">
-              <label class="form-label">Mark as Showcase</label>
-              <p class="form-subtext">Please select showcase status</p>
-              <select class="form-control" name="showcaseStatus">
-                <option>No</option>
-                <option>Yes</option>
-              </select>
-            </div>
-            
+          
             <!-- Upload Product Button -->
             <div class="form-group text-end">
               <button type="button" class="btn btn-success mt-2 rounded-0	">UPLOAD PRODUCT</button>
