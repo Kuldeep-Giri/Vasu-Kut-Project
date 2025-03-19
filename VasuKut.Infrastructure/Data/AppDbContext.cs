@@ -14,6 +14,12 @@ namespace VasuKut.Infrastructure.Data
 
 
         public DbSet<ProductCategory>  ProductCategories { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductImage> ProductImages { get; set; }
+        public DbSet<ProductVideo> ProductVideos { get; set; }
+        public DbSet<ProductSpecification> ProductSpecifications { get; set; }
+        public DbSet<PriceRange> PriceRanges { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -47,6 +53,27 @@ namespace VasuKut.Infrastructure.Data
                 .HasForeignKey(c => c.ParentCategoryId)
                 
                 .OnDelete(DeleteBehavior.Restrict);
+
+            // Product Relationships
+            builder.Entity<Product>()
+                .HasMany(p => p.Images)
+                .WithOne(i => i.Product)
+                .HasForeignKey(i => i.ProductId);
+
+            builder.Entity<Product>()
+                .HasMany(p => p.Videos)
+                .WithOne(v => v.Product)
+                .HasForeignKey(v => v.ProductId);
+
+            builder.Entity<Product>()
+                .HasMany(p => p.Specifications)
+                .WithOne(s => s.Product)
+                .HasForeignKey(s => s.ProductId);
+
+            builder.Entity<Product>()
+                .HasMany(p => p.PriceRanges)
+                .WithOne(pr => pr.Product)
+                .HasForeignKey(pr => pr.ProductId);
         }
     }
 }

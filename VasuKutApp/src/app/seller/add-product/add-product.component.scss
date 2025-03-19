@@ -1,3 +1,5 @@
+
+
 .add-product-page{
     width: 80%;
     background-color: #FBFBFB;
@@ -11,6 +13,35 @@
   padding: 0px;
   margin: 0;
 }
+.is-invalid {
+    border: 2px solid red !important;
+    background-color: #ffe6e6;
+  }
+  .img-preview {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+.preview-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.upload-icon {
+    font-size: 24px;
+    color: #aaa;
+}
+.text-danger {
+    font-size: 12px;
+}
+  
 
 .heading p{
     font-size: 12px;
@@ -106,3 +137,11 @@
         width: 85%;
     }
 }
+::ng-deep .ql-container {
+    min-height: 200px;
+  }
+  
+  ::ng-deep .ql-editor {
+    font-size: 16px;
+    min-height: 150px;
+  }

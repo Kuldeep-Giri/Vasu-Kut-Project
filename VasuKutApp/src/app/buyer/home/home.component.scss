@@ -1,0 +1,29 @@
+.main-container {
+    display: flex;
+  }
+  
+  /* Hide category sidebar on mobile */
+  .desktop-only {
+    display: block;
+  }
+  
+  .mobile-only {
+    display: none;
+  }
+  
+  /* Mobile View */
+  @media (max-width: 854px) {
+    .main-container {
+      flex-direction: column;
+    }
+  
+    .desktop-only {
+      display: none; /* Hide sidebar */
+    }
+  
+    .mobile-only {
+      display: block; /* Show categories below slider */
+      margin-top: 10px;
+    }
+  }
+  

@@ -3,14 +3,27 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using VasuKut.Core.Interfaces;
 using VasuKut.Core.Models;
 using VasuKut.Infrastructure.Data;
 using VasuKut.Infrastructure.Interfaces;
 using VasuKut.Infrastructure.Services;
 
-var builder = WebApplication.CreateBuilder(args);
+var options = new WebApplicationOptions
+{
+    Args = args,
+    WebRootPath = "D:\\VasuKut\\VasuKut.API\\wwwroot"
+};
+var builder = WebApplication.CreateBuilder(options);
 builder.Services.AddTransient<IEmailService, EmailService>();
 builder.Services.AddTransient<IOtpVerification, OtpVerificationService>();
+builder.Services.AddTransient<IProductService, ProductService>();
+
+builder.Services.AddTransient<IProductCategoryService, ProductCategoryService>();
+
+
+
+
 // Configure Database
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -36,6 +49,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+
+
 // Configure CORS
 builder.Services.AddCors(options =>
 {
@@ -56,6 +71,7 @@ var app = builder.Build();
 
 // Apply CORS before authentication and authorization
 app.UseCors("AllowLocalhost");  // Ensure this comes before UseAuthentication and UseAuthorization
+app.UseStaticFiles();
 
 app.UseAuthentication();
 app.UseAuthorization();

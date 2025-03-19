@@ -1,1 +1,20 @@
-<p>home works!</p>
+<app-navbar></app-navbar>
+
+<div class="container-fluid d-flex main-container">
+  <!-- Sidebar for Desktop -->
+  <div class="category desktop-only">
+    <app-category></app-category>
+  </div>
+
+  <!-- Slider (Visible on both Desktop & Mobile) -->
+  <div class="slider">
+    <app-slider></app-slider>
+  </div>
+</div>
+
+<!-- Categories below Slider for Mobile -->
+<div class="mobile-category mobile-only">
+  <app-category></app-category>
+</div>
+<app-footer></app-footer>
+<app-products></app-products>

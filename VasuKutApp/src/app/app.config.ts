@@ -4,12 +4,15 @@ import { provideRouter, Routes } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
+import { provideQuillConfig, QuillModule } from 'ngx-quill';
+import { MatDialogModule } from '@angular/material/dialog';
 const routes: Routes = [
-  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
+  { path: 'login', redirectTo: 'auth/login', pathMatch: 'full' },
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
   { path: 'seller', loadChildren: () => import('./seller/seller.module').then(m => m.SellerModule) },
-  
+  { path: '', loadChildren: () => import('./buyer/buyer.module').then(m => m.BuyerModule) },
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
+
 ];
 
 
@@ -17,7 +20,8 @@ const routes: Routes = [
 export const appConfig: ApplicationConfig = {
   providers:
    [provideZoneChangeDetection({ eventCoalescing: true })
-    , provideRouter(routes),  provideAnimations(), // required for ngx-toastr
+    , provideRouter(routes),  provideAnimations(),MatDialogModule,    provideQuillConfig({}) , // ✅ Register Quill globally
+
     provideToastr({
       positionClass: 'toast-top-right',
       timeOut: 3000,

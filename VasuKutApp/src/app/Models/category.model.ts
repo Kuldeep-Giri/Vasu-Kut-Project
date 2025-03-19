@@ -4,3 +4,7 @@ export interface Category {
     parentCategoryId?: number;
     subCategories?: Category[];
 }
+export interface CategoryResponseModel {
+    categoryId: number;
+    categoryPath: string;
+}

@@ -1,40 +1,130 @@
-
-<div style="display: flex;justify-content: center;align-items: center;">
-<img  src="vasu-kutlogo.png" class="" style="width: 20vh;display: flex;justify-content: center;align-items: center;"/>
-</div>
-<div class="register-container">
-    <div class="register-card">
-      <h2 class="text-center">Create account</h2>
-      <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
-        <div class="mb-3">
-          <label class="form-label">Your name</label>
-          <input type="text" formControlName="fullName" class="form-control" placeholder="First and last name">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Mobile number or email</label>
-          <input type="email" formControlName="email" class="form-control">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Password</label>
-          <input type="password" formControlName="password" class="form-control" placeholder="At least 6 characters">
-          <div class="password-info">
-            <i class="bi bi-info-circle"></i> Passwords must be at least 6 characters.
+<div style="background-color: #f0f0f0;">
+<div class="container">
+<div class="row" > 
+  <div class="col-md-7">
+    <div class="register-container">
+      <div class="register-card">
+        <div style="display: flex;justify-content: center;align-items: center;">
+          <img  src="vasu-kutlogo.png" class="" style="width: 20vh;display: flex;justify-content: center;align-items: center;"/>
           </div>
+          
+        <h2 class="text-center">Create account</h2>
+        <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+          <div class="toggle-buttons">
+            <button (click)="toggleUserType('buyer')" [class.active]="isBuyer">Buyer</button>
+            <button (click)="toggleUserType('supplier')" [class.active]="!isBuyer">Supplier</button>
+          </div>
+  <div class="row">
+    <div class="col-md-6">
+      <label class="form-label">Your name</label>
+      <input type="text" formControlName="fullName" class="form-control" placeholder="First and last name">
+    </div>
+    <div class="col-md-6">
+      <label class="form-label" >Country</label>
+      <select formControlName="country" class="form-control">
+        <option value="India">India</option>
+        <option value="USA">USA</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Mobile number with Country Code</label>
+   
+      <table style="width:100%">
+        <tr>
+          <td>
+            <select formControlName="countryCode"  class="form-control">
+              <option value="India">+91</option>
+              <option value="USA">+63</option>
+              <option value="Pakistan">+92</option>
+              <option value="Thailand">+66</option>
+              <option value="china">+86</option>
+              <option value="USA">+1</option>
+
+            </select>
+          </td>
+          <td>
+            <input type="mobileNo" formControlName="mobileNo" style="margin-left: 2%;" class="form-control" placeholder="Phone/Mobile Number">
+   
+          </td>
+        </tr>
+      </table>
+    
+      
+     </div>
+  
+  
+        
+      <div class="col-md-6">
+        <label class="form-label">Email</label>
+        <input type="email" formControlName="email" placeholder=Eg.abcd123@gmail.com class="form-control">
+      </div>
+  
+  
+        
+          <div class="col-md-6">
+            <label class="form-label">company Name</label>
+            <input type="text" formControlName="companyName" class="form-control" placeholder="Company Name">
+          </div>
+         
+          
+          <div class="col-md-6">
+            <label class="form-label">Password</label>
+            <input type="password" formControlName="password" class="form-control" placeholder="At least 6 characters">
+            <!-- <div class="password-info">
+              <i class="bi bi-info-circle"></i> Passwords must be at least 6 characters.
+            </div> -->
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Re-enter password</label>
+            <input type="password" formControlName="confirmPassword" placeholder="Confirm your password" class="form-control">
+          </div>
+  
+          
+          <div class="col-md-6">
+          Verify Captcha 
+          </div>
+          <div style="text-align: center;">
+                      <button type="submit" class="btn amazon-btn">Register Now</button>
+
+                    </div>
+
+  </div>
+        </form>
+        <div class="terms-text">
+          By creating an account, you agree to our  
+          <a href="#">Conditions of Use</a> and <a href="#">Privacy Notice</a>.
         </div>
-        <div class="mb-3">
-          <label class="form-label">Re-enter password</label>
-          <input type="password" formControlName="confirmPassword" class="form-control">
-        </div>
-        <button type="submit" class="btn amazon-btn">Continue</button>
-      </form>
-      <div class="terms-text">
-        By creating an account, you agree to our  
-        <a href="#">Conditions of Use</a> and <a href="#">Privacy Notice</a>.
+      </div>
+    
+      <div class="existing-account">
+        Already have an account? <a href="/auth/login">Sign in </a>
       </div>
     </div>
-  
-    <div class="existing-account">
-      Already have an account? <a href="/auth/login">Sign in </a>
+  </div>
+  <div class="col-md-5" style="margin-top: 3%;">
+
+    <div class="registration-container">
+      <div class="left-section">
+        <h2>SIGN UP NOW</h2>
+        <p>AND GET ACCESS TO</p>
+        <ul>
+          <li>✅ Free Online Shop</li>
+          <li>✅ Unlimited Product Posting</li>
+          <li>✅ Instant Presence on Google</li>
+          <li>✅ Verified Buying Leads</li>
+        </ul>
+      </div>
     </div>
   </div>
+
+  </div>
+</div>
+</div>
+
+
+
+
+
+
+
   

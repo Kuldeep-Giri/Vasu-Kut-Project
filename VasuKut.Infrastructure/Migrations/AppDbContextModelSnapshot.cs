@@ -251,6 +251,103 @@ namespace VasuKut.Infrastructure.Migrations
                     b.ToTable("OtpVerifications");
                 });
 
+            modelBuilder.Entity("VasuKut.Core.Models.PriceRange", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("MaximumQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MinimumQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PricePerUnit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("PriceRanges");
+                });
+
+            modelBuilder.Entity("VasuKut.Core.Models.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DispatchDays")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Keywords")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("MaxPricePerUnit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MinPricePerUnit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("MinimumOrderQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NearestPort")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PackagingDetails")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SellerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("ShowcaseStatus")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("TotalProductQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Unit")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Products");
+                });
+
             modelBuilder.Entity("VasuKut.Core.Models.ProductCategory", b =>
                 {
                     b.Property<int>("CategoryId")
@@ -271,6 +368,76 @@ namespace VasuKut.Infrastructure.Migrations
                     b.HasIndex("ParentCategoryId");
 
                     b.ToTable("ProductCategories");
+                });
+
+            modelBuilder.Entity("VasuKut.Core.Models.ProductImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductImages");
+                });
+
+            modelBuilder.Entity("VasuKut.Core.Models.ProductSpecification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SpecificationName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SpecificationValue")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductSpecifications");
+                });
+
+            modelBuilder.Entity("VasuKut.Core.Models.ProductVideo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("VideoUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductVideos");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -324,6 +491,28 @@ namespace VasuKut.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("VasuKut.Core.Models.PriceRange", b =>
+                {
+                    b.HasOne("VasuKut.Core.Models.Product", "Product")
+                        .WithMany("PriceRanges")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("VasuKut.Core.Models.Product", b =>
+                {
+                    b.HasOne("VasuKut.Core.Models.ProductCategory", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("VasuKut.Core.Models.ProductCategory", b =>
                 {
                     b.HasOne("VasuKut.Core.Models.ProductCategory", "ParentCategory")
@@ -332,6 +521,50 @@ namespace VasuKut.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("ParentCategory");
+                });
+
+            modelBuilder.Entity("VasuKut.Core.Models.ProductImage", b =>
+                {
+                    b.HasOne("VasuKut.Core.Models.Product", "Product")
+                        .WithMany("Images")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("VasuKut.Core.Models.ProductSpecification", b =>
+                {
+                    b.HasOne("VasuKut.Core.Models.Product", "Product")
+                        .WithMany("Specifications")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("VasuKut.Core.Models.ProductVideo", b =>
+                {
+                    b.HasOne("VasuKut.Core.Models.Product", "Product")
+                        .WithMany("Videos")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("VasuKut.Core.Models.Product", b =>
+                {
+                    b.Navigation("Images");
+
+                    b.Navigation("PriceRanges");
+
+                    b.Navigation("Specifications");
+
+                    b.Navigation("Videos");
                 });
 
             modelBuilder.Entity("VasuKut.Core.Models.ProductCategory", b =>

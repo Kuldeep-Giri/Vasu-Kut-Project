@@ -1,0 +1,57 @@
+<div class="container product-details">
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb-container">
+    <a routerLink="/" class="breadcrumb">Home</a> /
+    <a routerLink="/category" class="breadcrumb">Category</a> /
+    <span class="breadcrumb-active">{{ product?.name }}</span>
+  </nav>
+
+  <div class="row">
+    <!-- Product Image & Gallery -->
+    <div class="col-md-5">
+      <div class="main-image-container">
+        <img [src]="'https://localhost:7024' + selectedImage" class="main-image" />
+      </div>
+      <div class="thumbnail-container">
+        <img 
+          *ngFor="let img of product?.productImageUrls" 
+          [src]="'https://localhost:7024' + img" 
+          (click)="selectImage(img)" 
+          class="thumbnail" 
+        />
+      </div>
+    </div>
+
+    <!-- Product Details -->
+    <div class="col-md-7">
+      <h1 class="product-title">{{ product?.name }}</h1>
+      <p class="description" [innerHTML]="product?.description"></p>
+
+      <div class="price-section">
+        <span class="min-price">${{ product?.minPricePerUnit }}</span> - 
+        <span class="max-price">${{ product?.maxPricePerUnit }}</span> per {{ product?.unit }}
+      </div>
+
+      <div class="quick-details">
+        <p><strong>MOQ:</strong> {{ product?.minimumOrderQuantity }}</p>
+        <p><strong>Available:</strong> {{ product?.totalProductQuantity }}</p>
+        <p><strong>Dispatch Days:</strong> {{ product?.dispatchDays }}</p>
+        <p><strong>Nearest Port:</strong> {{ product?.nearestPort }}</p>
+      </div>
+
+      <button class="btn btn-primary contact-button">Contact Now</button>
+    </div>
+  </div>
+
+  <!-- Additional Information -->
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <h3>Product Specifications</h3>
+      <ul>
+        <li *ngFor="let spec of product?.specifications">
+          <strong>{{ spec.name }}:</strong> {{ spec.value }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

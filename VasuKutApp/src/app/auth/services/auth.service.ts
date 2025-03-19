@@ -20,10 +20,17 @@ export class AuthService {
     return this.http.post<{ token: string }>(`${this.apiUrl}/login`, credentials).pipe(
       tap(response => {
         localStorage.setItem('token', response.token);
+        localStorage.setItem('LoggedInUserId',this.getLoggedInUserId(response.token));
+          
       })
     );
   }
 
+  getLoggedInUserId(token: string): string {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.nameid;
+  
+  }
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }

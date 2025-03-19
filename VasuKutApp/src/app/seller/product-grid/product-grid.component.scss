@@ -1,0 +1,35 @@
+/* Reduce font size */
+.mat-table {
+    font-size: 12px; /* Smaller text */
+  }
+  
+  /* Reduce padding in headers and cells */
+  .mat-header-cell, .mat-cell {
+    padding: 4px 8px !important; /* Compact spacing */
+  }
+  
+  /* Reduce the row height */
+  .mat-row, .mat-header-row {
+    height: 30px !important; /* Adjust row height */
+  }
+  
+  /* Adjust button size */
+  .mat-button, .mat-icon-button {
+    min-width: 24px !important;
+    height: 24px !important;
+    font-size: 12px;
+    padding: 0 6px;
+  }
+  
+  /* Reduce image size */
+  img {
+    max-width: 50px;
+    max-height: 50px;
+    object-fit: cover;
+  }
+  
+  /* Adjust slide-toggle size */
+  .mat-slide-toggle {
+    transform: scale(0.8); /* Make toggle switch smaller */
+  }
+  

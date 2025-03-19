@@ -14,7 +14,31 @@ import { Router } from '@angular/router';
 export class SellerRegistrationComponent {
   registerForm: FormGroup;
 
+  registrationForm: FormGroup;
+  isBuyer: boolean = true;
+
+
+  toggleUserType(type: string) {
+    this.isBuyer = type === 'buyer';
+  }
+
+  onSubmit() {
+    if (this.registrationForm.valid) {
+      console.log('Form Data:', this.registrationForm.value);
+    }}
+
   constructor(private fb: FormBuilder, private authService: AuthService,private toastr: ToastrService,    private router: Router  ) {
+    this.registrationForm = this.fb.group({
+      fullName: ['', Validators.required],
+      phone: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      weChat: [''],
+      messenger: [''],
+      country: ['', Validators.required],
+      companyName: [''],
+      products: ['']
+    });
     this.registerForm = this.fb.group({
       fullName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],

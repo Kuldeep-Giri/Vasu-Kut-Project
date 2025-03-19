@@ -1,0 +1,13 @@
+<h2>Product Slider</h2>
+<owl-carousel-o [options]="carouselOptions" class="product-slider d-flex justify-content-center flex-row">
+  <ng-container *ngFor="let product of products">
+    <ng-template carouselSlide>
+      <div class="product-card">
+        <img [src]="product.image" [alt]="product.name" />
+        <h3>{{ product.name }}</h3>
+        <p>Price: ₹{{ product.price }}</p>
+      </div>
+    </ng-template>
+  </ng-container>
+</owl-carousel-o>
+

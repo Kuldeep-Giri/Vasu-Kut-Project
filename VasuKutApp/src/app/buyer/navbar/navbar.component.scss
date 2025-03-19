@@ -1,0 +1,167 @@
+/* Navbar Brand */
+.navbar-brand {
+    font-size: 1.5rem;
+  }
+  .topbars {
+    display: none; /* Hide by default */
+}
+.logo{
+    width: 13%;
+    height: 5%;
+}
+.topbars p{
+ font-size: 18px;
+ color: #fff;
+margin-top: 10px;
+}
+.topbars button{
+    background-color: #fff;
+    font-family: Arial;
+    line-height: 17.14px;
+    font-size: 12px;
+    padding: 4px;
+    border-radius: 20px;
+    padding-right: 15px;
+    color: #0693e3;
+    margin-bottom: 10px;
+    padding-left: 15px;
+    display: inline-block;
+    margin-top: 7px;
+   }
+  /* Search Bar (Desktop) */
+  .search-bar {
+    width: 40%;
+    display: flex;
+  
+    .form-control {
+      flex: 1;
+    }
+  
+    .btn-dark {
+      background-color: #0693e3;
+      border: none;
+      padding: 6px 12px;
+    }
+  }
+
+  .background-handle{
+    background-color: #0693e3;
+  }
+  
+  /* Search Container */
+
+  .search-container {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+  }
+  
+  /* Rounded Search Bar */
+  .rounded-search {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 50px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    width: 80%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Search Input */
+  .search-input {
+    border: none;
+    outline: none;
+    flex: 1;
+    padding: 10px 15px;
+  }
+  .handleBackground{
+    background-color: #0693e3;
+  }
+  .handleBackground1{
+    background-color: #0693e3;
+  }
+  /* Search Button */
+  .search-btn {
+    background: #0693e3;
+    color: white;
+    border-radius: 0 50px 50px 0;
+    padding: 10px 20px;
+    border: none;
+  
+    i {
+      margin-right: 5px;
+    }
+  }
+  
+  /* Navbar Icons */
+  .nav-icon {
+    text-decoration: none;
+    color: #333;
+    margin-left: 15px;
+    font-size: 0.9rem;
+  
+    i {
+      margin-right: 5px;
+    }
+  
+    &:hover {
+      color: #ff6600;
+    }
+  }
+  /* Navbar Toggler */
+  .navbar-toggler {
+    border: none;
+    outline: none;
+    box-shadow: none;
+  }
+  .navbar-nav a{
+    color: #fff;
+  }
+  .hide-only-desktop{
+   display: none;
+  }
+  /* Responsive Styling */
+  @media (max-width: 991px) {
+    .navbar .container-fluid {
+      flex-wrap: nowrap;
+    }
+    .hide-only-desktop{
+        display: block;
+       }
+    .topbars {  
+        height: 6%;
+        display: flex;
+        align-items: center; /* Show only on mobile */
+        justify-content: space-between;
+        text-align: center;
+        align-items: center;
+        background: #f8f9fa;
+        padding: 10px;
+        background-color: #0693e3;
+    }
+    .handleBackground{
+        background-color: #fff;
+    }
+    .showtoggle{
+        display: none;
+    }
+    .search-bar {
+      display: none;
+    }
+    .MobileNone{
+      display: none;
+    }
+    .navbar-nav {
+      text-align: center;
+    }
+  
+    .rounded-search {
+      width: 90%;
+    }
+  
+    .search-btn {
+      padding: 8px 15px;
+    }
+  }
+  

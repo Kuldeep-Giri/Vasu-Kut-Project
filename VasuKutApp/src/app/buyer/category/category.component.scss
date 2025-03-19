@@ -1,0 +1,119 @@
+
+  
+.category-container {
+    display: flex;
+    position: relative;
+    background-color: #fff;
+  }
+  
+  .category-list {
+    color: #767676;
+    font-size: 13px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 40vh;
+    border-right: 1px solid #ddd;
+    background-color: #fff;
+    font-weight: 600;
+    li {
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      &:hover, &.active {
+        background: #f8f8f8;
+        color: orange;
+      }
+    }
+  }
+  
+  .subcategory-container {
+    position: absolute;
+    top: 0;
+    left: 100%; /* Align next to the category list */
+    width: 139.5vh; /* Set a fixed width */
+    min-height: 300px; /* Ensure it does not take full screen */
+    background: white;
+    border: 1px solid #ddd;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+
+  }
+  
+  .subcategory-section {
+    width: 50%; /* Ensures columns */
+    padding: 2px;
+    
+    h5 {
+      font-weight: bold;
+    }
+    
+    ul {
+      list-style: none;
+      padding: 0;
+      //line-height: 9px;
+      li {
+        padding: 3px 15px;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 400;
+       
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  
+  .view-more {
+    font-weight: bold;
+    color: #ff6600;
+    cursor: pointer;
+  }
+  .mobile-category-grid {
+    padding: 10px 0;
+    
+    .category-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+  
+      img {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+  
+      .category-name {
+        font-size: 10px;
+        font-weight: 600;
+        color: #333;
+        white-space: nowrap; /* Prevents text wrapping */
+      }
+    }
+  }
+  /* Desktop View - Hide Mobile Categories */
+  @media (min-width: 854px) {
+    .mobile-category-grid {
+      display: none; /* Hide mobile categories on desktop */
+    }
+  }
+  
+  /* Mobile View - Show Mobile Categories & Adjust Layout */
+  @media (max-width: 854px) {
+    .category-container{
+        display: none;
+    }
+   
+    .category {
+      display: none; /* Hide sidebar category on mobile */
+    }
+  
+ 
+  }

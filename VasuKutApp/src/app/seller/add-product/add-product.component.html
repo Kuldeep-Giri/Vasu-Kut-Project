@@ -2,167 +2,204 @@
     <div class="heading">
         <p>Products</p>
         <h5>Add</h5>
-        <p class="description">Note: Product that violates our policy will be removed. For more information click here to read product posting policy.
-        </p>
-        <p class="description text-danger">Do not attach personal information such as email, phone or messenger id in product description or product photos. Otherwise products will be disapproved by QA
-
-        </p>
+        <p class="description">Note: Product that violates our policy will be removed. For more information click here to read product posting policy.</p>
+        <p class="description text-danger">Do not attach personal information such as email, phone or messenger id in product description or product photos. Otherwise products will be disapproved by QA.</p>
     </div>
-    <form action="">
+    <form [formGroup]="productForm" (ngSubmit)="submitProduct()">
         <div class="product-form container p-4">
             <div class="form-group">
-              <label class="form-label">Industry</label>
-              <p class="form-subtext">Please enter the keyword to search industry (e.g. Rice)</p>
-              <input type="text" class="form-control" placeholder="Search Industry">
+                <label class="form-label">Industry</label>
+                <p class="form-subtext">Please enter the keyword to search industry (e.g. Rice)</p>
+                <input type="text" class="form-control" placeholder="Enter industry" formControlName="industry" 
+                    [ngClass]="{'is-invalid': fieldInvalid('industry')}">
             </div>
-            
+
+            <div *ngIf="categories.length > 0">
+                <p class="text-danger fw-bold">Please select a category from the following options</p>
+                <div class="d-flex flex-wrap gap-2">
+                    <button type="button" class="btn btn-outline-secondary" *ngFor="let category of categories" 
+                        (click)="selectCategory(category)">
+                        {{ category.categoryPath }}
+                    </button>
+                </div>
+            </div>
+
             <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="form-label">Title</label>
-                  <p class="form-subtext">Please enter the product's title</p>
-                  <input type="text" class="form-control" placeholder="Please enter product title" name="title">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Title</label>
+                        <p class="form-subtext">Please enter the product's title</p>
+                        <input type="text" class="form-control" placeholder="Enter product title" formControlName="name" 
+                            [ngClass]="{'is-invalid': fieldInvalid('name')}">
+                    </div>
                 </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="form-label">Product Group</label>
-                  <p class="form-subtext">Please select the product group</p>
-                  <select class="form-control" name="productGroup">
-                    <option>Select product group</option>
-                  </select>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Product Group</label>
+                        <p class="form-subtext">Please select the product group</p>
+                        <select class="form-control" formControlName="productGroup" 
+                            [ngClass]="{'is-invalid': fieldInvalid('productGroup')}">
+                            <option>Select product group</option>
+                        </select>
+                    </div>
                 </div>
-              </div>
             </div>
-          
+
             <div class="form-group">
-              <label class="form-label">Product Video</label>
-              <p class="form-subtext">Max 10 MB (.mp4 format only)</p>
-              <input  type="file" class="form-control-file" name="productVideo" style="font-size: 12px;">
+                <label class="form-label">Product Video</label>
+                <p class="form-subtext">Max 10 MB (.mp4 format only)</p>
+                <input type="file" class="form-control-file" (change)="onVideoSelect($event)" name="productVideo">
             </div>
-          
             <div class="form-group">
-              <label class="form-label">Product Images</label>
-              <p class="form-subtext">Please upload images of product (1000*1000). Maximum file size of image is 5 MB</p>
-              <div class="d-flex justify-content-between image-upload-section">
-                <div class="image-upload-box" *ngFor="let img of [1,2,3,4,5]">
-                  <div class="upload-icon">+</div>
-                  <input type="file" class="form-control-file" name="productImage{{img}}">
-                  <button class="browse-btn">Browse</button>
+                <label class="form-label">Product Images</label>
+                <p class="form-subtext">Please upload images of product (1000*1000). Maximum file size of image is 5 MB</p>
+                
+                <div class="d-flex justify-content-between image-upload-section">
+                    <div class="image-upload-box" *ngFor="let imgCtrl of productImages.controls; let i = index">
+                        <div class="preview-container">
+                            <img *ngIf="previewImages[i]" [src]="previewImages[i]" class="img-preview"/>
+                            <div *ngIf="!previewImages[i]" class="upload-icon">+</div>
+                        </div>
+                        
+                        <!-- Hidden file input -->
+                        <input #fileInput type="file" class="form-control-file d-none" [ngClass]="{'is-invalid': fieldInvalid('productImages')}" (change)="onImageSelect($event, i)" accept=".jpg, .jpeg, .png, .gif">
+                        
+                        <!-- Browse button triggers file input click -->
+                        <button type="button" class="browse-btn" (click)="fileInput.click()">Browse</button>
+                        
+                        <p *ngIf="imageErrors[i]" class="text-danger">{{ imageErrors[i] }}</p>
+
+                        <p *ngIf="productImages.at(i).invalid && productImages.at(i).touched" class="text-danger">
+                            {{ imageErrors[i] || 'Image is required' }}
+                          </p>
+                    </div>
                 </div>
-              </div>
+            </div>
+
+            <div >
+                <label class="form-label">Product Description</label>
+                <p class="form-subtext">Please enter the product's description</p>
+                
+                <!-- Quill Editor -->
+                <quill-editor formControlName="description"></quill-editor>
+                <p *ngIf="fieldInvalid('description')" class="text-danger">Description is required.</p>
             </div>
             
-            <div class="form-group">
-              <label class="form-label">Product Description</label>
-              <p class="form-subtext">Please enter the product's description</p>
-              <div class="editor-container">
-                <!-- This would be your WYSIWYG editor like TinyMCE or Quill -->
-                <textarea class="form-control" rows="6" name="productDescription"></textarea>
-              </div>
-            </div>
-            
+
             <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="form-label">Keywords</label>
-                  <p class="form-subtext">Please enter the product keywords, separated by comma</p>
-                  <input type="text" class="form-control" placeholder="Keywords" name="keywords">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Keywords</label>
+                        <p class="form-subtext">Please enter the product keywords, separated by comma</p>
+                        <input type="text" class="form-control" placeholder="Keywords" formControlName="keywords"
+                            [ngClass]="{'is-invalid': fieldInvalid('keywords')}">
+                    </div>
                 </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="form-label">Packaging</label>
-                  <p class="form-subtext">Please enter details about product's packaging</p>
-                  <input type="text" class="form-control" placeholder="Packaging Details" name="packaging">
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Packaging</label>
+                        <p class="form-subtext">Please enter details about product's packaging</p>
+                        <input type="text" class="form-control" placeholder="Packaging Details" formControlName="packagingDetails"
+                            [ngClass]="{'is-invalid': fieldInvalid('packagingDetails')}">
+                    </div>
                 </div>
-              </div>
             </div>
-            
+
             <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="form-label">Price</label>
-                  <p class="form-subtext">Please enter the product's price</p>
-                  <div class="d-flex gap-2">
-                    <input type="text" class="form-control" placeholder="Min Price" name="minPrice">
-                    <input type="text" class="form-control" placeholder="Max Price" name="maxPrice">
-                    <input type="text" class="form-control" placeholder="Unit e.g: 1 piece" name="priceUnit">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Price</label>
+                        <p class="form-subtext">Please enter the product's price</p>
+                        <div class="d-flex gap-2">
+                            <input type="number" class="form-control" placeholder="Min Price" formControlName="minPricePerUnit"
+                                [ngClass]="{'is-invalid': fieldInvalid('minPricePerUnit')}">
+                            <input type="number" class="form-control" placeholder="Max Price" formControlName="maxPricePerUnit"
+                                [ngClass]="{'is-invalid': fieldInvalid('maxPricePerUnit')}">
+                            <input type="text" class="form-control" placeholder="Unit (e.g., 1 piece)" formControlName="unit"
+                                [ngClass]="{'is-invalid': fieldInvalid('unit')}">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="form-label">Minimum Order</label>
+                      <p class="form-subtext">Please enter the product's minimum order quantity</p>
+                      <div class="d-flex gap-2">
+                        <input type="number" class="form-control"   placeholder="Min Order"  formControlName="minimumOrderQuantity" [ngClass]="{'is-invalid': fieldInvalid('minimumOrderQuantity')}">
+                        <input type="text" class="form-control" placeholder="Unit" [ngClass]="{'is-invalid': fieldInvalid('totalProductQuantity')}"   formControlName="totalProductQuantity">
+                      </div>
+                    </div>
+                  </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-label">Port</label>
+                    <p class="form-subtext">Please enter the nearest port of lading of goods</p>
+                    <input type="text" class="form-control" placeholder="Port" formControlName="nearestPort" [ngClass]="{'is-invalid': fieldInvalid('nearestPort')}">
+                  </div>
+                </div>
+              
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-label">Lead Time</label>
+                    <p class="form-subtext">Please enter time (days) required to dispatch the order</p>
+                    <input type="number" class="form-control" placeholder="Lead Time" formControlName="dispatchDays" [ngClass]="{'is-invalid': fieldInvalid('dispatchDays')}">
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="form-label">Minimum Order</label>
-                  <p class="form-subtext">Please enter the product's minimum order quantity</p>
-                  <div class="d-flex gap-2">
-                    <input type="text" class="form-control" placeholder="Min Order" name="minOrder">
-                    <input type="text" class="form-control" placeholder="Unit" name="orderUnit">
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="form-label">Port</label>
-                  <p class="form-subtext">Please enter the nearest port of lading of goods</p>
-                  <input type="text" class="form-control" placeholder="Port" name="port">
-                </div>
-              </div>
-            
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="form-label">Lead Time</label>
-                  <p class="form-subtext">Please enter time (days) required to dispatch the order</p>
-                  <input type="text" class="form-control" placeholder="Lead Time" name="leadTime">
-                </div>
-              </div>
-            </div>
-            
-            <!-- Attributes Section -->
+  
             <div class="form-group">
-              <label class="form-label">Attributes</label>
-              <p class="form-subtext">Please enter specification about the product e.g. Color:Red</p>
-              <div *ngFor="let attr of attributes; let i = index" class="d-flex gap-2">
-                <input type="text" class="form-control" placeholder="Label" [(ngModel)]="attr.label" name="attrLabel{{i}}">
-                <input type="text" class="form-control" placeholder="Value" [(ngModel)]="attr.value" name="attrValue{{i}}">
-                <button type="button" class="btn btn-dark" (click)="addAttribute()" *ngIf="i === attributes.length - 1">+</button>
-              </div>
+                <label class="form-label">Specifications</label>
+                <p class="form-subtext">Please enter specifications about the product e.g. Color: Red</p>
+                <div formArrayName="specifications">
+    <div *ngFor="let attr of attributes.controls; let i = index" [formGroupName]="i" class="d-flex gap-2">
+        <input type="text" class="form-control" placeholder="Label" formControlName="name"
+            [ngClass]="{'is-invalid': fieldInvalid('name', i)}">
+        <input type="number" class="form-control" placeholder="Value" formControlName="value"
+            [ngClass]="{'is-invalid': fieldInvalid('value', i)}">
+        <button type="button" class="btn btn-dark" (click)="removeAttribute(i)">-</button>
+    </div>
+    <button type="button" class="btn btn-primary mt-2" (click)="addAttribute()">+ Add Attribute</button>
+
+</div>
+
             </div>
-            
-            <!-- Price Range Section -->
+
             <div class="form-group">
-              <label class="form-label">Price Range</label>
-              <p class="form-subtext">Set Dynamic Price based on Quantity</p>
-              <div *ngFor="let price of priceRanges; let j = index" class="d-flex gap-2">
-                <input type="text" class="form-control" placeholder="Min Quantity" [(ngModel)]="price.minQuantity" name="minQuantity{{j}}">
-                <input type="text" class="form-control" placeholder="Max Quantity" [(ngModel)]="price.maxQuantity" name="maxQuantity{{j}}">
-                <input type="text" class="form-control" placeholder="Price" [(ngModel)]="price.price" name="price{{j}}">
-                <button type="button" class="btn btn-dark" (click)="addPriceRange()" *ngIf="j === priceRanges.length - 1">+</button>
-              </div>
+                <label class="form-label">Price Range</label>
+                <p class="form-subtext">Set Dynamic Price based on Quantity</p>
+                <div formArrayName="priceRanges">
+                    <div *ngFor="let price of priceRanges.controls; let j = index" [formGroupName]="j" class="d-flex gap-2">
+                        <input type="number" class="form-control" placeholder="Min Qty" formControlName="minimumQuantity"
+                            [ngClass]="{'is-invalid': fieldInvalid('minimumQuantity', j)}">
+                        <input type="number" class="form-control" placeholder="Max Qty" formControlName="maximumQuantity"
+                            [ngClass]="{'is-invalid': fieldInvalid('maximumQuantity', j)}">
+                        <input type="number" class="form-control" placeholder="Price" formControlName="pricePerUnit"
+                            [ngClass]="{'is-invalid': fieldInvalid('pricePerUnit', j)}">
+                        <button type="button" class="btn btn-dark" (click)="removeAttribute(j)">-</button>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary mt-2" (click)="addPriceRange()">+ Add Attribute</button>
+
             </div>
-            
+
+             
             <!-- Showcase Section -->
             <div class="form-group">
-              <label class="form-label">Mark as Showcase</label>
-              <p class="form-subtext">Please select showcase status</p>
-              <select class="form-control" name="showcaseStatus">
-                <option>No</option>
-                <option>Yes</option>
-              </select>
-            </div>
-            
-            <!-- Upload Product Button -->
+                <label class="form-label">Mark as Showcase</label>
+                <p class="form-subtext">Please select showcase status</p>
+                <select class="form-control" formControlName="showcaseStatus" [ngClass]="{'is-invalid': fieldInvalid('showcaseStatus')}">
+                  <option value='true'>Yes</option>
+                  <option value="false">No</option>
+                </select>
+              </div>
+              
             <div class="form-group text-end">
-              <button type="button" class="btn btn-success mt-2 rounded-0	">UPLOAD PRODUCT</button>
+                <button type="submit" class="btn btn-success mt-2 rounded-0">UPLOAD PRODUCT</button>
             </div>
-            
-          </div>
-          
+        </div>
     </form>
-    
-      
-  </div>
-  
+</div>

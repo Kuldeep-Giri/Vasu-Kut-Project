@@ -4,11 +4,11 @@ import { HomeComponent } from './home/home.component';
 import { authGuard } from '../guards/auth.guard';
 const routes: Routes = [
 
-  { path: 'home', component: HomeComponent, canActivate: [authGuard]  },
+  { path: '', component: HomeComponent  },
   
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AuthRoutingModule { }
+export class BuyerRoutingModule { }
