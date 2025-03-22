@@ -37,7 +37,7 @@ export class ProductListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const productId = Number(8);
+    const productId = Number(1022);
     this.productService.getProductById(productId).subscribe((data: Product) => {
       this.product = data;
       this.selectedImage = data.productImageUrls[0]; // Set first image as default

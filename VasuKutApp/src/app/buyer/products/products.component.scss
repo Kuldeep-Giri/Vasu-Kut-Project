@@ -1,40 +1,143 @@
+
+.DealoftheDay{
+  background-color: #000;
+  padding: 5px 0px 10px 0px;
+  font-family: italic;
+}
+.heading{
+  border-bottom: 1.5px solid rgb(90 86 86);
+  padding: 7px 5px;
+}
+.box{
+  height: 220px;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+  margin-top: 10px;
+  cursor: pointer;
+}
+.box img{
+  width: 100%;
+  height: 60%;
+
+}
+.box-body {
+  // background-color: #181c16;
+  color: rgb(90 86 86);
+  background-color: #fff;
+  width: 100%;
+  height: 40%;
+ 
+}
+.viewmore{
+  color: #FFF;
+  font-size: 15px;
+  font-weight: 600;
+}
+.viewmore:hover{
+ cursor: pointer;
+ font-size: 16px;
+}
+.box span{
+  font-size: 14px;
+  padding: 0px 8px 0px 9px;
+  font-weight: 600;
+}
+.box h5{
+  font-size: 14px;
+  padding: 9px 8px 0px 9px;
+  font-weight: 600;
+}
+@media (min-width: 768px) { // Apply for medium and larger screens
+  .col-md-1-7 {
+    flex: 0 0 14.2857%; // 100% / 7 = 14.2857%
+    max-width: 14.2857%;
+  }
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
 .product-slider {
-    width: 100%;
-    height: 40vh; // Set height to 40vh
-    display: flex;
-    align-items: center;
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  white-space: nowrap;
+  width: 100%;
+  scrollbar-width: none;
   
-    .owl-stage-outer {
-      display: flex;
-      align-items: center;
-    }
+}
+.product {
+  flex: 0 0 auto;
+  width: calc(100% / 7);
+
+}
+
+.box1 {
+  padding: 10px;
+  border-radius: 10px;
+  background: white;
+ 
+}
+
+
+@media (max-width: 991px) {
+  .product {
+    flex: 0 0 auto;
+    width: calc(100% / 5);
+  
   }
+}
+@media (max-width: 768px) {
+  .product {
+    flex: 0 0 auto;
+    width: calc(100% / 3);
   
-  .product-card {
-    background: #fff;
-    border-radius: 10px;
-    padding: 10px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
-    height: 100%; // Make sure cards fill the container height
-  
-    img {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-    }
-  
-    &:hover {
-      transform: scale(1.05);
-    }
   }
-  
-  // Product listing grid
-  .product-list {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr); // Display 6 products per row
-    gap: 20px;
-    margin-top: 20px;
+  .box-title{
+    font-size: 12px !important;
   }
+}
+@media (max-width: 480px) {
+  .product {
+    flex: 0 0 auto;
+    width: calc(100% / 2);
   
+  }
+  .box-title{
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 320px) {
+  .product {
+    flex: 0 0 auto;
+    width: calc(100% / 1);
+  
+  }
+  .box-title{
+    font-size: 12px !important;
+  }
+}
+.scrolling-wrapper {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+.product-card {
+  min-width: 180px;
+  border: none;
+  flex: 0 0 auto;
+}
+
+.card-img-top {
+  object-fit: cover;
+  height: 276px;
+  border-radius: 0;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+
+}
+.scrolling-wrapper::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}

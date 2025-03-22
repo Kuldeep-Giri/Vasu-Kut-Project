@@ -1,13 +1,80 @@
-<h2>Product Slider</h2>
-<owl-carousel-o [options]="carouselOptions" class="product-slider d-flex justify-content-center flex-row">
-  <ng-container *ngFor="let product of products">
-    <ng-template carouselSlide>
-      <div class="product-card">
-        <img [src]="product.image" [alt]="product.name" />
-        <h3>{{ product.name }}</h3>
-        <p>Price: ₹{{ product.price }}</p>
+<div style="font-family: italic;">
+  <div class="DealoftheDay">
+    <div class="container-fluid " >
+      <h4 class="mt-2 text-light heading" >Deal Of the Day</h4>
+      <div class="row">
+        <div class="col-12" *ngFor="let row of productRows; let i = index">
+          <div class="row mt-3">
+            <div class="col-6 col-sm-4 col-md-1-7" *ngFor="let product of row">
+              <div class="box" [routerLink]="['/productdetails', product.id]" >
+                <img  [src]="imageUrl + product.productImageUrls[0]"   
+                routerLinkActive="router-link-active"  class="img-fluid" alt="Product Image" style="object-fit: contain;"/>
+                <div class="box-body text-center ">
+                  <h5 class="box-title"> {{ (product.name.length>30)? (product.name | slice:0:30)+'...':(product.name) | titlecase  }}
+                  </h5>
+                  <div class="d-flex justify-content-center">
+                    <span class="price text-muted"><del>{{ product.minPricePerUnit | currency:'INR':'symbol':'1.2-2':'en-IN' }}</del></span>
+                    <span class="discounted-price">{{ product.maxPricePerUnit | currency:'INR':'symbol':'1.2-2':'en-IN'}}.00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <!-- View More Button -->
+        <div *ngIf="showViewMoreButton && !allProductsShown" class="text-center mt-1">
+          <span class="viewmore" (click)="loadMoreProducts()">View More</span>
+        </div>
       </div>
-    </ng-template>
-  </ng-container>
-</owl-carousel-o>
-
+    </div>
+  </div>
+  <div>
+    <div class="p-2">
+    <h4 class="mt-2 text-dark heading " >New Arrievals</h4>
+    </div>
+  
+    <div class="slider-container">
+    
+      <button mat-icon-button (click)="scrollLeft()">
+        <mat-icon  style="background-color:transparent">arrow_back</mat-icon>
+      </button>
+      
+      <div class="product-slider" #scrollContainer>
+        <div class="product p-2" *ngFor="let product of products22"  [routerLink]="['/productdetails', product.id]">
+          <div class="box">
+            <img [src]="imageUrl + product.productImageUrls[0]"  class="img-fluid" alt="Product Image"  style="object-fit: contain;"/>
+            <div class="box-body text-center" >
+              <div>
+                <h5 class="box-title" >{{ (product.name.length > 15) ? (product.name | slice:0:15) + '...' : (product.name) }}</h5>
+    
+              </div>
+              <div class="d-flex justify-content-center">
+                <span class="price text-muted"><del>{{ product.minPricePerUnit |currency:'INR':'symbol':'1.2-2':'en-IN' }}</del></span>
+                <span class="discounted-price">{{ product.maxPricePerUnit | currency:'INR':'symbol':'1.2-2':'en-IN' }}.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <button mat-icon-button (click)="scrollRight()">
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </div>
+    
+  </div>
+  
+  <div class="container-fluid my-4">
+    <h4 class="mt-2 heading">
+      Up to 80% off | Handpicked products from Small businesses 
+      <a href="#" class="text-primary text-decoration-none ms-2 fs-5 text-decoration-underline">See more</a>
+    </h4>
+  
+    <div class="scrolling-wrapper d-flex flex-nowrap overflow-auto py-3">
+      <div class="card product-card me-3" *ngFor="let item of products22">
+        <img [src]="imageUrl + item.productImageUrls[0]" class="card-img-top" alt="Product" />
+      </div>
+    </div>
+  </div>
+</div>

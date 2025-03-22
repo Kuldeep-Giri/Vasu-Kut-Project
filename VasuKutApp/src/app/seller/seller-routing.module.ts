@@ -16,10 +16,9 @@ const routes: Routes = [
   {
       path: 'home', component: HomeComponent , children: [
           { path: '', component: SellerInfoComponent  },
-          { path: 'add-product/:id', component: AddProductComponent },
+          { path: 'add-product', component: AddProductComponent },
           { path: 'product-list', component: ProductListComponent },
           { path: 'product-grid', component: ProductGridComponent },
-         
           { path: 'profile', component: SellerCompleteProfileComponent },
           { path: '', redirectTo: 'home', pathMatch: 'full' }
       ]

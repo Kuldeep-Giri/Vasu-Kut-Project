@@ -1,4 +1,4 @@
-<div class="category-container" (mouseleave)="onLeave()">
+<!-- <div class="category-container" (mouseleave)="onLeave()">
     <ul class="category-list">
       <li
         *ngFor="let category of categories"
@@ -25,7 +25,7 @@
     </div>
   </div>
  
-<!-- Mobile View (Category Icons) -->
+
 <div class="container">
     <div class="row mobile-category-grid">
       <div *ngFor="let category of categories" class="col-4 col-sm-4 col-md-3 col-lg-3 text-center category-item">
@@ -33,4 +33,37 @@
         <p class="category-name">{{ category.name }}</p>
       </div>
     </div>
+  </div> -->
+
+  <!-- Mobile View (Category Icons) -->
+<div class="container-fluid" style="background-color: #e3e3e3; ">
+  <div class="categories-list" (mouseleave)="onLeave()">
+    <div *ngFor="let category of categories" class="listed " 
+    >
+     <div class="category-image" (mouseleave)="onLeave()">
+      <img [src]="category.image" alt="{{ category.name }}" class="img-fluid" (mouseenter)="onHover(category)"
+      [class.active]="category === activeCategory" >
+     </div>
+     <div class="category-name">
+      <p class="category-name" (mouseenter)="onHover(category)"
+      [class.active]="category === activeCategory">{{ category.name }}</p>
+     </div>
+    </div>
   </div>
+</div>
+<div 
+class="subcategory-container" 
+*ngIf="activeCategory"
+(mouseenter)="cancelHide()" 
+(mouseleave)="onLeave()"
+>
+<div class="row">
+  <div class="subcategory-section col-6 col-md-4 col-lg-4" *ngFor="let section of activeCategory.subcategories">
+    <h5>{{ section.name }}</h5>
+    <ul>
+      <li *ngFor="let item of section.items">{{ item }}</li>
+      <li class="view-more">View More</li>
+    </ul>
+  </div>
+</div>
+</div>

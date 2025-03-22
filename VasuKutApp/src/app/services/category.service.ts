@@ -12,6 +12,9 @@ export class CategoryService {
 
     constructor(private http: HttpClient) { }
 
+    GetAllCategory(): Observable<CategoryResponseModel[]> {
+        return this.http.get<CategoryResponseModel[]>(this.apiUrl);
+      }
     searchCategories(keyword: string): Observable<CategoryResponseModel[]> {
         if (!keyword.trim()) {
             return of([]);  // Return empty list if empty search

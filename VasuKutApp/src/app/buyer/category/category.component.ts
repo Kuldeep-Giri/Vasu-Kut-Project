@@ -40,9 +40,17 @@ export class CategoryComponent {
     { name: "Health & Medical",image: "img1.jpg", subcategories: [] },
     { name: "Minerals & Metallurgy",image: "img1.jpg", subcategories: [] },
     { name: "Packaging & Printing",image: "img1.jpg", subcategories: [] },
+    { name: "Rubber & Plastics",image: "img1.jpg", subcategories: [] },
+    { name: "Building & Construction",image: "img1.jpg", subcategories: [] },
+    { name: "Consumer Electronics",image: "img1.jpg", subcategories: [] },
+    { name: "Health & Medical",image: "img1.jpg", subcategories: [] },
+    { name: "Minerals & Metallurgy",image: "img1.jpg", subcategories: [] },
+    { name: "Packaging & Printing",image: "img1.jpg", subcategories: [] },
     { name: "Rubber & Plastics",image: "img1.jpg", subcategories: [] }
   ];
-
+ngOnInIt(){
+  console.log("hhhhhhhhhh")
+}
   activeCategory: any = null;
   timeoutHandle: any = null;
   isMobile: boolean = false;
