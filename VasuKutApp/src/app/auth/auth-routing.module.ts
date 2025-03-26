@@ -8,9 +8,9 @@ import { SellerLoginComponent } from './seller-login/seller-login.component';
 const routes: Routes = [
 
   { path: 'login', component: BuyerLoginComponent },
-  { path: 'register', component: BuyerRegistrationComponent },
+  { path: 'buyer/register', component: BuyerRegistrationComponent },
   
-  { path: 'seller/register', component: SellerRegistrationComponent },
+  { path: 'register', component: SellerRegistrationComponent },
   
   { path: 'seller/login', component: SellerLoginComponent }
 ];

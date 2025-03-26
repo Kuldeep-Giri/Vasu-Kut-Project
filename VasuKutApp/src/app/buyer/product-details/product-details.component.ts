@@ -6,10 +6,11 @@ import { ActivatedRoute } from '@angular/router';
 import { QuillModule } from 'ngx-quill';
 import { FormsModule } from '@angular/forms';
 import { SpinnerComponent } from '../spinner/spinner.component';
+import { NavbarComponent } from "../navbar/navbar.component";
 
 @Component({
   selector: 'app-product-details',
-  imports: [CommonModule, QuillModule, FormsModule, SpinnerComponent],
+  imports: [CommonModule, QuillModule, FormsModule, SpinnerComponent, NavbarComponent],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss'
 })

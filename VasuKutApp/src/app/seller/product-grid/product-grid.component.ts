@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatMenuModule } from '@angular/material/menu';
 import { CommonModule } from '@angular/common';
 import { PopupDialogComponent } from '../popup-dialog/popup-dialog.component';
 import { ProductService } from '../services/product.service';
@@ -11,6 +11,8 @@ import { environment } from '../../environments/environments';
 import { IProductResponse } from '../../Models/product.model';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { SpinnerComponent } from '../../buyer/spinner/spinner.component';
 
 
 @Component({
@@ -23,9 +25,11 @@ import { ActivatedRoute, Router } from '@angular/router';
     MatIconModule,
     MatSlideToggleModule,
     MatDialogModule,
+    MatMenuModule,
+    SpinnerComponent
   ],
   templateUrl: './product-grid.component.html',
-  styleUrls: ['./product-grid.component.css'],
+  styleUrls: ['./product-grid.component.scss'],
 })
 export class ProductGridComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'description', 'images', 'video', 'minPricePerUnit', 'maxPricePerUnit', 'actions'];
@@ -42,11 +46,12 @@ export class ProductGridComponent implements OnInit {
     this.route.navigate(['/seller/home/add-product', productId]);
   }
   loadProducts() {
+    this.loading=true;
     this.productService.GetAllProductList().subscribe(
       (response) => {
         this.products = response;
-        console.log(response);
-        console.log(response)
+        console.log(this.products);
+       
        this.loading = false; // Hide the loading spinner once data is fetched
       },
       (error) => {

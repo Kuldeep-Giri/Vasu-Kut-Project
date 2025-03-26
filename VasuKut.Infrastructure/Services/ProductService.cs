@@ -85,7 +85,7 @@ public class ProductService:IProductService
             .Include(p => p.Images) // Include Product Images
             .Include(p => p.Videos) // Include Product Videos
             .Include(p => p.Specifications) // Include Product Specifications
-            .Include(p => p.PriceRanges).Where(a=>a.IsDeleted==false) // Include Price Ranges
+            .Include(p => p.PriceRanges).Where(a=>a.IsDeleted==false && a.IsApproved == true) // Include Price Ranges
             .ToListAsync();
 
         // Map the Product entities to ProductResponse models
@@ -124,6 +124,78 @@ public class ProductService:IProductService
         }).ToList();
 
         return productResponses;
+    }
+    public async Task<List<ProductResponse>> GetProductsForAdminAsync(string? productName, int? isApproved)
+    {
+        // Base query
+        var query = _context.Products
+            .Include(p => p.Images)
+            .Include(p => p.Videos)
+            .Include(p => p.Specifications)
+            .Include(p => p.PriceRanges)
+            .Where(p => p.IsDeleted == false)
+            .AsQueryable();
+
+        // Filter by product name if provided
+        if (!string.IsNullOrEmpty(productName))
+        {
+            query = query.Where(p => p.Name.Contains(productName));
+        }
+
+        // Filter by isApproved if provided
+        if (isApproved.HasValue)
+        {
+            // Convert 1 to true, 0 to false
+            bool approvedBool = isApproved.Value == 1;
+            query = query.Where(p => p.IsApproved == approvedBool);
+        }
+
+        var products = await query.ToListAsync();
+
+        // Map to response
+        var productResponses = products.Select(product => new ProductResponse
+        {
+            Id = product.Id,
+            Name = product.Name,
+            Description = product.Description,
+            Keywords = product.Keywords,
+            PackagingDetails = product.PackagingDetails,
+            MinimumOrderQuantity = product.MinimumOrderQuantity,
+            TotalProductQuantity = product.TotalProductQuantity,
+            NearestPort = product.NearestPort,
+            DispatchDays = product.DispatchDays,
+            MinPricePerUnit = product.MinPricePerUnit,
+            MaxPricePerUnit = product.MaxPricePerUnit,
+            Unit = product.Unit,
+            CategoryId = product.CategoryId,
+            ShowcaseStatus = product.ShowcaseStatus,
+            IsApproved = product.IsApproved,
+            IsDeleted = product.IsDeleted,
+            Specifications = product.Specifications.Select(spec => new SpecificationResponse
+            {
+                Name = spec.SpecificationName,
+                Value = spec.SpecificationValue
+            }).ToList(),
+            PriceRanges = product.PriceRanges.Select(priceRange => new PriceRangeResponse
+            {
+                MinimumQuantity = priceRange.MinimumQuantity,
+                MaximumQuantity = priceRange.MaximumQuantity,
+                PricePerUnit = priceRange.PricePerUnit
+            }).ToList(),
+            ProductVideoUrl = product.Videos.FirstOrDefault()?.VideoUrl,
+            ProductImageUrls = product.Images.Select(image => image.ImageUrl).ToList()
+        }).ToList();
+
+        return productResponses;
+    }
+    public async Task<bool> IsApproved(int id)
+    {
+        var user = await _context.Products.FindAsync(id);
+        if (user == null) return false;
+
+        user.IsApproved = !user.IsApproved;
+        await _context.SaveChangesAsync();
+        return true;
     }
 
     private async Task<string> SaveFile(IFormFile file, string folderName)

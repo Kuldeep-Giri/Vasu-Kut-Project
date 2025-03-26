@@ -55,7 +55,7 @@
                 <label class="form-label">Product Images</label>
                 <p class="form-subtext">Please upload images of product (1000*1000). Maximum file size of image is 5 MB</p>
                 
-                <div class="d-flex justify-content-between image-upload-section">
+                <div class="d-flex justify-content-between image-upload-section image-upload-wrapper">
                     <div class="image-upload-box" *ngFor="let imgCtrl of productImages.controls; let i = index">
                         <div class="preview-container">
                             <img *ngIf="previewImages[i]" [src]="previewImages[i]" class="img-preview"/>
@@ -82,7 +82,7 @@
                 <p class="form-subtext">Please enter the product's description</p>
                 
                 <!-- Quill Editor -->
-                <quill-editor formControlName="description"></quill-editor>
+                <quill-editor formControlName="description" ></quill-editor>
                 <p *ngIf="fieldInvalid('description')" class="text-danger">Description is required.</p>
             </div>
             

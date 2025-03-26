@@ -1,4 +1,4 @@
-<div style="display: flex;justify-content: center;align-items: center;">
+<!-- <div style="display: flex;justify-content: center;align-items: center;">
     <img  src="vasu-kutlogo.png" class="" style="width: 20vh;display: flex;justify-content: center;align-items: center;"/>
 </div>
 
@@ -25,5 +25,97 @@
       <p>New to our platform?</p>
       <a class="btn create-account-btn" href="auth/register">Create your account</a>
     </div>
-  </div>
-  
+  </div> -->
+  <div style="background-color: #f0f0f0; height: 100vh;display: flex;align-items: center; justify-content: center;">
+    <div class="container">
+    <div class="row" > 
+      <div class="col-md-7" style="margin-top: 3%;">
+    
+        <div class="registration-container">
+          <div class="left-section">
+           
+            <div>
+              <h2>Sign In NOW</h2>
+              <p>AND GET ACCESS TO</p>
+            <ul>
+              <li>✅ Free Online Shop</li>
+              <li>✅ Unlimited Product Posting</li>
+              <li>✅ Instant Presence on Google</li>
+              <li>✅ Verified Buying Leads</li>
+            </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5" >
+        <div class="register-container">
+          <div class="register-card" >
+            <div style="display: flex;justify-content: center;align-items: center;" class="">
+              <img  src="vasu-kutlogo.png" class="" style="width: 20vh;display: flex;justify-content: center;align-items: center;"/>
+              </div>
+              
+            <h2 class="text-center">Sign-Up</h2>
+            <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+              
+      <div class="row">
+        
+        
+      
+      
+            
+          <div class="col-12">
+            <label class="form-label">Email</label>
+            <input type="email" formControlName="email" placeholder=Eg.abcd123@gmail.com class="form-control">
+          </div>
+      
+      
+            
+            
+             
+              
+              <div class="col-12">
+                <label class="form-label">Password</label>
+                <input type="password" formControlName="password" class="form-control" placeholder="At least 6 characters">
+                <!-- <div class="password-info">
+                  <i class="bi bi-info-circle"></i> Passwords must be at least 6 characters.
+                </div> -->
+              </div>
+             
+      
+              
+              
+              <div style="text-align: center;">
+                          <button type="submit" class=" amazon-btn regitrationbtn">Login</button>
+    
+                        </div>
+    
+      </div>
+            </form>
+           <div class="p-3" >
+            <div class="existing-account">
+              You are a user? <a routerLink="/auth/register">Sign up </a>
+            </div>
+            <div class="terms-text">
+              By creating an account, you agree to our  
+              <a href="#">Conditions of Use</a> and <a href="#">Privacy Notice</a>.
+            </div>
+           
+           </div>
+          </div>
+          </div>
+        
+         
+      </div>
+    
+    
+      </div>
+    </div>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+      

@@ -14,6 +14,9 @@ export class ProductService {
   private GetProductByIdUrl =`${environment.apiBaseUrl}/Product/GetProductById`;  // Replace with your actual API endpoint
   private DeleteProductByIdUrl =`${environment.apiBaseUrl}/Product/Delete/`;  // Replace with your actual API endpoint
   private UpdateProductByIdUrl =`${environment.apiBaseUrl}/Product/UpdateProduct`;  // Replace with your actual API endpoint
+  private sellerprofileUrl = `${environment.apiBaseUrl}/Seller/upload-profile`;
+  private GetProductListForAdminUrl =`${environment.apiBaseUrl}/Product/ProductForAdmin`;  // Replace with your actual API endpoint
+  private IsProductApprovalUrl =`${environment.apiBaseUrl}/Product/Approval`;  // Replace with your actual API endpoint
 
   constructor(private http: HttpClient) {}
 
@@ -26,6 +29,22 @@ export class ProductService {
   }
   GetAllProductList(): Observable<any> {
     return this.http.get<any>(this.GetProductListUrl);
+  }
+  GetAllProductListForAdmin(searchTerm?: string, isApproved?: string): Observable<any> {
+    let params: any = {};
+  
+    if (searchTerm) {
+      params.search = searchTerm;
+    }
+  
+    if (isApproved !== undefined && isApproved !== 'all') {
+      params.isApproved = isApproved; // should be "1" or "0" as string
+    }
+  
+    return this.http.get<any>(this.GetProductListForAdminUrl, { params });
+  }
+  IsApproved(id: string) {
+    return this.http.patch(`${this.IsProductApprovalUrl}/${id}`, {});
   }
   ToggaleProductShowHide(productId :number):boolean{
     this.http.put<any>(this.ToggaleShowHideUrl+productId,{}).subscribe(
@@ -56,5 +75,8 @@ export class ProductService {
         }
       );
     });
+  }
+  uploadProfile(formData: FormData): Observable<any> {
+    return this.http.post(this.sellerprofileUrl, formData);
   }
 }

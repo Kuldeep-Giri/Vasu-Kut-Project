@@ -224,6 +224,98 @@ namespace VasuKut.Infrastructure.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("VasuKut.Core.Models.CompanyImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SellerProfileId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SellerProfileId");
+
+                    b.ToTable("CompanyImages");
+                });
+
+            modelBuilder.Entity("VasuKut.Core.Models.CompleteSellerProfile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BrochurePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BusinessType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CompanyName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CompanyVideoPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CountryRegion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Introduction")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LogoPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MainProduct")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NumberOfEmployees")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfileBannerPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SecondaryBannerPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Website")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("YearEstablished")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CompanyProfiles");
+                });
+
             modelBuilder.Entity("VasuKut.Core.Models.OtpVerification", b =>
                 {
                     b.Property<int>("Id")
@@ -491,6 +583,17 @@ namespace VasuKut.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("VasuKut.Core.Models.CompanyImage", b =>
+                {
+                    b.HasOne("VasuKut.Core.Models.CompleteSellerProfile", "SellerProfile")
+                        .WithMany("CompanyImages")
+                        .HasForeignKey("SellerProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SellerProfile");
+                });
+
             modelBuilder.Entity("VasuKut.Core.Models.PriceRange", b =>
                 {
                     b.HasOne("VasuKut.Core.Models.Product", "Product")
@@ -554,6 +657,11 @@ namespace VasuKut.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("VasuKut.Core.Models.CompleteSellerProfile", b =>
+                {
+                    b.Navigation("CompanyImages");
                 });
 
             modelBuilder.Entity("VasuKut.Core.Models.Product", b =>

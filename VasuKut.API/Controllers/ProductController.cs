@@ -55,10 +55,6 @@ public class ProductController : ControllerBase
         return Ok(new { message = result.Message });
     }
     [HttpGet("ProductList")]
-    
-
-    // GET: api/products
-    [HttpGet]
     public async Task<ActionResult<List<ProductResponse>>> GetAllProducts()
     {
         try
@@ -79,7 +75,19 @@ public class ProductController : ControllerBase
             return StatusCode(500, new { Message = "An error occurred while processing your request." });
         }
     }
-
+    [HttpGet("ProductForAdmin")]
+    public async Task<IActionResult> GetProductsForAdmin(string? productName, int? isApproved)
+    {
+        var result = await _productService.GetProductsForAdminAsync(productName, isApproved);
+        return Ok(result);
+    }
+    [HttpPatch("Approval/{id}")]
+    public async Task<IActionResult> ToggleIsDisable(int id)
+    {
+        var result = await _productService.IsApproved(id);
+        if (!result) return NotFound();
+        return NoContent();
+    }
     // ✅ PUT: Toggle Product Active Status
     [HttpPut("toggle/{id}")]
     public async Task<IActionResult> ToggleProductStatus(int id)

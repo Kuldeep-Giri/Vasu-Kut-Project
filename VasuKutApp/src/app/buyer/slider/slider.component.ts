@@ -1,9 +1,9 @@
-import { CommonModule, CurrencyPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-slider',
-  imports: [CommonModule,CurrencyPipe],
+  imports: [CommonModule],
   templateUrl: './slider.component.html',
   styleUrl: './slider.component.scss'
 })

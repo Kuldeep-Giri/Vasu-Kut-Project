@@ -14,9 +14,11 @@ import { ProductGridComponent } from './product-grid/product-grid.component';
 // ];
 const routes: Routes = [
   {
-      path: 'home', component: HomeComponent , children: [
+      path: 'home', component: HomeComponent ,  canActivate: [SellerGuard],  canActivateChild: [SellerGuard],
+      children: [
           { path: '', component: SellerInfoComponent  },
-          { path: 'add-product', component: AddProductComponent },
+          { path: 'add-product/:id', component: AddProductComponent },
+          { path: 'add-product', component: AddProductComponent },  // Route without ID
           { path: 'product-list', component: ProductListComponent },
           { path: 'product-grid', component: ProductGridComponent },
           { path: 'profile', component: SellerCompleteProfileComponent },

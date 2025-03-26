@@ -53,7 +53,12 @@ namespace VasuKut.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
-            var user = new ApplicationUser { UserName = model.FullName, Email = model.Email, Role = model.Role };
+            var existingUser = await _userManager.FindByEmailAsync(model.Email);
+            if (existingUser != null)
+            {
+                return BadRequest(new { Message = "Email already exists" });
+            }
+            var user = new ApplicationUser { UserName = model.FullName, Email = model.Email, Role = model.Role, PhoneNumber = model.PhoneNumber,Code = model.Code,Country = model.Country};
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded) return BadRequest(result.Errors);
             await _userManager.AddToRoleAsync(user, model.Role);
@@ -82,7 +87,8 @@ namespace VasuKut.API.Controllers
                 Subject = new ClaimsIdentity(new[]
                 {new Claim(ClaimTypes.NameIdentifier, user.Id),
             new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.Role, user.Role)
+            new Claim(ClaimTypes.Role, user.Role),
+             new Claim(ClaimTypes.Name, user.UserName)
         }),
                 Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

@@ -19,7 +19,8 @@ namespace VasuKut.Infrastructure.Data
         public DbSet<ProductVideo> ProductVideos { get; set; }
         public DbSet<ProductSpecification> ProductSpecifications { get; set; }
         public DbSet<PriceRange> PriceRanges { get; set; }
-
+        public DbSet<CompleteSellerProfile> CompanyProfiles { get; set; }
+        public DbSet<CompanyImage> CompanyImages { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -74,6 +75,12 @@ namespace VasuKut.Infrastructure.Data
                 .HasMany(p => p.PriceRanges)
                 .WithOne(pr => pr.Product)
                 .HasForeignKey(pr => pr.ProductId);
+
+          builder.Entity<CompleteSellerProfile>()
+       .HasMany(p => p.CompanyImages)
+       .WithOne(i => i.SellerProfile)
+       .HasForeignKey(i => i.SellerProfileId)
+       .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -5,25 +5,28 @@ import { ToastrService } from 'ngx-toastr';
 
 export const SellerGuard: CanActivateFn = (route, state) => {
     const router = inject(Router);
-    const authService = inject(AuthService);   
-    const toastr = inject(ToastrService);   
-
+    const authService = inject(AuthService);
+    const toastr = inject(ToastrService);
+  
     const token = localStorage.getItem('token');
-    console.log(token);
-
-    if (token) {
-
-        if (authService.isLoggedIn() && authService.getUserRole(token) === 'seller') {  
-         console.log(authService.getUserRole(token));
-            return true;
-        } else {
-            toastr.error("You don't have permission❌");
-        
-            router.navigate(['/auth/seller/login']);
-            return false;
-        }
-    } else {
-        router.navigate(['/auth/login']);
-        return false;
+  
+    if (!token) {
+      router.navigate(['/auth/login']);
+      return false;
     }
-};
+  
+    if (!authService.isLoggedIn()) {
+      router.navigate(['/auth/login']);
+      return false;
+    }
+  
+    const role = authService.getUserRole(token);
+  
+    if (role === 'seller') {
+      return true;
+    } else {
+      toastr.error("You don't have permission❌");
+      router.navigate(['/Unauthorized']);
+      return false;
+    }
+  };

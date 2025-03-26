@@ -20,6 +20,8 @@ builder.Services.AddTransient<IOtpVerification, OtpVerificationService>();
 builder.Services.AddTransient<IProductService, ProductService>();
 
 builder.Services.AddTransient<IProductCategoryService, ProductCategoryService>();
+builder.Services.AddTransient<ISellerCompleteProfileService, SellerCompleteProfileService>();
+builder.Services.AddTransient<IUserManagement, UserManagementService>();
 
 
 

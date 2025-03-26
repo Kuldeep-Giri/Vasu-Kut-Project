@@ -1,172 +1,222 @@
 <form [formGroup]="profile" (ngSubmit)="onSubmit()">
-    <div class="product-form container p-4">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label class="form-label">Company Name</label>
-            <p class="form-subtext">Please enter your company name</p>
-            <input type="text" class="form-control" placeholder="Company Name" formControlName="companyName">
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label class="form-label">Business Type</label>
-            <p class="form-subtext">Please select your business type</p>
-            <select class="form-control" formControlName="businessType">
-              <option>Trader</option>
-              <option>Supplier</option>
-              <option>Business Service</option>
-            </select>
-          </div>
+  <div class="product-form container p-4">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Company Name</label>
+          <p class="form-subtext">Please enter your company name</p>
+          <input type="text" class="form-control" placeholder="Company Name" formControlName="companyName">
         </div>
       </div>
-      <div class="form-group">
-        <label class="form-label">Logo</label>
-        <p class="form-subtext">Please upload logo (500*500). Maximum file size of logo is 512 KB</p>
-        <div class="d-flex justify-content-between image-upload-section">
-          <div class="image-upload-box" style="height: 28vh;">
-            <div class="upload-icon">+</div>
-            <input type="file" class="form-control-file" formControlName="logo">
-            <button class="browse-btn">Browse</button>
-          </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Business Type</label>
+          <p class="form-subtext">Please select your business type</p>
+          <select class="form-control" formControlName="businessType">
+            <option>Trader</option>
+            <option>Supplier</option>
+            <option>Business Service</option>
+          </select>
         </div>
       </div>
-      <div class="form-group">
-        <label class="form-label">Introduction</label>
-        <p class="form-subtext">Please enter your company introduction</p>
-        <div class="editor-container">
-          <textarea class="form-control" rows="6" formControlName="introduction"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Logo</label>
+      <p class="form-subtext">Please upload logo (500*500). Maximum file size of logo is 512 KB</p>
+      <div class="d-flex justify-content-between image-upload-section">
+        <div class="image-upload-box" style="height: 28vh;">
+          <div class="upload-icon">+</div>
+          <input type="file" class="form-control-file" formControlName="logo" (change)="onFileChange($event, 'logo')">
+          <button class="browse-btn">Browse</button>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label class="form-label">Profile Banner</label>
-            <p class="form-subtext">Banner Size (1440*400). Maximum file size of Banner is 5 MB</p>
-            <div class="d-flex justify-content-between image-upload-section">
-              <div class="image-upload-box" style="height: 28vh; width: 35%;">
-                <div class="upload-icon">+</div>
-                <input type="file" class="form-control-file" formControlName="profileBanner">
-                <button class="browse-btn">Browse</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label class="form-label">Secondary Banner</label>
-            <p class="form-subtext">Banner Size (1440 * 250). Maximum file size of secondary banner is 5 MB</p>
-            <div class="d-flex justify-content-between image-upload-section">
-              <div class="image-upload-box" style="height: 28vh; width: 35%;">
-                <div class="upload-icon">+</div>
-                <input type="file" class="form-control-file" formControlName="secondaryBanner">
-                <button class="browse-btn">Browse</button>
-              </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Introduction</label>
+      <p class="form-subtext">Please enter your company introduction</p>
+      <div class="editor-container">
+        <textarea class="form-control" rows="6" formControlName="introduction"></textarea>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Profile Banner</label>
+          <p class="form-subtext">Banner Size (1440*400). Maximum file size of Banner is 5 MB</p>
+          <div class="d-flex justify-content-between image-upload-section">
+            <div class="image-upload-box" style="height: 28vh; width: 35%;">
+              <div class="upload-icon">+</div>
+              <input type="file" class="form-control-file" formControlName="profileBanner" (change)="onFileChange($event, 'profileBanner')">
+              <button class="browse-btn">Browse</button>
             </div>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label class="form-label">Main Product</label>
-            <p class="form-subtext">Please enter the products that you deal in</p>
-            <input type="text" class="form-control" placeholder="Main Product" formControlName="mainProduct">
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label class="form-label">Website</label>
-            <p class="form-subtext">Please enter your company website if any</p>
-            <input type="text" class="form-control" placeholder="Website" formControlName="website">
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <label class="form-label">Country/Region</label>
-            <p class="form-subtext">Please select your country/region</p>
-            <select class="form-control" formControlName="countryRegion">
-              <option>India</option>
-              <option>USA</option>
-              <option>UK</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label class="form-label">State</label>
-            <p class="form-subtext">Please select your State</p>
-            <select class="form-control" formControlName="state">
-              <option>State1</option>
-              <option>State2</option>
-              <option>State3</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label class="form-label">City</label>
-            <p class="form-subtext">Please select your city</p>
-            <select class="form-control" formControlName="city">
-              <option>City1</option>
-              <option>City2</option>
-              <option>City3</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Address</label>
-        <p class="form-subtext">Please enter your company address</p>
-        <input type="text" class="form-control" placeholder="Address" formControlName="address">
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label class="form-label">Year Established</label>
-            <p class="form-subtext">Please enter the year in which your company was established</p>
-            <input type="text" class="form-control" placeholder="Year Established" formControlName="yearEstablished">
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label class="form-label">Number of Employees</label>
-            <p class="form-subtext">Please enter the number of employees of your company</p>
-            <input type="text" class="form-control" placeholder="Number of Employees" formControlName="numberOfEmployees">
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Brochure</label>
-        <p class="form-subtext">Please upload company's brochure (PDF). Maximum file size of brochure is 15 MB</p>
-        <input type="file" class="form-control-file" formControlName="brochure">
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label class="form-label">Company Video</label>
-            <p class="form-subtext">Max 10 MB (.mp4 format only)</p>
-            <input type="file" class="form-control-file" formControlName="companyVideo">
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label class="form-label">Company Images</label>
-            <p class="form-subtext">Please upload images of product (1000*1000). Maximum file size of image is 5 MB</p>
-            <div class="d-flex justify-content-between image-upload-section">
-                <div class="image-upload-box" *ngFor="let img of companyImages.controls; let i = index">
-                  <div class="upload-icon">+</div>
-                  <input type="file" class="form-control-file" [formControlName]="i">
-                  <button class="browse-btn" (click)="addCompanyImage()">Browse</button>
-                </div>
-              </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Secondary Banner</label>
+          <p class="form-subtext">Banner Size (1440 * 250). Maximum file size of secondary banner is 5 MB</p>
+          <div class="d-flex justify-content-between image-upload-section">
+            <div class="image-upload-box" style="height: 28vh; width: 35%;">
+              <div class="upload-icon">+</div>
+              <input type="file" class="form-control-file" formControlName="secondaryBanner" (change)="onFileChange($event, 'secondaryBanner')">
+              <button class="browse-btn">Browse</button>
             </div>
           </div>
         </div>
-        <div class="form-group text-end">
-          <button type="submit" class="btn btn-success mt-2 rounded-0">UPLOAD PRODUCT</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Main Product</label>
+          <p class="form-subtext">Please enter the products that you deal in</p>
+          <input type="text" class="form-control" placeholder="Main Product" formControlName="mainProduct">
         </div>
       </div>
-    </form>  
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Website</label>
+          <p class="form-subtext">Please enter your company website if any</p>
+          <input type="text" class="form-control" placeholder="Website" formControlName="website">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label class="form-label">Country/Region</label>
+          <p class="form-subtext">Please select your country/region</p>
+          <select class="form-control" formControlName="countryRegion">
+            <option>India</option>
+            <option>USA</option>
+            <option>UK</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group">
+          <label class="form-label">State</label>
+          <p class="form-subtext">Please select your State</p>
+          <select class="form-control" formControlName="state">
+            <option>State1</option>
+            <option>State2</option>
+            <option>State3</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group">
+          <label class="form-label">City</label>
+          <p class="form-subtext">Please select your city</p>
+          <select class="form-control" formControlName="city">
+            <option>City1</option>
+            <option>City2</option>
+            <option>City3</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Address</label>
+      <p class="form-subtext">Please enter your company address</p>
+      <input type="text" class="form-control" placeholder="Address" formControlName="address">
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Year Established</label>
+          <p class="form-subtext">Please enter the year in which your company was established</p>
+          <input type="text" class="form-control" placeholder="Year Established" formControlName="yearEstablished">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Number of Employees</label>
+          <p class="form-subtext">Please enter the number of employees of your company</p>
+          <input type="text" class="form-control" placeholder="Number of Employees" formControlName="numberOfEmployees">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Brochure</label>
+      <p class="form-subtext">Please upload company's brochure (PDF). Maximum file size of brochure is 15 MB</p>
+      <input type="file" class="form-control-file" formControlName="brochure" (change)="onFileChange($event, 'brochure')">
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Company Video</label>
+          <p class="form-subtext">Max 10 MB (.mp4 format only)</p>
+          <input type="file" class="form-control-file" formControlName="companyVideo" (change)="onFileChange($event, 'companyVideo')">
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Company Images</label>
+          <p class="form-subtext">Please upload images of product (1000*1000). Maximum file size of image is 5 MB</p>
+          <div class="d-flex justify-content-between image-upload-section">
+            <div class="image-upload-box" *ngFor="let img of companyImages.controls; let i = index">
+              <div class="upload-icon">+</div>
+              <input type="file" class="form-control-file" [formControlName]="i" (change)="onFileChange($event, 'companyImages', i)">
+              <button class="browse-btn" type="button" (click)="addCompanyImage()">Browse</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group text-end">
+      <button type="submit" class="btn btn-success mt-2 rounded-0">UPLOAD PRODUCT</button>
+    </div>
+  </div>
+</form>
+
+
+    <!-- <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+      <input type="text" formControlName="companyName" placeholder="Company Name" />
+      <input type="text" formControlName="businessType" placeholder="Business Type" />
+      <input type="text" formControlName="introduction" placeholder="Introduction" />
+      <input type="text" formControlName="mainProduct" placeholder="Main Product" />
+      <input type="text" formControlName="website" placeholder="Website" />
+      <input type="text" formControlName="countryRegion" placeholder="Country/Region" />
+      <input type="text" formControlName="state" placeholder="State" />
+      <input type="text" formControlName="city" placeholder="City" />
+      <input type="text" formControlName="address" placeholder="Address" />
+      <input type="text" formControlName="yearEstablished" placeholder="Year Established" />
+      <input type="text" formControlName="numberOfEmployees" placeholder="Number of Employees" />
+    
+      <label>Logo</label>
+      <input type="file" (change)="onFileChange($event, 'logo')" />
+    
+      <label>Profile Banner</label>
+      <input type="file" (change)="onFileChange($event, 'profileBanner')" />
+    
+      <label>Secondary Banner</label>
+      <input type="file" (change)="onFileChange($event, 'secondaryBanner')" />
+    
+      <label>Brochure</label>
+      <input type="file" (change)="onFileChange($event, 'brochure')" />
+    
+      <label>Company Video</label>
+      <input type="file" (change)="onFileChange($event, 'companyVideo')" />
+    
+      <label>Company Images (Multiple)</label>
+      <input type="file" (change)="onMultipleFilesSelected($event)" multiple />
+    
+      <button type="submit">Submit</button>
+    </form>
+     -->

@@ -1,0 +1,52 @@
+<!-- Toggle button for mobile -->
+<button class="btn btn-dark toggle-btn d-md-none" (click)="toggleSidebar()">
+    <i class="bi bi-list fs-3"></i>
+  </button>
+  
+  <!-- Overlay -->
+  <div class="sidebar-overlay" *ngIf="isSidebarOpen && isMobileScreen()" (click)="closeSidebar()"></div>
+  
+  <!-- Sidebar -->
+  <nav class="sidebar" [class.sidebar-open]="isSidebarOpen || !isMobileScreen()">
+    <!-- Close icon for mobile -->
+    <div class="d-flex justify-content-end d-md-none p-2">
+      <button class="btn btn-outline-light fs-4" (click)="closeSidebar()">&times;</button>
+    </div>
+  
+    <div class="sidebar-content">
+      <h4 class="text-white text-center mb-4">Admin Panel</h4>
+      <ul class="nav flex-column">
+        <li class="nav-item" (click)="closeSidebar()">
+          <a routerLink="/admin" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-house-door me-2"></i> DashBoard
+          </a>
+        </li>
+        <li class="nav-item" (click)="closeSidebar()">
+          <a routerLink="/admin/add-category" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-tags me-2"></i> Category
+          </a>
+        </li>
+        <li class="nav-item" (click)="closeSidebar()">
+          <a routerLink="/admin/product/display" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-box-seam me-2"></i> Product
+          </a>
+        </li>
+        <li class="nav-item" (click)="closeSidebar()">
+          <a routerLink="/users" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-people me-2"></i> User Management
+          </a>
+        </li>
+        <li class="nav-item" (click)="closeSidebar()">
+          <a routerLink="/orders" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-receipt me-2"></i> Orders
+          </a>
+        </li>
+        <li class="nav-item" (click)="closeSidebar()">
+          <a routerLink="/settings" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-gear me-2"></i> Settings
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  

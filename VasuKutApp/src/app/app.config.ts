@@ -6,10 +6,13 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 import { provideQuillConfig, QuillModule } from 'ngx-quill';
 import { MatDialogModule } from '@angular/material/dialog';
+import { SellerGuard } from './guards/seller.guard';
+import { UnauthorizedUserComponent } from './unauthorized-user/unauthorized-user.component';
 const routes: Routes = [
   { path: 'login', redirectTo: 'auth/login', pathMatch: 'full' },
+   { path: 'Unauthorized', component:UnauthorizedUserComponent },
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
-  { path: 'seller', loadChildren: () => import('./seller/seller.module').then(m => m.SellerModule) },
+  { path: 'seller', loadChildren: () => import('./seller/seller.module').then(m => m.SellerModule)},
   { path: '', loadChildren: () => import('./buyer/buyer.module').then(m => m.BuyerModule) },
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
 

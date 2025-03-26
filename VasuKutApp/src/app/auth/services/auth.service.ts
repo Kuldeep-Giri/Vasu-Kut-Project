@@ -29,7 +29,6 @@ export class AuthService {
   getLoggedInUserId(token: string): string {
     const payload = JSON.parse(atob(token.split('.')[1]));
     return payload.nameid;
-  
   }
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
@@ -39,9 +38,11 @@ export class AuthService {
     const payload = JSON.parse(atob(token.split('.')[1]));
     return payload.role;
   }
-  
+  getUserName(token: string): string {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.unique_name;
+  }
   logout(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
+  localStorage.clear();
   }
 }

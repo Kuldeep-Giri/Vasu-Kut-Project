@@ -1,0 +1,17 @@
+td,th,hr,mat-icon,span,mat-label,mat-option,mat-select{
+    color: black !important;
+}
+::ng-deep .mat-form-field {
+    background-color: #fff;
+    border-radius: 6px;
+  }
+  
+  ::ng-deep .mat-select-panel {
+    background-color: #fff !important;
+    color: #000 !important;
+  }
+  mat-mdc-menu-panel {
+    min-width: 175px;
+    max-width: 280px;
+    overflow: auto;
+  }

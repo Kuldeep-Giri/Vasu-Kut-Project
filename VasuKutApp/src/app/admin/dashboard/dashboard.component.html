@@ -1,0 +1,79 @@
+
+   <div class="user-table-container p-4">
+
+    <!-- 🔍 Search Section -->
+    <div class="search-box mb-3 d-flex justify-content-end">
+     <div class="d-flex p-2">
+        <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        placeholder="Search by username"
+        class="form-control"
+        (click)="searchUsers()" />
+      <button (click)="searchUsers()" class="searchBtn">Search</button>
+     </div>
+     <div class=" p-2">
+        <select [(ngModel)]="selectedRole" (ngModelChange)="searchUsers()" class="form-select">
+            <option value="">All Roles</option>
+            <option value="Buyer">Buyer</option>
+            <option value="Seller">Seller</option>
+          </select>
+        
+     </div>
+      <div class=" p-2">
+        <select [(ngModel)]="selectedStatus" (ngModelChange)="searchUsers()" class="form-select">
+            <option value="">All Status</option>
+            <option value="inactive">Active</option>
+            <option value="active">Inactive</option>
+          </select>
+      </div>
+    </div>
+  
+    <!-- 🧾 Table Section (unchanged) -->
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>Sr No.</th>
+          <th>UserName</th>
+          <th>Role</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users; let i = index" >
+          <td>{{ (pageNumber - 1) * pageSize + i + 1 }}</td>
+          <td>{{ user.userName }}</td>
+          <td>{{ user.role }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.phoneNumber }}</td>
+          <td>
+            <a class="toggle-link" (click)="toggle(user.id)" [ngClass]="user.isDisable ? 'active' : 'inactive'">
+              {{ user.isDisable ? 'Active' : 'Inactive' }}
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- 🔢 Pagination -->
+    <div class="pagination-controls">
+      <div class="pagination-info">
+        {{ pageSize }} per page • {{ (pageNumber - 1) * pageSize + 1 }} -
+        {{ Math.min(pageNumber * pageSize, totalCount) }} of {{ totalCount }}
+      </div>
+  
+      <div class="pagination-buttons">
+        <button [disabled]="pageNumber === 1" (click)="prevPage()">Prev</button>
+        <button
+          *ngFor="let page of totalPagesArray"
+          [ngClass]="{ active: page === pageNumber }"
+          (click)="goToPage(page)">
+          {{ page }}
+        </button>
+        <button [disabled]="pageNumber === totalPagesArray.length" (click)="nextPage()">Next</button>
+      </div>
+    </div>
+  </div>
+  

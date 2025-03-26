@@ -129,19 +129,55 @@
     .add-product-page{
         width: 100%;
     }
+    ::ng-deep .ql-container {
+      width: 334px !important; /* Set your preferred width */
+    }
+    .image-upload-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px; /* spacing between boxes */
+    }
+    
+    .image-upload-box {
+      flex: 1 1 calc(33.33% - 10px); /* default: 3 per row */
+      max-width: calc(33.33% - 10px);
+    }
+   
+    .preview-containers {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border: 2px dashed #ccc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .img-preview {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .upload-icon {
+      font-size: 2rem;
+      color: #888;
+    }
+    
   }
   
+  
+
+    
   // Laptop/Desktop: Always show sidebar, hide hamburger
   @media screen and (min-width: 769px) {
     .add-product-page{
         width: 85%;
     }
-}
-::ng-deep .ql-container {
-    min-height: 200px;
+    ::ng-deep .ql-container {
+    width: 800px !important; /* Set your preferred width */
   }
   
-  ::ng-deep .ql-editor {
-    font-size: 16px;
-    min-height: 150px;
-  }
+}
+
+
+/* ✅ On small screens (max 600px), show 2 per row */
