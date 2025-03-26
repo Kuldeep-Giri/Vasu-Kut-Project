@@ -13,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { SpinnerComponent } from '../../buyer/spinner/spinner.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @Component({
@@ -26,7 +27,8 @@ import { SpinnerComponent } from '../../buyer/spinner/spinner.component';
     MatSlideToggleModule,
     MatDialogModule,
     MatMenuModule,
-    SpinnerComponent
+    SpinnerComponent,
+    MatTooltipModule
   ],
   templateUrl: './product-grid.component.html',
   styleUrls: ['./product-grid.component.scss'],

@@ -18,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { SpinnerComponent } from '../../buyer/spinner/spinner.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-all-products',
@@ -34,7 +35,7 @@ import { SpinnerComponent } from '../../buyer/spinner/spinner.component';
     MatInputModule,
     MatSelectModule,
     FormsModule,
-    SpinnerComponent
+    SpinnerComponent,MatTooltipModule
   ],
   templateUrl: './all-products.component.html',
   styleUrl: './all-products.component.scss'
