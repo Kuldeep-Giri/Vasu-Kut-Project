@@ -30,7 +30,7 @@ export class ProductService {
   GetAllProductList(): Observable<any> {
     return this.http.get<any>(this.GetProductListUrl);
   }
-  GetAllProductListForAdmin(searchTerm?: string, isApproved?: string): Observable<any> {
+  GetAllProductListForAdmin(searchTerm?: string, isApproved?: string,isShowcase?:string): Observable<any> {
     let params: any = {};
   
     if (searchTerm) {
@@ -40,7 +40,9 @@ export class ProductService {
     if (isApproved !== undefined && isApproved !== 'all') {
       params.isApproved = isApproved; // should be "1" or "0" as string
     }
-  
+    if (isShowcase !== undefined && isShowcase !== 'all') {
+      params.isShowcase = isShowcase; // should be "1" or "0" as string
+    }
     return this.http.get<any>(this.GetProductListForAdminUrl, { params });
   }
   IsApproved(id: string) {

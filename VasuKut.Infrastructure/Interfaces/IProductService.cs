@@ -12,7 +12,7 @@ namespace VasuKut.Infrastructure.Interfaces
     {
         Task<(bool IsSuccess, string Message)> AddProductAsync(ProductCreateRequest request);
         Task<List<ProductResponse>> GetAllProductsAsync();
-        Task<List<ProductResponse>> GetProductsForAdminAsync(string? productName, int? isApproved);
+        Task<List<ProductResponse>> GetProductsForAdminAsync(string? productName, int? isApproved, int? isShowcase);
         Task<bool> IsApproved(int id);
         Task<bool?> ToggleProductStatusAsync(int id);
 

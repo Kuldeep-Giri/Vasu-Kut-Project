@@ -1,7 +1,9 @@
+
+
 <input type="checkbox" id="check">
 <label for="check">
   <i class="fas fa-bars" id="btn"></i>
-  <i class="fas fa-times" id="cancel"></i>
+  <i class="fas fa-times" id="cancel" (click)="clickCross()"></i>
 </label>
 
 <div class="sidebar">
@@ -27,5 +29,23 @@
           <li><a class="submenu-item" routerLink="/seller/home/profile">Factory Information 2</a></li>
       </ul>
   </li>
-  </ul>
+  <li class="logout" (click)="openPopup()">
+    <div class="popup" *ngIf="showPopup">
+      <div>
+        <li><a class="submenu-item" >Update Profile</a></li>
+      <li><a class="submenu-item" (click)="logOut()">LogOut</a></li>
+      </div>
+
+    </div>
+    <a>
+      <i class="fas fa-qrcode fs-5 fw-bold"></i>
+      <span class="mx-3 fw-bold fs-5">LogOut</span>
+    </a>
+
+  </li>
+  
+  <!-- Popup Modal -->
+    
+</ul>
 </div>
+

@@ -69,7 +69,7 @@ export class AllProductsComponent {
     this.loading = true;
     this.productService.GetAllProductListForAdmin(this.searchText, this.filterStatus).subscribe(
       (response) => {
-        this.products = response;
+        this.products = response.filter((p:any)=>p.showcaseStatus == true);
         this.loading = false;
       },
       (error) => {

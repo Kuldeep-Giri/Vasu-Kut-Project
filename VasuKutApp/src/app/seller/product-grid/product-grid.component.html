@@ -15,17 +15,18 @@
             <button class="btn btn-primary" type="button">Search</button>
           </div>
     
-          <select class="form-select w-auto" aria-label="Filter product status">
-            <option selected value="all">All</option>
-            <option value="posted">Posted</option>
-            <option value="draft">Draft</option>
+          <select class="form-select w-auto" aria-label="Filter product status" [(ngModel)]="filterStatus"
+          (change)="onFilterChange()">
+            <option  value="all">All</option>
+            <option value="1">Posted</option>
+            <option value="0">Draft</option>
           </select>
         </div>
       </div>
     </div>
   </div>
   <table mat-table [dataSource]="products" class="mat-elevation-z8 custom-table" multiTemplateDataRows
-         style="background-color: #FBFBFB !important; color: #000000ba !important;">
+         style="background-color: #FBFBFB !important; color: #000000ba !important;" *ngIf="products.length">
 
     <!-- ID Column -->
     <ng-container matColumnDef="id" >
@@ -114,4 +115,10 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
   </table>
+  <div class="d-flex vh-100 justify-content-center align-item-center text-center mt-5" *ngIf="!products.length">
+   <div class="mt-5">
+   <p>Please Add Product!</p>
+    <button routerLink="/seller/home/add-product" routerLinkActive="router-link-active"  class="btn btn-success ">Add Product</button>
+   </div>
+  </div>
 </div>

@@ -22,16 +22,17 @@ export class NavbarComponent {
   UserName:string='';
   userId:any;
   user:any={};
+  
   ngOnInit(){
     const token = localStorage.getItem('token');
     if(token){
       this.UserName = this.authService.getUserName(token)
       console.log(this.UserName)
-    }
-    
+    } 
   }
   logOut(){
     this.authService.logout();
+    this.toastr.success("Logout SuccessFully")
     this.router.navigate(['/auth/login']);
   }
   showHideToggle(){
@@ -242,7 +243,6 @@ export class NavbarComponent {
     { name: 'Zambia', code: '+260' },
     { name: 'Zimbabwe', code: '+263' }
   ];
-  
   
   UpdateUser = {
     userName: 'John Doe',

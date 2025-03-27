@@ -76,9 +76,9 @@ public class ProductController : ControllerBase
         }
     }
     [HttpGet("ProductForAdmin")]
-    public async Task<IActionResult> GetProductsForAdmin(string? productName, int? isApproved)
+    public async Task<IActionResult> GetProductsForAdmin(string? search, int? isApproved, int? isShowcase)
     {
-        var result = await _productService.GetProductsForAdminAsync(productName, isApproved);
+        var result = await _productService.GetProductsForAdminAsync(search, isApproved, isShowcase);
         return Ok(result);
     }
     [HttpPatch("Approval/{id}")]

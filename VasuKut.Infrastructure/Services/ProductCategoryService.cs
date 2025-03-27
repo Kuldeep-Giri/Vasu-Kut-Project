@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -82,9 +83,37 @@ namespace VasuKut.Infrastructure.Services
                 path = parent.Name + " / " + path;
                 category = parent;
                
-            }
+                }
            
             return path;
+        }
+
+        public async Task<List<CategoryResponseModel>> GetCategories()
+        {
+            var categories=   _context.ProductCategories.ToList();
+            var result = categories
+               .Select(c => new CategoryResponseModel
+               {
+                   CategoryId = c.CategoryId,
+                   CategoryPath = c.Name
+               })
+                   
+                    .ToList();
+
+            return result;
+
+        }
+        public async Task<ProductCategory> CreateCategory(CategoryPayload category)
+        {
+            ProductCategory productCategory = new ProductCategory()
+            {
+                Name = category.Name,
+                ParentCategoryId = category.ParentId != 0 ? category.ParentId : null
+            };
+
+            _context.ProductCategories.Add(productCategory);
+            await _context.SaveChangesAsync();
+            return productCategory;
         }
 
     }

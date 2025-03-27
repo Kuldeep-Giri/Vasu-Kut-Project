@@ -32,27 +32,7 @@ export class AppComponent {
   
   
 role:any;
-  ngOnInit(): void {
-    const token = localStorage.getItem('token'); 
-    if(token){
-    this.role = this.authService.getUserRole(token);
-    }
-
-    switch (this.role) {
-      case 'seller':
-        this.router.navigate(['/seller/home']);
-        break;
-      case 'admin':
-        this.router.navigate(['/admin']);
-        break;
-      case 'buyer':
-      case null:
-      default:
-        this.router.navigate(['/']);
-        break;
-    }
-  } 
-
+ 
   @HostListener('window:scroll', [])
   onWindowScroll() {
     this.checkScroll();

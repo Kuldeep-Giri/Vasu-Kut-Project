@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using VasuKut.Core.Models;
 using VasuKut.Core.PayloadModel;
 using VasuKut.Infrastructure.Interfaces;
 
@@ -26,5 +28,18 @@ namespace VasuKut.API.Controllers
         }
 
 
-    }
+        [HttpGet("GetAllCategory")]
+        public Task<List<CategoryResponseModel>> GetAllCategory()
+        {
+            return  productCategoryService.GetCategories();
+        }
+        [HttpPost]
+        public async Task<ActionResult<ProductCategory>> CreateCategory(CategoryPayload category)
+        {
+
+            return await productCategoryService.CreateCategory(category);
+        }
+
+
+        }
 }

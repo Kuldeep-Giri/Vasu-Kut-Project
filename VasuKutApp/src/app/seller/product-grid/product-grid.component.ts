@@ -8,12 +8,14 @@ import { CommonModule } from '@angular/common';
 import { PopupDialogComponent } from '../popup-dialog/popup-dialog.component';
 import { ProductService } from '../services/product.service';
 import { environment } from '../../environments/environments';
-import { IProductResponse } from '../../Models/product.model';
+import { IProductResponse, ProductCreateRequest } from '../../Models/product.model';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { SpinnerComponent } from '../../buyer/spinner/spinner.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { AuthService } from '../../auth/services/auth.service';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
@@ -28,7 +30,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatDialogModule,
     MatMenuModule,
     SpinnerComponent,
-    MatTooltipModule
+    MatTooltipModule,
+    FormsModule,
+    RouterLink
   ],
   templateUrl: './product-grid.component.html',
   styleUrls: ['./product-grid.component.scss'],
@@ -39,7 +43,7 @@ export class ProductGridComponent implements OnInit {
   loading: boolean =false;
   baseUrl=environment.apiBaseUrl.replace('/api','');
   constructor(public dialog: MatDialog,private productService: ProductService,
-    private toastr: ToastrService,private route: Router) {}
+    private toastr: ToastrService,private route: Router,private authService:AuthService) {}
 
   ngOnInit() {
     this.loadProducts();
@@ -47,14 +51,27 @@ export class ProductGridComponent implements OnInit {
   navigateToUpdate(productId: number) {
     this.route.navigate(['/seller/home/add-product', productId]);
   }
+  filterProduct:IProductResponse[]=[];
+  userId:any;
+  filterStatus:any = "all";
+  searchText: string = '';
+  filterStatus1: string = 'all';
   loadProducts() {
-    this.loading=true;
-    this.productService.GetAllProductList().subscribe(
+    const token = localStorage.getItem('token');
+    this.loading = true;
+  
+    this.productService.GetAllProductListForAdmin(this.searchText,this.filterStatus1,this.filterStatus).subscribe(
       (response) => {
-        this.products = response;
+        if (token) {
+          this.userId = this.authService.getLoggedInUserId(token);
+        }
+        // Ensure the filter function returns a value
+        this.filterProduct = response.filter((p: any) => p.sellerId === this.userId);
+         console.log(this.filterProduct)
+        // Assign filtered products
+        this.products = this.filterProduct;
         console.log(this.products);
-       
-       this.loading = false; // Hide the loading spinner once data is fetched
+        this.loading = false; // Hide loading spinner
       },
       (error) => {
         console.error('Error fetching products:', error);
@@ -62,7 +79,9 @@ export class ProductGridComponent implements OnInit {
       }
     );
   }
-
+  onFilterChange() {
+    this.loadProducts();
+  }
   toggleProductStatus(productId: number, currentStatus: boolean) {
   var isScusse=this.productService.ToggaleProductShowHide(productId);
   if(isScusse){

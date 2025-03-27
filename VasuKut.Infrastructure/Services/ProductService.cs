@@ -85,7 +85,7 @@ public class ProductService:IProductService
             .Include(p => p.Images) // Include Product Images
             .Include(p => p.Videos) // Include Product Videos
             .Include(p => p.Specifications) // Include Product Specifications
-            .Include(p => p.PriceRanges).Where(a=>a.IsDeleted==false && a.IsApproved == true) // Include Price Ranges
+            .Include(p => p.PriceRanges).Where(a=>a.IsDeleted==false && a.IsApproved == true && a.ShowcaseStatus == true) // Include Price Ranges
             .ToListAsync();
 
         // Map the Product entities to ProductResponse models
@@ -103,6 +103,7 @@ public class ProductService:IProductService
             MinPricePerUnit = product.MinPricePerUnit,
             MaxPricePerUnit = product.MaxPricePerUnit,
             Unit = product.Unit,
+            SellerId = product.SellerId,
             CategoryId = product.CategoryId,
             ShowcaseStatus=product.ShowcaseStatus,
             IsApproved=product.IsApproved,
@@ -125,7 +126,7 @@ public class ProductService:IProductService
 
         return productResponses;
     }
-    public async Task<List<ProductResponse>> GetProductsForAdminAsync(string? productName, int? isApproved)
+    public async Task<List<ProductResponse>> GetProductsForAdminAsync(string? productName, int? isApproved,int?isShowcase)
     {
         // Base query
         var query = _context.Products
@@ -149,7 +150,12 @@ public class ProductService:IProductService
             bool approvedBool = isApproved.Value == 1;
             query = query.Where(p => p.IsApproved == approvedBool);
         }
-
+        if (isShowcase.HasValue)
+        {
+            // Convert 1 to true, 0 to false
+            bool showcase = isShowcase.Value == 1;
+            query = query.Where(p => p.ShowcaseStatus == showcase);
+        }
         var products = await query.ToListAsync();
 
         // Map to response
@@ -171,6 +177,7 @@ public class ProductService:IProductService
             ShowcaseStatus = product.ShowcaseStatus,
             IsApproved = product.IsApproved,
             IsDeleted = product.IsDeleted,
+            SellerId = product.SellerId,
             Specifications = product.Specifications.Select(spec => new SpecificationResponse
             {
                 Name = spec.SpecificationName,

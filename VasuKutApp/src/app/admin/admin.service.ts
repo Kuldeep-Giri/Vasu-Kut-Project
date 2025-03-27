@@ -17,7 +17,7 @@ export class AdminService {
   private GetUsers = `${environment.apiBaseUrl}/usermanagement/getUsers`;
   private ActiveInactiveUser = `${environment.apiBaseUrl}/usermanagement/togle`;
   private GetUserById = `${environment.apiBaseUrl}/usermanagement/user`;
-
+  public UserCount = 0;
   constructor(private http: HttpClient) {}
 
 //   getUsers(pageNumber: number = 1, pageSize: number = 10) {
