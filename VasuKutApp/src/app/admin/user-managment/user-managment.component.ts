@@ -32,6 +32,8 @@ export class UserManagmentComponent {
   Math = Math;
   selectedRole: string = '';
   selectedStatus: string = '';
+  activeUser:number=0;
+  inactiveUser:number=0;
   constructor(private userService: AdminService) {}
 
   ngOnInit() {
@@ -41,6 +43,7 @@ export class UserManagmentComponent {
   loadUsers() {
     this.userService.getUsers(this.pageNumber, this.pageSize, this.searchTerm,this.selectedRole, this.selectedStatus).subscribe((res) => {
       this.users = res.users;
+     
       this.totalCount = res.totalCount;
       const totalPages = Math.ceil(this.totalCount / this.pageSize);
       this.totalPagesArray = Array.from({ length: totalPages }, (_, i) => i + 1);

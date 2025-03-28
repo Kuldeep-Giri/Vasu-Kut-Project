@@ -1,3 +1,30 @@
-<div class="d-flex vh-100 justify-content-center align-item-center">
+
+<div class="container my-4 min-vh-100">
+    <div class="d-flexjustify-content-center ">
 <h1 class="mt-5">Welcome to dashboard</h1>
+
+</div>
+<div class="row g-4 justify-content-center">
+    <!-- Active Users Card -->
+    <div class="col-md-6 col-lg-5">
+        <div class="card status-card active-card text-center">
+            <div class="card-body">
+                <i class="status-icon bi bi-person-check-fill"></i>
+                <h5 class="status-text mt-3">Active Users</h5>
+                <p class="status-count mb-0" id="activeCount">0</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inactive Users Card -->
+    <div class="col-md-6 col-lg-5">
+        <div class="card status-card inactive-card text-center">
+            <div class="card-body">
+                <i class="status-icon bi bi-person-x-fill"></i>
+                <h5 class="status-text mt-3">Inactive Users</h5>
+                <p class="status-count mb-0" id="inactiveCount">0</p>
+            </div>
+        </div>
+    </div>
+</div>
 </div>

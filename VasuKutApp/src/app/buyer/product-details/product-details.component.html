@@ -1,6 +1,6 @@
 <app-spinner *ngIf="isLoading"></app-spinner>
 <app-navbar></app-navbar>
-<div class="container mt-4">
+<div class="container mt-4" style="font-family: Arial, Helvetica, sans-serif; min-height: 100vh;" *ngIf="product">
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
@@ -30,19 +30,20 @@
   
       <!-- Product Details -->
       <div class="col-md-6">
-        <h3 class="product-title">
+        <h3 class="product-title"  >
           {{product?.name}}
         </h3>
-        <p class="price">₹ {{product.minPricePerUnit}} <del class="text-danger ">₹ {{product.maxPricePerUnit}}</del></p>
       <div class="d-flex">
-        <button class="btn btn-warning btn-lg mx-3">Add to Cart</button>
-        <button class="btn btn-primary btn-lg">Buy Now</button>
+         <!-- HTML !-->
+<button class="button-62 mt-2" role="button">Interested</button>
 
       </div>
     </div>
     </div>
-    <div class="desc">
-        <p class="description" [innerHTML]="product?.description"></p>
+    <div class="desc mt-5">
+        <p class="description" [innerHTML]="product?.description" ></p>
     </div>
   </div>
-  
+  <div class=" min-vh-100" *ngIf="!product" style="min-height: 100vh;">
+
+  </div>

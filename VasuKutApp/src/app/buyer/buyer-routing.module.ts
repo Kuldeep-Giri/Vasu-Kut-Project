@@ -5,10 +5,9 @@ import { authGuard } from '../guards/auth.guard';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { BuyerGuard } from '../guards/buyer.guard';
 const routes: Routes = [
-
-  { path: '', component: HomeComponent, canActivate: [BuyerGuard],  canActivateChild: [BuyerGuard], },
-  { path: 'productdetails/:id', component: ProductDetailsComponent  },
-  
+  { path: '', component: HomeComponent, canActivate: [BuyerGuard], canActivateChild: [BuyerGuard] },
+  { path: 'productdetails/:id', component: ProductDetailsComponent },
+  { path: '', redirectTo: '', pathMatch: 'full' }
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

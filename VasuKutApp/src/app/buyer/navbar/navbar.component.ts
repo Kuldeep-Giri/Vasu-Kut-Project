@@ -8,7 +8,7 @@ import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
-  imports: [CommonModule,RouterLink,FormsModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
@@ -29,6 +29,9 @@ export class NavbarComponent {
       this.UserName = this.authService.getUserName(token)
       console.log(this.UserName)
     } 
+  }
+  navigatelogin(){
+    this.router.navigate(['/auth/register'])
   }
   logOut(){
     this.authService.logout();

@@ -75,6 +75,14 @@ public class ProductController : ControllerBase
             return StatusCode(500, new { Message = "An error occurred while processing your request." });
         }
     }
+
+    [HttpGet("Hello")]
+    public async Task<IActionResult> Hello()
+    {
+        var result = "hello";
+        return Ok(result);
+    }
+
     [HttpGet("ProductForAdmin")]
     public async Task<IActionResult> GetProductsForAdmin(string? search, int? isApproved, int? isShowcase)
     {

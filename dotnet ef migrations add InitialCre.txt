@@ -1,2 +1,5 @@
-dotnet ef migrations add InitialCreate --project VasuKut.Infrastructure --startup-project VasuKut.API
+dotnet ef migrations add AddedSelleridinProducttable --project VasuKut.Infrastructure --startup-project VasuKut.API
 dotnet ef database update --project VasuKut.Infrastructure --startup-project VasuKut.API
+
+
+/api/Product/ProductList

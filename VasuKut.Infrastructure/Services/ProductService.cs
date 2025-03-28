@@ -80,49 +80,57 @@ public class ProductService:IProductService
 
     public async Task<List<ProductResponse>> GetAllProductsAsync()
     {
-        // Fetch all products along with their related entities
-        var products = await _context.Products
-            .Include(p => p.Images) // Include Product Images
-            .Include(p => p.Videos) // Include Product Videos
-            .Include(p => p.Specifications) // Include Product Specifications
-            .Include(p => p.PriceRanges).Where(a=>a.IsDeleted==false && a.IsApproved == true && a.ShowcaseStatus == true) // Include Price Ranges
-            .ToListAsync();
-
-        // Map the Product entities to ProductResponse models
-        var productResponses = products.Select(product => new ProductResponse
+        List<ProductResponse> productResponses = new();
+        try
         {
-            Id = product.Id,
-            Name = product.Name,
-            Description = product.Description,
-            Keywords = product.Keywords,
-            PackagingDetails = product.PackagingDetails,
-            MinimumOrderQuantity = product.MinimumOrderQuantity,
-            TotalProductQuantity = product.TotalProductQuantity,
-            NearestPort = product.NearestPort,
-            DispatchDays = product.DispatchDays,
-            MinPricePerUnit = product.MinPricePerUnit,
-            MaxPricePerUnit = product.MaxPricePerUnit,
-            Unit = product.Unit,
-            SellerId = product.SellerId,
-            CategoryId = product.CategoryId,
-            ShowcaseStatus=product.ShowcaseStatus,
-            IsApproved=product.IsApproved,
-            IsDeleted=product.IsDeleted,
-            Specifications = product.Specifications.Select(spec => new SpecificationResponse
+            // Fetch all products along with their related entities
+            var products = await _context.Products
+                .Include(p => p.Images) // Include Product Images
+                .Include(p => p.Videos) // Include Product Videos
+                .Include(p => p.Specifications) // Include Product Specifications
+                .Include(p => p.PriceRanges).Where(a => a.IsDeleted == false && a.IsApproved == true && a.ShowcaseStatus == true) // Include Price Ranges
+                .ToListAsync();
+
+            // Map the Product entities to ProductResponse models
+             productResponses = products.Select(product => new ProductResponse
             {
-                Name = spec.SpecificationName, // Map SpecificationName
-                Value = spec.SpecificationValue // Map SpecificationValue
-            }).ToList(),
-            PriceRanges = product.PriceRanges.Select(priceRange => new PriceRangeResponse
-            {
-                MinimumQuantity = priceRange.MinimumQuantity,
-                MaximumQuantity = priceRange.MaximumQuantity,
-                PricePerUnit = priceRange.PricePerUnit
-            }).ToList(),
-            ProductVideoUrl = product.Videos.FirstOrDefault()?.VideoUrl, // Take the first video URL if exists
-            ProductImageUrls = product.Images.Select(image => image.ImageUrl).ToList() // Assuming ImageUrl is a property of ProductImage
-            
-        }).ToList();
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                Keywords = product.Keywords,
+                PackagingDetails = product.PackagingDetails,
+                MinimumOrderQuantity = product.MinimumOrderQuantity,
+                TotalProductQuantity = product.TotalProductQuantity,
+                NearestPort = product.NearestPort,
+                DispatchDays = product.DispatchDays,
+                MinPricePerUnit = product.MinPricePerUnit,
+                MaxPricePerUnit = product.MaxPricePerUnit,
+                Unit = product.Unit,
+                SellerId = product.SellerId,
+                CategoryId = product.CategoryId,
+                ShowcaseStatus = product.ShowcaseStatus,
+                IsApproved = product.IsApproved,
+                IsDeleted = product.IsDeleted,
+                Specifications = product.Specifications.Select(spec => new SpecificationResponse
+                {
+                    Name = spec.SpecificationName, // Map SpecificationName
+                    Value = spec.SpecificationValue // Map SpecificationValue
+                }).ToList(),
+                PriceRanges = product.PriceRanges.Select(priceRange => new PriceRangeResponse
+                {
+                    MinimumQuantity = priceRange.MinimumQuantity,
+                    MaximumQuantity = priceRange.MaximumQuantity,
+                    PricePerUnit = priceRange.PricePerUnit
+                }).ToList(),
+                ProductVideoUrl = product.Videos.FirstOrDefault()?.VideoUrl, // Take the first video URL if exists
+                ProductImageUrls = product.Images.Select(image => image.ImageUrl).ToList() // Assuming ImageUrl is a property of ProductImage
+
+            }).ToList();
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
 
         return productResponses;
     }

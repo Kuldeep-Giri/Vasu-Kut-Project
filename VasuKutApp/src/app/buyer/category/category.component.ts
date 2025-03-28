@@ -8,9 +8,10 @@ import { Component, HostListener } from '@angular/core';
   styleUrl: './category.component.scss'
 })
 export class CategoryComponent {
+
   categories = [
     { 
-      name: "Agriculture", image: "img1.jpg",
+      name: "Teas & Infusions", image: "img5.jpg",
       subcategories: [
         { name: "Fresh Vegetables", items: ["Fresh Asparagus", "Fresh Broccoli", "Fresh Burdock", "Fresh Cabbages"] },
         { name: "Grain", items: ["Barley", "Buckwheat", "Corn", "Millet"] },
@@ -20,13 +21,13 @@ export class CategoryComponent {
         { name: "Fertilizer", items: ["Biological Fertilizer", "Compound Fertilizer", "Nitrogen Fertilizer", "Organic Fertilizer"] }
       ] 
     },
-    { name: "Apparel", image: "img1.jpg", 
+    { name: "Health & Wellness", image: "img6.jpg", 
       subcategories: [
       { name: "Fresh Vegetables", items: ["Fresh Asparagus", "Fresh Broccoli", "Fresh Burdock", "Fresh Cabbages"] },
       { name: "Grain", items: ["Barley", "Buckwheat", "Corn", "Millet"] },
       { name: "Nuts & Kernels", items: ["Peanuts", "Cashew Nuts", "Pumpkin Kernels", "Chestnuts"] },
     ]  },
-    { name: "Beauty & Personal Care",  image: "img1.jpg", 
+    { name: "Oil & Gheee",  image: "img7.jpg", 
       subcategories: [
       { name: "Fresh Vegetables", items: ["Fresh Asparagus", "Fresh Broccoli", "Fresh Burdock", "Fresh Cabbages"] },
       { name: "Grain", items: ["Barley", "Buckwheat", "Corn", "Millet"] },
@@ -35,18 +36,11 @@ export class CategoryComponent {
       { name: "Feed", items: ["Animal Feed", "Soybean Meal", "Fish Meal", "Hay"] },
       { name: "Fertilizer", items: ["Biological Fertilizer", "Compound Fertilizer", "Nitrogen Fertilizer", "Organic Fertilizer"] }
     ]  },
-    { name: "Building & Construction",image: "img1.jpg", subcategories: [] },
-    { name: "Consumer Electronics",image: "img1.jpg", subcategories: [] },
-    { name: "Health & Medical",image: "img1.jpg", subcategories: [] },
-    { name: "Minerals & Metallurgy",image: "img1.jpg", subcategories: [] },
-    { name: "Packaging & Printing",image: "img1.jpg", subcategories: [] },
-    { name: "Rubber & Plastics",image: "img1.jpg", subcategories: [] },
-    { name: "Building & Construction",image: "img1.jpg", subcategories: [] },
-    { name: "Consumer Electronics",image: "img1.jpg", subcategories: [] },
-    { name: "Health & Medical",image: "img1.jpg", subcategories: [] },
-    { name: "Minerals & Metallurgy",image: "img1.jpg", subcategories: [] },
-    { name: "Packaging & Printing",image: "img1.jpg", subcategories: [] },
-    { name: "Rubber & Plastics",image: "img1.jpg", subcategories: [] }
+    { name: "Pulses & Packaged Food",image: "img8.jpg", subcategories: [] },
+    { name: "Personal Care",image: "img9.jpg", subcategories: [] },
+    { name: "Health & Medical",image: "img10.jpg", subcategories: [] },
+    { name: "Minerals & Metallurgy",image: "img11.jpg", subcategories: [] },
+    { name: "Packaging & Printing",image: "img12.jpg", subcategories: [] }
   ];
 ngOnInIt(){
   console.log("hhhhhhhhhh")

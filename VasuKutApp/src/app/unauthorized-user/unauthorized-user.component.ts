@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../auth/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-unauthorized-user',
@@ -8,5 +10,11 @@ import { RouterLink } from '@angular/router';
   styleUrl: './unauthorized-user.component.scss'
 })
 export class UnauthorizedUserComponent {
+constructor(private authService:AuthService,private toast:ToastrService,private router:Router){}
 
+logOut(){
+  this.authService.logout();
+  this.toast.success("Logout Successfully")
+  this.router.navigate(['/'])
+}
 }

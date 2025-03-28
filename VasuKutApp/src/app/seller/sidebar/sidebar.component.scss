@@ -1,198 +1,4 @@
 
-// $color_1: white;
-// $color_2: #0a5275;
-// $font-family_1: 'Roboto', sans-serif;
-
-// @import "https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500";
-
-// * {
-//   padding: 0;
-//   margin: 0;
-//   list-style: none;
-//   text-decoration: none;
-//   box-sizing: border-box;
-// }
-
-// body {
-//   font-family: $font-family_1;
-// }
-
-// .sidebar {
-//   position: fixed;
-//   left: -250px; // Initially hidden on mobile
-//   width: 230px;
-//   height: 100%;
-//   background: #042331;
-//   transition: all 0.5s ease;
-//   z-index: 1000;
-
-//   header {
-//     font-size: 22px;
-//     color: $color_1;
-//     line-height: 70px;
-//     text-align: center;
-//     background: #063146;
-//     user-select: none;
-//   }
-
-//   ul {
-//     a {
-//       display: block;
-//       height: 100%;
-//       width: 100%;
-//       line-height: 65px;
-//       font-size: 12px;
-//       color: $color_1;
-//       padding-left: 40px;
-//       box-sizing: border-box;
-//       border-bottom: 1px solid black;
-//       border-top: 1px solid rgba(255, 255, 255, 0.1);
-//       transition: 0.4s;
-
-//       i {
-//         margin-right: 16px;
-//       }
-//     }
-//   }
-// }
-
-// // ul {
-// //   li {
-// //     &:hover {
-// //       a {
-// //         padding-left: 50px;
-// //       }
-// //     }
-// //   }
-// // }
-
-// #check {
-//   display: none;
-
-//   &:checked {
-//     ~ .sidebar {
-//       left: 0; // Show sidebar when checked
-//     }
-
-//     ~ label {
-//       #btn {
-//         left: 250px;
-//         opacity: 0;
-//         pointer-events: none;
-//       }
-
-//       #cancel {
-//         left: 195px;
-//       }
-//     }
-//   }
-// }
-
-// label {
-//   position: fixed;
-//   top: 15px;
-//   left: 15px;
-//   z-index: 1100;
-
-//   #btn {
-//     background: #042331;
-//     border-radius: 5px;
-//     cursor: pointer;
-//     font-size: 25px;
-//     color: $color_1;
-//     padding: 10px;
-//     transition: all 0.5s;
-//   }
-
-//   #cancel {
-//     position: absolute;
-//     background: #042331;
-//     border-radius: 5px;
-//     cursor: pointer;
-//     font-size: 25px;
-//     color: $color_2;
-//     padding: 8px;
-//     transition: all 0.5s ease;
-//     left: -195px;
-//   }
-// }
-
-// // Mobile: Show hamburger, hide sidebar by default
-// @media screen and (max-width: 768px) {
-//   .sidebar {
-//     left: -250px;
-//     width: 200px;
-//   }
-
-//   label {
-//     display: block; // Show hamburger button
-//   }
-// }
-
-// // Laptop/Desktop: Always show sidebar, hide hamburger
-// @media screen and (min-width: 769px) {
-//   .sidebar {
-//     left: 0;
-    
-//   }
-
-//   label {
-//     display: none;
-   
-//   }
-
-//   section {
-//     margin-left: 250px;
-//   }
-// }
-
-// .nav-item {
-//   position: relative;
-
-//   .submenu {
-//     display: none;
-//     background: #063146;
-//     padding-left: 20px;
-//     border-left: 2px solid rgba(255, 255, 255, 0.1);
-
-//     .submenu-item {
-//       color: white;
-//       line-height: 40px;
-//       font-size: 12px;
-//       display: block;
-//       text-decoration: none;
-//     }
-//   }
-
-//   &.open {
-//     .submenu {
-//       display: block;
-//     }
-
-//     .submenu-toggle {
-//       background: rgba(255, 255, 255, 0.1);
-//     }
-//   }
-
-//   .submenu-toggle {
-//     display: flex;
-//     align-items: center;
-//     justify-content: space-between;
-//     color: white;
-//     cursor: pointer;
-//     padding: 0 40px;
-//     line-height: 65px;
-//     font-size: 12px;
-
-//     i {
-//       margin-left: 8px;
-//     }
-
-//     &:hover {
-//       background: rgba(255, 255, 255, 0.1);
-//     }
-//   }
-// }
 $color_1: white;
 $color_2: #0a5275;
 $bg_dark: #1f1f2e;
@@ -201,7 +7,6 @@ $hover_bg: #343a40;
 $primary: #0d6efd;
 $font-family_1: 'Roboto', sans-serif;
 
-@import "https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500";
 
 * {
   padding: 0;
@@ -421,4 +226,14 @@ label {
   padding: 5px;
   font-size: 12px;
   cursor: pointer;
+}
+
+.logout .dropdown-toggle{
+  text-decoration: none;
+  font-size: 20px;
+  color: #fff;
+  font-weight: 700;
+}
+.logout a:hover{
+color: rgb(176, 49, 49);
 }

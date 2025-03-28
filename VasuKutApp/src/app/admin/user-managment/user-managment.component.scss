@@ -222,4 +222,7 @@
     color: white;
     background-color: #2e8b57;
   }
-  
+    @media(max-width:769px){
+     .user-table th,td{ font-size: 11px;}
+
+    }

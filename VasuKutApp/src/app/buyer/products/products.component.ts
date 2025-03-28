@@ -19,8 +19,7 @@ import { RouterLink } from '@angular/router';
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    MatToolbarModule,
-  CurrencyPipe,TitleCasePipe],
+    MatToolbarModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })

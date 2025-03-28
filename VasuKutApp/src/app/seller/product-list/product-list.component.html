@@ -10,12 +10,12 @@
     <!-- Product Image & Gallery -->
     <div class="col-md-5">
       <div class="main-image-container">
-        <img [src]="'https://localhost:7024' + selectedImage" class="main-image" />
+        <img [src]="'https://vasukutapp-frhybqeecpbsdve8.canadacentral-01.azurewebsites.net' + selectedImage" class="main-image" />
       </div>
       <div class="thumbnail-container">
         <img 
           *ngFor="let img of product?.productImageUrls" 
-          [src]="'https://localhost:7024' + img" 
+          [src]="'https://vasukutapp-frhybqeecpbsdve8.canadacentral-01.azurewebsites.net' + img" 
           (click)="selectImage(img)" 
           class="thumbnail" 
         />

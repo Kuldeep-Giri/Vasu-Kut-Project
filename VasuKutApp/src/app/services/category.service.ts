@@ -7,8 +7,8 @@ import { CategoryResponseModel } from '../Models/category.model';
 })
 export class CategoryService {
 
-    private apiUrl = 'https://localhost:7024/api/ProductCategory';  // Replace with your actual API URL
-    private apiUrlForCategory = 'https://localhost:7024/api/ProductCategory/GetCategoryByChildId/';  // Replace with your actual API URL
+    private apiUrl = 'https://vasukutapp-frhybqeecpbsdve8.canadacentral-01.azurewebsites.net/api/ProductCategory';  // Replace with your actual API URL
+    private apiUrlForCategory = 'https://vasukutapp-frhybqeecpbsdve8.canadacentral-01.azurewebsites.net/api/ProductCategory/GetCategoryByChildId/';  // Replace with your actual API URL
 
     constructor(private http: HttpClient) { }
 

@@ -12,7 +12,7 @@ using VasuKut.Infrastructure.Services;
 var options = new WebApplicationOptions
 {
     Args = args,
-    WebRootPath = "D:\\VasuKut\\VasuKut.API\\wwwroot"
+    WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")
 };
 var builder = WebApplication.CreateBuilder(options);
 builder.Services.AddTransient<IEmailService, EmailService>();
@@ -28,7 +28,7 @@ builder.Services.AddTransient<IUserManagement, UserManagementService>();
 
 // Configure Database
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ProdConnectionString")));
 
 // Configure Identity
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -69,6 +69,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
+builder.Logging.AddConsole();
 var app = builder.Build();
 
 // Apply CORS before authentication and authorization

@@ -35,7 +35,7 @@ ngOnInit() {
       (response) => {
         this.isLoading=true;
         this.product = response;
-        response.productImageUrls.forEach(url=>this.thumbnails.push("https://localhost:7024"+url));
+        response.productImageUrls.forEach(url=>this.thumbnails.push("https://vasukutapp-frhybqeecpbsdve8.canadacentral-01.azurewebsites.net"+url));
         this.selectedImage = this.thumbnails[0]  
         let updatedDescription = response.description.replace(/(https:\/\/[^"]+)/g, 'g.com$1');
         response.description = updatedDescription;
