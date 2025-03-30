@@ -5,6 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../auth/services/auth.service';
+import { ProductService } from '../../seller/services/product.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +15,7 @@ import { AuthService } from '../../auth/services/auth.service';
 })
 export class NavbarComponent {
   constructor(private authService:AuthService,private router:Router,   private fb: FormBuilder,
-      private toastr: ToastrService,private adminService:AdminService){}
+      private toastr: ToastrService,private adminService:AdminService,private productService:ProductService){}
   
       
     
@@ -25,7 +26,7 @@ export class NavbarComponent {
   UserName:string='';
   userId:any;
   user:any={};
-  searchQuery = new FormControl('');
+  searchTerm: string = ''; // 🔍 For input
   ngOnInit(){
     const token = localStorage.getItem('token');
     if(token){
@@ -33,8 +34,13 @@ export class NavbarComponent {
       console.log(this.UserName)
     } 
   }
- 
-  navigatelogin(){
+
+  handleSearch(): void {
+    if (this.searchTerm.trim()) {
+      this.router.navigate(['/products'], { queryParams: { searchTerm: this.searchTerm } });
+    }
+  }
+  navigatelogin(){  
     this.router.navigate(['/auth/register'])
   }
   logOut(){

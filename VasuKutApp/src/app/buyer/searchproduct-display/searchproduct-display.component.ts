@@ -1,55 +1,64 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../seller/services/product.service';
+import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
 import { IProductResponse } from '../../Models/product.model';
+import { SpinnerComponent } from "../spinner/spinner.component";
+import { environment } from '../../environments/environments';
 
 @Component({
   selector: 'app-product-display',
   templateUrl: './searchproduct-display.component.html',
-  imports: [FormsModule, CommonModule],
-  styleUrls: ['./searchproduct-display.component.scss']
+  styleUrls: ['./searchproduct-display.component.scss'],
+  standalone: true,
+  imports: [FormsModule, CommonModule, SpinnerComponent]
 })
 export class SearchproductDisplayComponent implements OnInit {
-  products: IProductResponse[] = [];
   searchTerm: string = '';
-  selectedPort: string = '';
-  selectedSpecification: string = '';
-  selectedCategory: number | null = null;
-  availablePorts: string[] = [];
-  availableSpecifications: string[] = [];
-  availableCategories: number[] = [];
+  products: IProductResponse[] = [];
+  pageNumber: number = 1;
+  pageSize: number = 10;
+  totalProducts: number = 0;
+  loading: boolean = false;
+ imageUrl = environment.imageUrl;
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.productService.getAvailableFilters().subscribe(filters => {
-      this.availablePorts = filters.ports || [];
-      this.availableSpecifications = filters.specifications || [];
-      this.availableCategories = filters.categories || [];
-    });
+    this.route.queryParams.subscribe(params => {
+      this.searchTerm = params['searchTerm']?.trim() || ''; // Trim whitespace
+      this.pageNumber = 1;
+      this.products = [];
+      this.totalProducts = 0;
 
-    this.searchProducts();
-  }
-
-  searchProducts(): void {
-    this.productService.searchProducts(
-      this.searchTerm,
-      this.selectedPort,
-      this.selectedSpecification,
-      this.selectedCategory
-    ).subscribe(
-      (products) => {
-        this.products = products;
-      },
-      (error) => {
-        console.error('Error fetching products', error);
+      if (this.searchTerm) {
+        this.fetchProducts();
       }
-    );
+    });
   }
 
-  onFilterChange(): void {
-    this.searchProducts();
+  fetchProducts(): void {
+    if (this.loading) return; // Prevent multiple calls
+    this.loading = true;
+
+    this.productService.searchProducts(this.searchTerm, this.pageNumber, this.pageSize).subscribe({
+      next: (response) => {
+        this.products = [...this.products, ...response.products]; // Append new products
+        this.totalProducts = response.totalCount; // Store total available products
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error('Error fetching products:', error);
+        this.loading = false;
+      }
+    });
+  }
+
+  loadMore(): void {
+    if (this.products.length < this.totalProducts) {
+      this.pageNumber++; // Increase page number
+      this.fetchProducts();
+    }
   }
 }

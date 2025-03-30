@@ -398,59 +398,40 @@ public class ProductService:IProductService
         await _context.SaveChangesAsync();
         return (true, "Product updated successfully!");
     }
-    public async Task<ProductSearchResponse> SearchProductsAsync(
-        string searchTerm,
-        string specificationName = null,
-        int? categoryId = null,
-        string nearestPort = null)
+    public async Task<ProductSearchResponse> SearchProductsAsync(string searchTerm, int pageNumber = 1, int pageSize = 10)
     {
         ProductSearchResponse response = new ProductSearchResponse();
         try
         {
-            // Fetch all products along with their related entities
-            var products = await _context.Products
-                .Include(p => p.Images) // Include Product Images
-                .Include(p => p.Videos) // Include Product Videos
-                .Include(p => p.Specifications) // Include Product Specifications
-                .Include(p => p.PriceRanges) // Include Price Ranges
-                .Where(a => a.IsDeleted == false && a.IsApproved == true && a.ShowcaseStatus == true)
+            // Base query
+            var query = _context.Products
+    .Include(p => p.Images)
+    .Include(p => p.Videos)
+    .Include(p => p.Specifications)
+    .Include(p => p.PriceRanges)
+    .Where(a => a.IsDeleted == false && a.IsApproved == true && a.ShowcaseStatus == true);
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                string lowerSearchTerm = searchTerm.ToLower(); // Convert search term to lowercase
+
+                query = query.Where(product =>
+                    product.Name.ToLower().Contains(lowerSearchTerm) ||
+                    product.Description.ToLower().Contains(lowerSearchTerm) ||
+                    product.Keywords.ToLower().Contains(lowerSearchTerm));
+            }
+
+            // Get total count before pagination
+            int totalCount = await query.CountAsync();
+
+            // Apply pagination
+            var products = await query
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
 
-            // Filter products by search term (Name, Description, or Keywords)
-            var filteredProducts = products.Where(product =>
-                product.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
-                product.Description.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
-                product.Keywords.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)
-            ).ToList();
-
-            // Filter by Specification Name (if specified)
-            if (!string.IsNullOrEmpty(specificationName))
-            {
-                filteredProducts = filteredProducts.Where(product =>
-                    product.Specifications.Any(spec =>
-                        spec.SpecificationName.Contains(specificationName, StringComparison.OrdinalIgnoreCase)
-                    )
-                ).ToList();
-            }
-
-            // Filter by Category (if specified)
-            if (categoryId.HasValue)
-            {
-                filteredProducts = filteredProducts.Where(product =>
-                    product.CategoryId == categoryId.Value
-                ).ToList();
-            }
-
-            // Filter by Nearest Port (if specified)
-            if (!string.IsNullOrEmpty(nearestPort))
-            {
-                filteredProducts = filteredProducts.Where(product =>
-                    product.NearestPort.Contains(nearestPort, StringComparison.OrdinalIgnoreCase)
-                ).ToList();
-            }
-
-            // Create the response object with filtered products
-            response.Products = filteredProducts.Select(product => new ProductResponse
+            // Map to response object
+            response.Products = products.Select(product => new ProductResponse
             {
                 Id = product.Id,
                 Name = product.Name,
@@ -464,15 +445,14 @@ public class ProductService:IProductService
                 MinPricePerUnit = product.MinPricePerUnit,
                 MaxPricePerUnit = product.MaxPricePerUnit,
                 Unit = product.Unit,
-                SellerId = product.SellerId,
                 CategoryId = product.CategoryId,
                 ShowcaseStatus = product.ShowcaseStatus,
                 IsApproved = product.IsApproved,
                 IsDeleted = product.IsDeleted,
                 Specifications = product.Specifications.Select(spec => new SpecificationResponse
                 {
-                    Name = spec.SpecificationName, // Map SpecificationName
-                    Value = spec.SpecificationValue // Map SpecificationValue
+                    Name = spec.SpecificationName,
+                    Value = spec.SpecificationValue
                 }).ToList(),
                 PriceRanges = product.PriceRanges.Select(priceRange => new PriceRangeResponse
                 {
@@ -480,34 +460,18 @@ public class ProductService:IProductService
                     MaximumQuantity = priceRange.MaximumQuantity,
                     PricePerUnit = priceRange.PricePerUnit
                 }).ToList(),
-                ProductVideoUrl = product.Videos.FirstOrDefault()?.VideoUrl, // Take the first video URL if exists
-                ProductImageUrls = product.Images.Select(image => image.ImageUrl).ToList() // Assuming ImageUrl is a property of ProductImage
+                ProductVideoUrl = product.Videos.FirstOrDefault()?.VideoUrl,
+                ProductImageUrls = product.Images.Select(image => image.ImageUrl).ToList()
             }).ToList();
 
-            // Get distinct ports, specifications, and categories for filtering options
-            response.AvailablePorts = products.Select(p => p.NearestPort)
-                .Distinct()
-                .OrderBy(port => port)
-                .ToList();
-
-            response.AvailableSpecificationNames = products.SelectMany(p => p.Specifications)
-                .Select(spec => spec.SpecificationName)
-                .Distinct()
-                .OrderBy(spec => spec)
-                .ToList();
-
-            response.AvailableCategories = products.Select(p => p.CategoryId)
-                .Distinct()
-                .OrderBy(category => category)
-                .ToList();
+            response.TotalCount = totalCount; // Set total product count for frontend
         }
         catch (Exception ex)
         {
-            // Handle exception (optional logging)
+            // Handle exceptions
             throw;
         }
 
         return response;
     }
-
 }

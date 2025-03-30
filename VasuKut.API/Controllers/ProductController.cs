@@ -79,35 +79,15 @@ public class ProductController : ControllerBase
 
     [HttpGet("search")]
     public async Task<IActionResult> SearchProducts(
-        [FromQuery] string term,
-        [FromQuery] string specificationName = null,
-        [FromQuery] int? categoryId = null,
-        [FromQuery] string nearestPort = null)
+        [FromQuery] string searchTerm,
+        [FromQuery] int pageNumber = 1,
+        [FromQuery] int pageSize = 10)
     {
-        if (string.IsNullOrEmpty(term))
-        {
-            return BadRequest("Search term is required.");
-        }
-
-        try
-        {
-            var response = await _productService.SearchProductsAsync(term, specificationName, categoryId, nearestPort);
-
-            if (response == null || !response.Products.Any())
-            {
-                return NotFound("No products found matching your search criteria.");
-            }
-
-            return Ok(response);
-        }
-        catch (Exception ex)
-        {
-            // Optional: Log the exception
-            return StatusCode(500, "Internal server error.");
-        }
+        var result = await _productService.SearchProductsAsync(searchTerm, pageNumber, pageSize);
+        return Ok(result);
     }
 
-[HttpGet("ProductForAdmin")]
+    [HttpGet("ProductForAdmin")]
     public async Task<IActionResult> GetProductsForAdmin(string? search, int? isApproved, int? isShowcase)
     {
         var result = await _productService.GetProductsForAdminAsync(search, isApproved, isShowcase);

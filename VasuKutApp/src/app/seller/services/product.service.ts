@@ -17,7 +17,7 @@ export class ProductService {
   private sellerprofileUrl = `${environment.apiBaseUrl}/Seller/upload-profile`;
   private GetProductListForAdminUrl =`${environment.apiBaseUrl}/Product/ProductForAdmin`;  // Replace with your actual API endpoint
   private IsProductApprovalUrl =`${environment.apiBaseUrl}/Product/Approval`;  // Replace with your actual API endpoint
-  private searchProductUrl =`${environment.apiBaseUrl}/Product/search`;  // Replace with your actual API endpoint
+  private searchProductUrl =`${environment.apiBaseUrl}/Product/search?searchTerm=`;  // Replace with your actual API endpoint
 
   constructor(private http: HttpClient) {}
 
@@ -79,31 +79,12 @@ export class ProductService {
       );
     });
   }
- 
 
-  searchProducts(searchTerm: string, port: string, specificationName: string, categoryId: number | null): Observable<IProductResponse[]> {
-    let params = new HttpParams();
-
-    if (searchTerm) {
-      params = params.set('searchTerm', searchTerm);
-    }
-    if (port) {
-      params = params.set('port', port);
-    }
-    if (specificationName) {
-      params = params.set('specificationName', specificationName);
-    }
-    if (categoryId !== null) {
-      params = params.set('categoryId', categoryId.toString());
-    }
-
-    return this.http.get<IProductResponse[]>(this.searchProductUrl, { params });
+  searchProducts(searchTerm: string, pageNumber: number = 1, pageSize: number = 10): Observable<{ products: IProductResponse[], totalCount: number }> {
+    return this.http.get<{ products: IProductResponse[], totalCount: number }>(
+      `${this.searchProductUrl}${searchTerm}&pageNumber=${pageNumber}&pageSize=${pageSize}`
+    );
   }
-
-  getAvailableFilters(): Observable<{ ports: string[]; specifications: string[]; categories: number[] }> {
-    return this.http.get<{ ports: string[]; specifications: string[]; categories: number[] }>(this.GetProductListUrl);
-  }
-
   // Optional: You can create a method to fetch available filter options for ports, categories, etc.
   
   uploadProfile(formData: FormData): Observable<any> {
