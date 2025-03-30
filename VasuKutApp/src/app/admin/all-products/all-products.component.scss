@@ -1,17 +1,104 @@
-td,th,hr,mat-icon,span,mat-label,mat-option,mat-select{
-    color: black !important;
+
+
+.container-fluid {
+  max-width: 1200px;
+  margin: auto;
+
 }
-::ng-deep .mat-form-field {
-    background-color: #fff;
-    border-radius: 6px;
+
+/* Responsive Search & Filter Section */
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  align-items: center;
+}
+
+.search-box, .status-dropdown {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* Table Container */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none;
+}
+
+/* Table Styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+}
+
+.table th, .table td {
+  text-align: center;
+  padding: 8px;
+  vertical-align: middle;
+  font-size: 14px;
+}
+
+.table td.text-truncate {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Buttons and Actions */
+.action-btn {
+  min-width: 80px;
+  font-size: 12px;
+  padding: 5px 8px;
+}
+
+.dropdown-menu {
+  min-width: 130px;
+}
+
+/* Badges */
+.badge {
+  padding: 4px 10px;
+  font-size: 11px;
+}
+
+/* Responsive Design Adjustments */
+@media (max-width: 992px) {
+  .table-container {
+    overflow-x: auto;
   }
-  
-  ::ng-deep .mat-select-panel {
-    background-color: #fff !important;
-    color: #000 !important;
+  .table th, .table td {
+    font-size: 13px;
+    padding: 6px;
   }
-  mat-mdc-menu-panel {
-    min-width: 175px;
-    max-width: 280px;
-    overflow: auto;
+  .action-btn {
+    font-size: 11px;
+    padding: 4px 6px;
   }
+  .badge {
+    font-size: 10px;
+    padding: 3px 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .table-container {
+    overflow-x: auto;
+  }
+  .table th, .table td {
+    font-size: 12px;
+    padding: 5px;
+  }
+  .action-btn {
+    font-size: 10px;
+    padding: 3px 5px;
+  }
+  .badge {
+    font-size: 9px;
+    padding: 2px 6px;
+  }
+}

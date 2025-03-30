@@ -12,21 +12,24 @@ import { FormsModule } from '@angular/forms'; // ngModel support
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
-  activeUser:number=0;
-  inactiveUser:number=0;
-  constructor(private userService: AdminService) {}
+  activeUserCount: number = 0;
+  inactiveUserCount: number = 0;
 
-  ngOnInit() {
-    this.loadUsers();
+  constructor(private adminService: AdminService) {}
+
+  ngOnInit(): void {
+    this.loadUserCounts();
   }
 
-  loadUsers() {
-    this.userService.getUsers().subscribe((res) => {
-      const activeUser = res.users.filter(u=>u.isDisable)
-      this.activeUser = activeUser.length;
-      const inactiveUser = res.users.filter(u=>!u.isDisable)
-      this.inactiveUser = inactiveUser.length;
-      console.log(this.inactiveUser,this.activeUser)
+  loadUserCounts(): void {
+    this.adminService.getUsers(1, 1).subscribe({
+      next: (response) => {
+        this.activeUserCount = response.activeUserCount;
+        this.inactiveUserCount = response.inactiveUserCount;
+      },
+      error: (err) => {
+        console.error('Error fetching user counts:', err);
+      }
     });
   }
 

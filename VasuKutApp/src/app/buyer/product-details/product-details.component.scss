@@ -14,8 +14,9 @@
   
   .img-thumbnail {
     width: 70px;
-    height: auto;
+    height: 70px;
     cursor: pointer;
+    object-fit: contain;
   }
   
   .main-image img {

@@ -27,3 +27,19 @@
   font-size: 40px;
   font-weight: bold;
 }
+
+
+
+marquee {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+ margin: 0;
+ padding: 0;
+  white-space: nowrap;
+  background: linear-gradient(to bottom, #ff6a00, #8833cc);
+ height: 10vh;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}

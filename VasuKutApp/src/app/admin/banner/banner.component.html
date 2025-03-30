@@ -1,0 +1,37 @@
+<app-spinner *ngIf="loading"></app-spinner>
+<div class="upload-container">
+    <label for="fileInput" class="upload-box">
+      <!-- Show the image inside the container fully -->
+      <img *ngIf="imageSrc" [src]="imageSrc" alt="Uploaded Image" class="preview-img">
+      <div *ngIf="!imageSrc" id="plusSign">+</div>
+    </label>
+  
+    <!-- Hidden file input -->
+    <input type="file" id="fileInput"  #fileInput class="file-input"  (change)="previewFile($event)" accept="image/*">
+  
+    <!-- Browse Button -->
+    <button class="browse-btn" (click)="onUpload(fileInput)">Add Banner</button>
+   
+  </div>
+ <div class="mt-1">
+  
+  <div class=" image-container " *ngIf="banners.length > 0">
+    <p class="text-end fw-bold">Total banner ({{banners.length}})</p>
+    <p class="banner-quote">
+      "Your banners, your brand—manage them effortlessly.  
+      Showcase stunning visuals, update with ease.  
+      Organize, upload, and refresh your banners in a click!"
+    </p>
+    <div *ngFor="let banner of banners" class="mb-4">
+     <div class="d-flex justify-content-end p-1">
+        <a (click)="deleteBanner(banner.id)" class="delete-btn" >
+          <i class="fa fa-trash"></i>
+        </a>
+      </div>
+      <img [src]="imageUrl + banner.filePath" alt="Uploaded Image" class="img-fluid banner-img">
+    </div>
+  </div>
+ </div>
+  
+  <!-- Show message if no banners exist -->
+  <p *ngIf="banners.length === 0 && !loading" class="text-center mt-3">No banners available.</p>

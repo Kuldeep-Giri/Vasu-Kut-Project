@@ -85,7 +85,7 @@ export class AllProductsComponent {
   reject:any = 'Product Rejected'
   app:any='Product Approved Succesfully'
 
-  IsApproved(id: string,msg:any) {
+  IsApproved(id: any,msg:any) {
     this.productService.IsApproved(id).subscribe((res) =>{
         this.toastr.success(msg);
         this.loadProducts()

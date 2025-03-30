@@ -23,7 +23,7 @@ namespace VasuKut.Core.Models
         public decimal MinPricePerUnit { get; set; }
         public decimal MaxPricePerUnit { get; set; }
         public string Unit { get; set; } = string.Empty;
-        public string SellerId { get; set; }
+        public string? SellerId { get; set; }
         public bool ShowcaseStatus { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsApproved { get; set; }

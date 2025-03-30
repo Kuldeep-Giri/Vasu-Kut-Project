@@ -22,6 +22,11 @@
           </a>
         </li>
         <li class="nav-item" (click)="closeSidebar()">
+          <a routerLink="/admin/banner" routerLinkActive="active" class="nav-link">
+            <i class="fa-solid fa-image me-2"></i> Create-Banner
+          </a>
+        </li>
+        <li class="nav-item" (click)="closeSidebar()">
           <a routerLink="/admin/add-category" routerLinkActive="active" class="nav-link">
             <i class="bi bi-tags me-2"></i> Category
           </a>
@@ -36,23 +41,19 @@
             <i class="bi bi-people me-2"></i> User Management
           </a>
         </li>
-        <li class="nav-item" (click)="closeSidebar()">
-          <a routerLink="/orders" routerLinkActive="active" class="nav-link">
-            <i class="bi bi-receipt me-2"></i> Orders
-          </a>
-        </li>
-        <li class="nav-item" (click)="closeSidebar()">
+       
+        <!-- <li class="nav-item" (click)="closeSidebar()">
           <a routerLink="/settings" routerLinkActive="active" class="nav-link">
             <i class="bi bi-gear me-2"></i> Settings
           </a>
-        </li>
+        </li> -->
         <li class=" logout nav-item" >
           <div class="dropup">
             <a class=" dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
              Welcome   {{UserName}} !
             </a>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Edit profile</a></li>
+                <li><a class="dropdown-item" >Edit profile</a></li>
                 <li><a class="dropdown-item" (click)="logOut()" href="#">Logout</a></li>
             </ul>
         </div>

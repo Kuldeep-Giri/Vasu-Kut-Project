@@ -19,7 +19,7 @@ namespace VasuKut.Infrastructure.Services
             _context = context;
         }
 
-        public async Task<(List<UserManagementResponce> users, int totalCount)> GetAllUsersAsync(
+        public async Task<(List<UserManagementResponce> users, int totalCount, int activeUserCount, int inactiveUserCount)> GetAllUsersAsync(
             int pageNumber,
             int pageSize,
             string? search = "",
@@ -46,7 +46,8 @@ namespace VasuKut.Infrastructure.Services
             }
 
             var totalCount = await query.CountAsync();
-
+            var activeUserCount = await _context.Users.CountAsync(u => u.IsDisable == true);
+            var inactiveUserCount = await _context.Users.CountAsync(u => u.IsDisable == false);
             var users = await query
                 .OrderBy(u => u.UserName)
                 .Skip((pageNumber - 1) * pageSize)
@@ -62,7 +63,7 @@ namespace VasuKut.Infrastructure.Services
                 })
                 .ToListAsync();
 
-            return (users, totalCount);
+            return (users, totalCount,  activeUserCount,  inactiveUserCount);
         }
 
         public async Task<UserManagementResponce?> GetUserByIdAsync(string id)

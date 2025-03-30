@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "../environments/environments";
+import { Observable } from "rxjs";
 
 export interface User {
     id: string;
@@ -9,6 +10,8 @@ export interface User {
     email: string;
     phoneNumber: string;
     isDisable: boolean;
+    // activeUserTotalcount: number;
+    // inactiveUserTotalcount: number;
   }
 
 
@@ -17,7 +20,9 @@ export class AdminService {
   private GetUsers = `${environment.apiBaseUrl}/usermanagement/getUsers`;
   private ActiveInactiveUser = `${environment.apiBaseUrl}/usermanagement/togle`;
   private GetUserById = `${environment.apiBaseUrl}/usermanagement/user`;
-  public UserCount = 0;
+  private GetAllBannerUrl = `${environment.apiBaseUrl}/banner/GetallBanners`;
+  private DeleteBannerUrl = `${environment.apiBaseUrl}/banner/deletebanner`;
+  private UploadBannerUrl = `${environment.apiBaseUrl}/banner/upload`;
   constructor(private http: HttpClient) {}
 
 //   getUsers(pageNumber: number = 1, pageSize: number = 10) {
@@ -26,7 +31,7 @@ export class AdminService {
 //     );
 //   }
 getUsers(pageNumber: number = 1, pageSize: number = 10, search: string = '', role: string = '', status: string = '') {
-    return this.http.get<{ users: User[], totalCount: number }>(
+    return this.http.get<{ users: User[], totalCount: number,activeUserCount:number,inactiveUserCount:number }>(
       `${this.GetUsers}?pageNumber=${pageNumber}&pageSize=${pageSize}&search=${search}&role=${role}&status=${status}`
     );
   }
@@ -41,4 +46,18 @@ getUsers(pageNumber: number = 1, pageSize: number = 10, search: string = '', rol
   toggleDisable(id: string) {
     return this.http.patch(`${this.ActiveInactiveUser}/${id}`, {});
   }
+  uploadBanner(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    return this.http.post<any>(this.UploadBannerUrl, formData);
+  }
+  getAllBanners(): Observable<any> {
+    return this.http.get(this.GetAllBannerUrl);
+  }
+
+  // ✅ Delete Banner
+  deleteBanner(bannerId: number): Observable<any> {
+    return this.http.delete(`${this.DeleteBannerUrl}/${bannerId}`);
+  }
+
 }

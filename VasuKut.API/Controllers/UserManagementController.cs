@@ -17,8 +17,8 @@ namespace VasuKut.API.Controllers
         [HttpGet("getUsers")]
         public async Task<IActionResult> GetUsers(int pageNumber = 1, int pageSize = 10, string? search = "", string? role = "", string? status = "")
         {
-            var (users, totalCount) = await _userService.GetAllUsersAsync(pageNumber, pageSize,search,role,status);
-            return Ok(new { users, totalCount });
+            var (users, totalCount,  activeUserCount,  inactiveUserCount) = await _userService.GetAllUsersAsync(pageNumber, pageSize,search,role,status);
+            return Ok(new { users, totalCount, activeUserCount, inactiveUserCount });
         }
 
         [HttpGet("user/{id}")]

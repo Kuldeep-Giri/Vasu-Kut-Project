@@ -124,20 +124,36 @@
 
 }
   
+.responsive-editor {
+  width: 100%; /* Make the editor take full width */
+  max-width: 100%; /* Ensure it doesn't stretch beyond its container */
+  min-height: 150px; /* Set a minimum height */
+  box-sizing: border-box; /* Make sure padding is included in the width calculation */
+}
 
+
+@media (max-width: 480px) {
+  .responsive-editor {
+    font-size: 12px; /* Further reduce font size for mobile */
+    min-height: 100px; /* Adjust height for mobile screens */
+  }
+}
 @media screen and (max-width: 768px) {
     .add-product-page{
         width: 100%;
     }
-    ::ng-deep .ql-container {
-      width: 334px !important; /* Set your preferred width */
-    }
+    // ::ng-deep .ql-container {
+    //   width: 334px !important; /* Set your preferred width */
+    // }
     .image-upload-wrapper {
       display: flex;
       flex-wrap: wrap;
       gap: 10px; /* spacing between boxes */
     }
-    
+    .responsive-editor {
+      font-size: 14px; /* Reduce font size for smaller screens */
+      min-height: 120px; /* Adjust the height for smaller screens */
+    }
     .image-upload-box {
       flex: 1 1 calc(33.33% - 10px); /* default: 3 per row */
       max-width: calc(33.33% - 10px);
@@ -168,16 +184,16 @@
   
 
     
-  // Laptop/Desktop: Always show sidebar, hide hamburger
-  @media screen and (min-width: 769px) {
-    .add-product-page{
-        width: 85%;
-    }
-    ::ng-deep .ql-container {
-    width: 800px !important; /* Set your preferred width */
-  }
+//   // Laptop/Desktop: Always show sidebar, hide hamburger
+//   @media screen and (min-width: 769px) {
+//     .add-product-page{
+//         width: 85%;
+//     }
+//     ::ng-deep .ql-container {
+//     width: 800px !important; /* Set your preferred width */
+//   }
   
-}
+// }
 
 
 /* ✅ On small screens (max 600px), show 2 per row */

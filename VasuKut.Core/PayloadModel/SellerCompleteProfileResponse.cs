@@ -9,7 +9,7 @@ namespace VasuKut.Core.PayloadModel
 {
     public class SellerCompleteProfileResponse
     {
-        public string sellerId { get; set; }
+        public string SellerId { get; set; }
         public string CompanyName { get; set; }
         public string BusinessType { get; set; }
       

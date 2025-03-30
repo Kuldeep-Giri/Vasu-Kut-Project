@@ -6,6 +6,7 @@ using System.Text;
 using VasuKut.Core.Interfaces;
 using VasuKut.Core.Models;
 using VasuKut.Infrastructure.Data;
+using VasuKut.Infrastructure.Helper;
 using VasuKut.Infrastructure.Interfaces;
 using VasuKut.Infrastructure.Services;
 
@@ -18,11 +19,11 @@ var builder = WebApplication.CreateBuilder(options);
 builder.Services.AddTransient<IEmailService, EmailService>();
 builder.Services.AddTransient<IOtpVerification, OtpVerificationService>();
 builder.Services.AddTransient<IProductService, ProductService>();
-
 builder.Services.AddTransient<IProductCategoryService, ProductCategoryService>();
-builder.Services.AddTransient<ISellerCompleteProfileService, SellerCompleteProfileService>();
+//builder.Services.AddTransient<ISellerCompleteProfileService, SellerCompleteProfileService>();
 builder.Services.AddTransient<IUserManagement, UserManagementService>();
-
+builder.Services.AddTransient<IBanner, BannerService>();
+builder.Services.AddTransient<SaveFile>();
 
 
 

@@ -77,12 +77,12 @@
                 </div>
             </div>
 
-            <div >
+            <div class="form-group" >
                 <label class="form-label">Product Description</label>
                 <p class="form-subtext">Please enter the product's description</p>
                 
                 <!-- Quill Editor -->
-                <quill-editor formControlName="description" ></quill-editor>
+                <quill-editor formControlName="description" class=""></quill-editor>
                 <p *ngIf="fieldInvalid('description')" class="text-danger">Description is required.</p>
             </div>
             

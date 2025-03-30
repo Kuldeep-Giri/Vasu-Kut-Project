@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AllProductsComponent } from './all-products/all-products.component';
 import { AdminGuard } from '../guards/admin.guard';
 import { UserManagmentComponent } from './user-managment/user-managment.component';
+import { BannerComponent } from './banner/banner.component';
 // const routes: Routes = [
 
 //   { path: 'home', component: HomeComponent, canActivate: [SellerGuard]  },
@@ -25,6 +26,7 @@ const routes: Routes = [
          { path: 'add-category', component: AddCategoryComponent  },
          { path: 'user/management', component: UserManagmentComponent  },
          { path: 'product/display', component: AllProductsComponent  },
+         { path: 'banner', component: BannerComponent  },
           { path: '', redirectTo: 'home', pathMatch: 'full' }
       ]
   }

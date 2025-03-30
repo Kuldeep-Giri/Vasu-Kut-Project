@@ -1,121 +1,100 @@
 <app-spinner *ngIf="loading"></app-spinner>
-<div class="responsive-container mt-3" >
+
+<div class="container-fluid mt-3">
   <div class="p-4">
-    <h3 class="fw-bold mb-1 fs-4 ">Product Listings</h3>
-    <p class="text-muted mb-2 mb-md-0 fs-6">Manage your Approve, Rejected, and all products in one place.</p>
+    <h3 class="fw-bold mb-1 fs-4">Product Listings</h3>
+    <p class="text-muted mb-2 fs-6">
+      Manage your Approved, Rejected, and all products in one place.
+    </p>
   </div>
-    <div class="d-flex justify-content-end lign-items-center gap-2 flex-wrap mb-3">
-        <!-- 🔍 Search Input + Button -->
-        <div class="input-group" style="max-width: 300px;">
-          <input type="text"
-                 class="form-control"
-                 placeholder="Search by product"
-                 [(ngModel)]="searchText"
-                 (input)="onFilterChange()">
-          <button class="btn btn-success" type="button" (click)="onFilterChange()">Search</button>
-        </div>
-      
-        <!-- ✅ Bootstrap Status Dropdown -->
-<div>
-    <select class="form-select"
-style="min-width: 150px;"
-[(ngModel)]="filterStatus"
-(change)="onFilterChange()">
-<option value="all">All Status</option>
-<option value="1">Approved</option>
-<option value="0">Pending</option>
-</select>
-</div>
-      
-      
-    <table mat-table [dataSource]="products" class="mat-elevation-z8 custom-table" multiTemplateDataRows style="background-color: #ecedea0f !important; color: #000000ba !important;">
-  
-      <!-- ID Column -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> ID </th>
-        <td mat-cell *matCellDef="let product"> {{ product.id }} </td>
-      </ng-container>
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let product"> <span matTooltip="{{ product.name }}"  style="cursor: pointer;">
-          {{ product.name | slice:0:32 }}{{ product.name.length > 32 ? '...' : '' }}
-        </span></td>
-      </ng-container>
-      <!-- Description Column -->
-      <ng-container matColumnDef="description">
-        <th mat-header-cell *matHeaderCellDef> Description </th>
-        <td mat-cell *matCellDef="let product">
-          <button mat-stroked-button color="primary" (click)="openPopup(product.description, 'description')">
-            <mat-icon>visibility</mat-icon>
-            <span> View</span>
-          </button>
-        </td>
-      </ng-container>
-  
-      <!-- Images Column -->
-      <ng-container matColumnDef="images">
-        <th mat-header-cell *matHeaderCellDef> Images </th>
-        <td mat-cell *matCellDef="let product">
-          <button mat-stroked-button color="primary" (click)="openPopup(product.productImageUrls, 'images')">
-            <mat-icon>image</mat-icon>
-           <span> View</span>
-          </button>
-        </td>
-      </ng-container>
-  
-      <!-- Video Column -->
-      <ng-container matColumnDef="video">
-        <th mat-header-cell *matHeaderCellDef> Video </th>
-        <td mat-cell *matCellDef="let product">
-          <button mat-stroked-button color="accent" (click)="openPopup(product.productVideoUrl, 'video')">
-            <mat-icon>play_circle_filled</mat-icon>
-            <span> Play</span>
-          </button>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="IsApproved">
-        <th mat-header-cell *matHeaderCellDef> Approval </th>
-        <td mat-cell *matCellDef="let product"> 
-            <p *ngIf="product.isApproved">Approved</p>
-            <p *ngIf="!product.isApproved">Pending </p>
-        </td>
-      </ng-container>
-      <!-- Min Price Column -->
-      <ng-container matColumnDef="minPricePerUnit">
-        <th mat-header-cell *matHeaderCellDef> Min Price </th>
-        <td mat-cell *matCellDef="let product"> {{ product.minPricePerUnit }} </td>
-      </ng-container>
-  
-      <!-- Max Price Column -->
-      <ng-container matColumnDef="maxPricePerUnit">
-        <th mat-header-cell *matHeaderCellDef> Max Price </th>
-        <td mat-cell *matCellDef="let product"> {{ product.maxPricePerUnit }} </td>
-      </ng-container>
-     <!-- Max Price Column -->
-     
-      <!-- Actions Column -->
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Actions </th>
-        <td mat-cell *matCellDef="let product" class="text-center">
-          <button mat-icon-button [matMenuTriggerFor]="menu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu" class="action-menu  bg-light" >
-            <button mat-menu-item (click)="IsApproved(product.id,app)" *ngIf="!product.isApproved">
-                <mat-icon style="color: green !important; font-weight: 800 !important;">done</mat-icon>
-                <span >Approve</span>
+
+  <!-- Search & Filter Section -->
+  <div class="d-flex flex-wrap gap-2 justify-content-between mb-3 filter-container">
+    <!-- Search Input -->
+    <div class="search-box">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search by product" [(ngModel)]="searchText" />
+        <button class="btn btn-success" type="button" (click)="onFilterChange()">Search</button>
+      </div>
+    </div>
+
+    <!-- Status Dropdown -->
+    <div class="status-dropdown">
+      <select class="form-select" [(ngModel)]="filterStatus" (change)="onFilterChange()">
+        <option value="all">All Status</option>
+        <option value="1">Approved</option>
+        <option value="0">Pending</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Responsive Table -->
+  <div class="table-container">
+    <table class="table table-striped table-bordered align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Images</th>
+          <th>Video</th>
+          <th>Approval</th>
+          <th>Min Price</th>
+          <th>Max Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>{{ product.id }}</td>
+          <td class="text-truncate" title="{{ product.name }}">
+            {{ product.name | slice:0:32 }}{{ product.name.length > 32 ? '...' : '' }}
+          </td>
+          <td>
+            <button class="btn btn-outline-primary btn-sm action-btn" (click)="openPopup(product.description, 'description')">
+              <i class="bi bi-eye"></i> View
             </button>
-            <button mat-menu-item color="warn" (click)="IsApproved(product.id,reject)">
-                <mat-icon style="color: red !important; font-weight: 800 !important;">cancel</mat-icon>
-                <span >Reject</span>
+          </td>
+          <td>
+            <button class="btn btn-outline-primary btn-sm action-btn" (click)="openPopup(product.productImageUrls, 'images')">
+              <i class="bi bi-image"></i> View
             </button>
-          </mat-menu>
-        </td>
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+          </td>
+          <td>
+            <button class="btn btn-outline-secondary btn-sm action-btn" (click)="openPopup(product.productVideoUrl, 'video')">
+              <i class="bi bi-play-circle"></i> Play
+            </button>
+          </td>
+          <td>
+            <span class="badge bg-success" *ngIf="product.isApproved">Approved</span>
+            <span class="badge bg-warning text-dark" *ngIf="!product.isApproved">Pending</span>
+          </td>
+          <td>{{ product.minPricePerUnit }}</td>
+          <td>{{ product.maxPricePerUnit }}</td>
+          <td>
+            <div class="dropdown">
+              <button class="btn btn-sm btn-light dropdown-toggle action-btn" type="button" data-bs-toggle="dropdown">
+                <i class="bi bi-three-dots-vertical"></i>
+              </button>
+              <ul class="dropdown-menu">
+                <li *ngIf="!product.isApproved">
+                  <button class="dropdown-item text-success" (click)="IsApproved(product.id, 'app')">
+                    <i class="bi bi-check-circle-fill"></i> Approve
+                  </button>
+                </li>
+                <li>
+                  <button class="dropdown-item text-danger" (click)="IsApproved(product.id, 'reject')">
+                    <i class="bi bi-x-circle-fill"></i> Reject
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      </tbody>
     </table>
   </div>
-  
+</div>
+<div class="text-center mt-5" *ngIf="!products.length && !loading">
+  No product Find
+</div>

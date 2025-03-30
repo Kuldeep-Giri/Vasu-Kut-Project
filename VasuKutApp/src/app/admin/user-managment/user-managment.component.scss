@@ -226,3 +226,8 @@
      .user-table th,td{ font-size: 11px;}
 
     }
+
+    .user-table{
+      scrollbar-width: none; /* Hide scrollbar for Firefox */
+      -ms-overflow-style: none;
+    }

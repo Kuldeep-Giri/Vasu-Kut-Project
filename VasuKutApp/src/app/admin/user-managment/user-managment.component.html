@@ -1,21 +1,23 @@
 
 <div class="user-table-container p-4">
+  <app-spinner *ngIf="loading"></app-spinner>
     <div class="p-4">
         <h3 class="fw-bold mb-1 fs-4 ">Manage Users</h3>
         <p class="text-muted mb-2 mb-md-0 fs-6">Manage your User, Ative, InActive, and all user in one place.</p>
       </div>
     <!-- 🔍 Search Section -->
-    <div class="search-box mb-3 d-flex justify-content-end">
-     <div class="d-flex p-2">
+    <div class="search-box mb-3 row">
+     <div class="col-sm-5 d-flex  mt-1 ">
         <input
         type="text"
         [(ngModel)]="searchTerm"
         placeholder="Search by username"
         class="form-control"
-        (click)="searchUsers()" />
+        />
       <button (click)="searchUsers()" class="searchBtn">Search</button>
      </div>
-     <div class=" p-2">
+    <div class="col-sm-7  mt-1  d-flex justify-content-center">
+      <div class=" ">
         <select [(ngModel)]="selectedRole" (ngModelChange)="searchUsers()" class="form-select">
             <option value="">All Roles</option>
             <option value="Buyer">Buyer</option>
@@ -23,13 +25,14 @@
           </select>
         
      </div>
-      <div class=" p-2">
+      <div class="mx-2">
         <select [(ngModel)]="selectedStatus" (ngModelChange)="searchUsers()" class="form-select">
             <option value="">All Status</option>
             <option value="inactive">Active</option>
             <option value="active">Inactive</option>
           </select>
       </div>
+    </div>
     </div>
   
     <!-- 🧾 Table Section (unchanged) -->
@@ -56,10 +59,11 @@
               {{ user.isDisable ? 'Active' : 'Inactive' }}
             </a>
           </td>
+          
         </tr>
       </tbody>
     </table>
-  
+    <td *ngIf="!users.length" class="text-danger">Cannot find user</td>
     <!-- 🔢 Pagination -->
     <div class="pagination-controls">
       <div class="pagination-info">

@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Reflection.Emit;
 using VasuKut.Core.Models;
+using VasuKut.Core.PayloadModel;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace VasuKut.Infrastructure.Data
 {
@@ -19,9 +21,9 @@ namespace VasuKut.Infrastructure.Data
         public DbSet<ProductVideo> ProductVideos { get; set; }
         public DbSet<ProductSpecification> ProductSpecifications { get; set; }
         public DbSet<PriceRange> PriceRanges { get; set; }
-        public DbSet<CompleteSellerProfile> CompanyProfiles { get; set; }
-        public DbSet<CompanyImage> CompanyImages { get; set; }
-
+        //public DbSet<CompleteSellerProfile> CompanyProfiles { get; set; }
+        //public DbSet<CompanyImage> CompanyImages { get; set; }
+        public DbSet<Banner> Banners { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -76,11 +78,9 @@ namespace VasuKut.Infrastructure.Data
                 .WithOne(pr => pr.Product)
                 .HasForeignKey(pr => pr.ProductId);
 
-          builder.Entity<CompleteSellerProfile>()
-       .HasMany(p => p.CompanyImages)
-       .WithOne(i => i.SellerProfile)
-       .HasForeignKey(i => i.SellerProfileId)
-       .OnDelete(DeleteBehavior.Cascade);
+          
+
+            builder.Entity<Banner>().Ignore(b => b.FileName);
         }
     }
 }

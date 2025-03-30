@@ -59,8 +59,11 @@ export class SidebarComponent {
     this.toastr.success("LogOut Successfully");
     this.router.navigate(['/']);
   }
-  clickCross(){
-    this.showPopup = false;
+  clickCross() {
+    const checkBox: any = document.getElementById("check");
+    if (checkBox) {
+      checkBox.checked = false;
+    }
   }
   toggleDropdown(menuName: string, event: Event): void {
       event.preventDefault();

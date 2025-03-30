@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { AdminService } from '../../admin/admin.service';
+import { environment } from '../../environments/environments';
 
 @Component({
   selector: 'app-slider',
@@ -8,39 +10,22 @@ import { Component } from '@angular/core';
   styleUrl: './slider.component.scss'
 })
 export class SliderComponent {
-  products = [
-    {
-      name: 'Bigmuscles Nutrition Real Mass Gainer',
-      image: 'assets/images/realmass.png',
-      originalPrice: 45.00,
-      discountedPrice: 39.99
-    },
-    {
-      name: 'Optimum Nutrition Whey Protein',
-      image: 'assets/images/whey.png',
-      originalPrice: 59.99,
-      discountedPrice: 49.99
-    },
-    {
-      name: 'MuscleBlaze Creatine Monohydrate',
-      image: 'assets/images/creatine.png',
-      originalPrice: 20.00,
-      discountedPrice: 14.50
-    }
-  ];
-
-  currentIndex = 0;
-  currentProduct = this.products[this.currentIndex];
-  intervalId: any;
-
+ 
+constructor(private adminservice:AdminService){}
+banners: any[] = [];
+  imageUrl = `${environment.imageUrl}/`;
   ngOnInit(): void {
-    this.intervalId = setInterval(() => {
-      this.currentIndex = (this.currentIndex + 1) % this.products.length;
-      this.currentProduct = this.products[this.currentIndex];
-    }, 3000); // 3 seconds
+   this.loadBanners();
   }
 
-  ngOnDestroy(): void {
-    clearInterval(this.intervalId);
+  loadBanners() {
+    this.adminservice.getAllBanners().subscribe({
+      next: (response:any) => {
+        this.banners = response.data.reverse().slice(0, 3);
+      },
+      error: (error:any) => {
+        
+      }
+    });
   }
 }

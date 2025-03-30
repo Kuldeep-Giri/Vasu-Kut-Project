@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { AdminService } from '../../admin/admin.service';
 import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
@@ -14,15 +14,18 @@ import { AuthService } from '../../auth/services/auth.service';
 })
 export class NavbarComponent {
   constructor(private authService:AuthService,private router:Router,   private fb: FormBuilder,
-      private toastr: ToastrService,private adminService:AdminService
-      ){}
+      private toastr: ToastrService,private adminService:AdminService){}
+  
+      
+    
+    
  // Define the function input property // Replace with the full object structure
   showToggle : boolean = false;
   loggedinUserName:string='';
   UserName:string='';
   userId:any;
   user:any={};
-  
+  searchQuery = new FormControl('');
   ngOnInit(){
     const token = localStorage.getItem('token');
     if(token){
@@ -30,6 +33,7 @@ export class NavbarComponent {
       console.log(this.UserName)
     } 
   }
+ 
   navigatelogin(){
     this.router.navigate(['/auth/register'])
   }
