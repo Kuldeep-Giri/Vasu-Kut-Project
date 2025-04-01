@@ -1,18 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../seller/services/product.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { IProductResponse } from '../../Models/product.model';
 import { SpinnerComponent } from "../spinner/spinner.component";
 import { environment } from '../../environments/environments';
+import { NavbarComponent } from "../navbar/navbar.component";
+import { CartService } from '../cart.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-display',
   templateUrl: './searchproduct-display.component.html',
   styleUrls: ['./searchproduct-display.component.scss'],
   standalone: true,
-  imports: [FormsModule, CommonModule, SpinnerComponent]
+  imports: [FormsModule, CommonModule, SpinnerComponent, NavbarComponent,RouterLink]
 })
 export class SearchproductDisplayComponent implements OnInit {
   searchTerm: string = '';
@@ -21,9 +24,9 @@ export class SearchproductDisplayComponent implements OnInit {
   pageSize: number = 10;
   totalProducts: number = 0;
   loading: boolean = false;
- imageUrl = environment.imageUrl;
+  imageUrl = environment.imageUrl;
 
-  constructor(private productService: ProductService, private route: ActivatedRoute) {}
+  constructor(private productService: ProductService, private route: ActivatedRoute,private cartService:CartService,private toast:ToastrService) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -57,8 +60,15 @@ export class SearchproductDisplayComponent implements OnInit {
 
   loadMore(): void {
     if (this.products.length < this.totalProducts) {
-      this.pageNumber++; // Increase page number
+      this.pageNumber++;
       this.fetchProducts();
     }
+  } 
+  
+  addToCart(productId: number) {
+    this.cartService.addToCart(productId, 1);
+    this.toast.success('Product added to cart successfully!');
+ 
   }
+  
 }

@@ -1,9 +1,13 @@
 
-  <div style="background-color: #f0f0f0; height: 100vh;display: flex;align-items: center; justify-content: center;">
-    <div class="container">
+  <app-spinner *ngIf="loading"></app-spinner>
+  
+  <div >
+    <div class="container" style="font-family: sans-serif;">
+      <div class="home  mt-2" style="cursor: pointer;">
+        <a routerLink="/" class="text-primary text-underline" >Home</a>
+      </div>
     <div class="row" > 
       <div class="col-md-7" style="margin-top: 0%;">
-    
         <div class="registration-container">
           <div class="left-section">
            
@@ -27,7 +31,10 @@
               <img  src="vasu-kutlogo.png" class="" style="width: 20vh;display: flex;justify-content: center;align-items: center;"/>
               </div>
               
-            <h2 class="text-center">Sign-Up</h2>
+            <div class="memberLogin">
+              <h2 class="text-center">Member Login</h2>
+            <p>Please enter your email and password to login </p>
+            </div>
             <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
               
       <div class="row">
@@ -66,7 +73,11 @@
             </form>
            <div class="p-3" >
             <div class="existing-account">
-              You are a user? <a routerLink="/auth/register">Sign up </a>
+              <p>Forget Password</p>
+              <p>              New to Vasukut? <a routerLink="/auth/register">Sign up </a>
+             
+              </p>
+              
             </div>
             <div class="terms-text">
               By creating an account, you agree to our  

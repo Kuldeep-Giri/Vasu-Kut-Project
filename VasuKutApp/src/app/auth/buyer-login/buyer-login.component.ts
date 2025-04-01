@@ -3,9 +3,12 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../services/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { CartService } from '../../buyer/cart.service';
+import { SpinnerComponent } from "../../buyer/spinner/spinner.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
-imports: [ReactiveFormsModule,RouterLink],
+imports: [ReactiveFormsModule, RouterLink, SpinnerComponent,CommonModule],
   selector: 'app-buyer-login',
   templateUrl: './buyer-login.component.html',
   styleUrls: ['./buyer-login.component.scss']
@@ -13,7 +16,8 @@ imports: [ReactiveFormsModule,RouterLink],
 export class BuyerLoginComponent {
   loginForm: FormGroup;
   role :any;
-  constructor(private fb: FormBuilder, private authService: AuthService,private router: Router, private toastr: ToastrService,
+  loading: boolean = false;
+  constructor(private fb: FormBuilder, private authService: AuthService,private router: Router, private toastr: ToastrService, private cartService:CartService 
      ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -22,6 +26,7 @@ export class BuyerLoginComponent {
   }
 
   onLogin() {
+    this.loading = true; 
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe(response => {
         const token=localStorage.getItem('token');
@@ -34,11 +39,12 @@ export class BuyerLoginComponent {
           this.router.navigate(['/admin']);
         }else{
           this.router.navigate(['/']);
+          this.cartService.mergeCart();
         }
-        console.log()
+        this.loading = false; 
       }, error => {
         this.toastr.error('Username or password is invalid');
-     
+        this.loading = false; 
       });
     }
   }

@@ -1,47 +1,63 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AdminService } from '../../admin/admin.service';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../auth/services/auth.service';
 import { ProductService } from '../../seller/services/product.service';
+import { Subject, Subscription, takeUntil } from 'rxjs';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-navbar',
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule,RouterLink],
+  standalone: true,
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit,OnDestroy{
   constructor(private authService:AuthService,private router:Router,   private fb: FormBuilder,
-      private toastr: ToastrService,private adminService:AdminService,private productService:ProductService){}
-  
-      
-    
-    
- // Define the function input property // Replace with the full object structure
+      private toastr: ToastrService,private adminService:AdminService,private productService:ProductService,private route: ActivatedRoute,private cartService:CartService){}
   showToggle : boolean = false;
   loggedinUserName:string='';
   UserName:string='';
   userId:any;
   user:any={};
   searchTerm: string = ''; // 🔍 For input
+  cartLength : any = 0;
+  private cartLengthSubscription!: Subscription;  // ✅ Just declare it as a variable
+  private unsubscribe$ = new Subject<void>();
   ngOnInit(){
+    this.cartLengthSubscription = this.cartService.cartLength$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(length => (this.cartLength = length));
     const token = localStorage.getItem('token');
     if(token){
       this.UserName = this.authService.getUserName(token)
-      console.log(this.UserName)
-    } 
-  }
+    }  
+    this.searchTerm = sessionStorage.getItem('searchTerm') || '';
+ // Get searchTerm from queryParams (if any), fallback to sessionStorage
+ this.route.queryParams.subscribe(params => {
+  this.searchTerm = params['searchTerm'] || '';
+});
 
+// Listen for route changes to clear searchTerm when navigating away
+this.router.events.subscribe(event => {
+  if (event instanceof NavigationEnd && event.url !== '/products') {
+    sessionStorage.removeItem('searchTerm');
+    this.searchTerm = ''; // Clear search input if not on /products page
+  }
+});
+  }
+ 
   handleSearch(): void {
     if (this.searchTerm.trim()) {
       this.router.navigate(['/products'], { queryParams: { searchTerm: this.searchTerm } });
     }
   }
   navigatelogin(){  
-    this.router.navigate(['/auth/register'])
+    this.router.navigate(['/auth/login'])
   }
   logOut(){
     this.authService.logout();
@@ -51,8 +67,14 @@ export class NavbarComponent {
   showHideToggle(){
     this.showToggle = !this.showToggle;
   }
- 
+  ngOnDestroy(): void {
+    this.cartLengthSubscription.unsubscribe();
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 
+
+ 
   GetUser(){
   const userId = localStorage.getItem('LoggedInUserId')
   this.userId = userId;

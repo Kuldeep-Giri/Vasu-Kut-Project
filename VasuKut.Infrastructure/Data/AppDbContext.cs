@@ -23,6 +23,7 @@ namespace VasuKut.Infrastructure.Data
         public DbSet<PriceRange> PriceRanges { get; set; }
         //public DbSet<CompleteSellerProfile> CompanyProfiles { get; set; }
         //public DbSet<CompanyImage> CompanyImages { get; set; }
+        public DbSet<Cart>Carts { get; set; }
         public DbSet<Banner> Banners { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

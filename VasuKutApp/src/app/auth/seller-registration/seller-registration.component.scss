@@ -160,7 +160,7 @@ $gold: #d4af37;
   }
 }
 .registration-page {
-  min-height: 100vh;
+ 
   background-color: #f8f9fa; // light gray
   overflow: hidden;
 
@@ -169,9 +169,5 @@ $gold: #d4af37;
     min-height: 80vh;
   }
 
-  @media (max-height: 720px) {
-    .form-card {
-      overflow-y: auto;
-    }
-  }
+ 
 }

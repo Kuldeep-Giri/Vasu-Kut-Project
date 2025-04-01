@@ -6,17 +6,18 @@ import { ToastrService } from 'ngx-toastr';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { isInNotificationPhase } from '@angular/core/primitives/signals';
+import { SpinnerComponent } from '../../buyer/spinner/spinner.component';
 
 @Component({
   selector: 'app-seller-registration',
-  imports: [ReactiveFormsModule,CommonModule,RouterLink],
+  imports: [ReactiveFormsModule,CommonModule,RouterLink,SpinnerComponent],
 
   templateUrl: './seller-registration.component.html',
   styleUrls: ['./seller-registration.component.scss']
 })
 export class SellerRegistrationComponent implements OnInit {
   registerForm!: FormGroup;
-
+  loading: boolean = false;
   countries = [
     { name: 'Afghanistan', code: '+93' },
     { name: 'Albania', code: '+355' },
@@ -252,6 +253,7 @@ export class SellerRegistrationComponent implements OnInit {
   }
 
   onRegister() {
+   this.loading = true; 
     if (this.registerForm.valid && this.passwordsMatch()) {
       this.authService.register(this.registerForm.value).subscribe({
         next: () => {
@@ -270,13 +272,15 @@ export class SellerRegistrationComponent implements OnInit {
           }
         }
       });
+      this.loading = false;
     } else {
       if(!this.passwordsMatch()){
         this.toastr.error('Password and confirm password should match');
-     
+        this.loading = false;
       }
       else{
       this.toastr.warning('Please fill out all required fields.');
+      this.loading = false;
       }
     }
   }

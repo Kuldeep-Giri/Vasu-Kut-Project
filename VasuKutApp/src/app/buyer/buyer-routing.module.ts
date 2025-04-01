@@ -5,10 +5,14 @@ import { authGuard } from '../guards/auth.guard';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { BuyerGuard } from '../guards/buyer.guard';
 import { SearchproductDisplayComponent } from './searchproduct-display/searchproduct-display.component';
+import { CartItemComponent } from './cart-item/cart-item.component';
+import { loginGuard } from '../auth/login.guard';
+import { CartGuard } from '../guards/cart.guard';
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [BuyerGuard], canActivateChild: [BuyerGuard] },
   { path: 'productdetails/:id', component: ProductDetailsComponent },
   { path: 'products', component: SearchproductDisplayComponent },
+  { path: 'cart-item', component: CartItemComponent  ,canActivate: [CartGuard] },
   { path: '', redirectTo: '', pathMatch: 'full' }
 ];
 @NgModule({

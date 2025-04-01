@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {  NgxImageZoomModule } from 'ngx-image-zoom';
 import { ProductService } from '../../seller/services/product.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { QuillModule } from 'ngx-quill';
 import { FormsModule } from '@angular/forms';
 import { SpinnerComponent } from '../spinner/spinner.component';
@@ -10,7 +10,7 @@ import { NavbarComponent } from "../navbar/navbar.component";
 
 @Component({
   selector: 'app-product-details',
-  imports: [CommonModule, QuillModule, FormsModule, SpinnerComponent, NavbarComponent],
+  imports: [CommonModule, QuillModule, FormsModule, SpinnerComponent, NavbarComponent,RouterLink],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss'
 })

@@ -1,88 +1,21 @@
-// $amazon-yellow: #ff9900;
-// $amazon-hover-yellow: #e68900;
-// $border-color: #ddd;
-// $amazon-blue: #0066c0;
 
-// .login-container {
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   margin-top: 20px;
-
-//   .login-card {
-//     width: 350px;
-//     padding: 20px;
-//     border: 1px solid $border-color;
-//     border-radius: 8px;
-//     background-color: #fff;
-//     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-
-//     h2 {
-//       font-size: 22px;
-//       font-weight: 600;
-//       margin-bottom: 15px;
-//     }
-
-//     .form-label {
-//       font-weight: bold;
-//       font-size: 14px;
-//     }
-
-//     .form-control {
-//       height: 40px;
-//       border-radius: 4px;
-//       border: 1px solid #ccc;
-//     }
-
-//     .amazon-btn {
-//       background-color: $amazon-yellow;
-//       border: none;
-//       font-weight: bold;
-//       height: 40px;
-//       width: 100%;
-//       border-radius: 4px;
-//       margin-top: 10px;
-//       transition: background-color 0.3s ease-in-out;
-
-//       &:hover {
-//         background-color: $amazon-hover-yellow;
-//       }
-//     }
-
-//     .help-links {
-//       margin-top: 10px;
-//       a {
-//         font-size: 14px;
-//         color: $amazon-blue;
-//         text-decoration: none;
-
-//         &:hover {
-//           text-decoration: underline;
-//         }
-//       }
-//     }
-//   }
-
-//   .new-account {
-//     margin-top: 20px;
-//     text-align: center;
-
-//     p {
-//       margin-bottom: 8px;
-//     }
-
-//     .create-account-btn {
-//       background-color: #fff;
-//       border: 1px solid #ccc;
-//       border-radius: 4px;
-//       font-size: 14px;
-//       padding: 8px 20px;
-//       transition: background-color 0.3s ease-in-out;
-
-//       &:hover {
-//         background-color: #f7f7f7;
-//       }
-//     }
-//   }
-// }
-@import '../../auth/seller-registration/seller-registration.component.scss'
+@import '../../auth/seller-registration/seller-registration.component.scss';
+@import '../../../styles.scss';
+.memberLogin p{
+  font-size: 12px;
+  text-align: center;
+  margin: 10px 5px;
+    }
+.memberLogin h2{
+color:$primary-color !important;
+font-weight: bold !important; 
+ padding: 0 !important;
+    margin: 0 !important;
+    margin-top: 10px !important;
+}
+.existing-account p{
+    font-size: 12px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-family: sans-serif !important;
+}

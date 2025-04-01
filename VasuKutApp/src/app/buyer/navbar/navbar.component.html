@@ -13,6 +13,10 @@
         </ul>
       </div>
     </a>
+    <div class="icon-container" routerLink="/cart-item">
+      <i class="fas fa-shopping-cart icon text-light"></i>
+      <span class="badge">{{cartLength}}</span>
+  </div>
    </div>
  
 
@@ -22,7 +26,7 @@
       
       <div>
         <!-- Logo -->
-      <a class="navbar-brand fw-bold" href="#">
+      <a class="navbar-brand fw-bold" routerLink="/" >
         <!-- <img src="vasu-kutlogo.png" class="img-fluid" />-->
         VASU<span class="text-warning">KUT</span>.COM 
       </a>
@@ -30,15 +34,22 @@
   
       <!-- Search Bar (Visible on Desktop) -->
       <div class="search-container MobileNone" style="width:50%;">
-        <div class="input-group rounded-search">
+        <form class="input-group rounded-search" (ngSubmit)="handleSearch()">
           <!-- Search Input -->
-          <input type="text" class="form-control search-input"  [(ngModel)]="searchTerm" placeholder="What are you looking for? Please"  />
-      
+          <input
+            type="text"
+            class="form-control search-input"
+            [(ngModel)]="searchTerm"
+            name="search"
+            placeholder="What are you looking for?"
+            required
+          />
+        
           <!-- Search Button -->
-          <button class="btn search-btn"  (click)="handleSearch()">
+          <button class="btn search-btn" type="submit">
             <i class="bi bi-search"></i> Search
           </button>
-        </div>
+        </form>
       </div>
   
       <!-- Right-side icons (Visible on Desktop) -->
@@ -57,7 +68,10 @@
           </div>
         </a>
         <a href="#" class="nav-icon"><i class="bi bi-envelope"></i > Messages</a>
-        <a href="#" class="nav-icon"><i class="bi bi-headset"></i> Need Help</a>
+        <div class="icon-container" routerLink="/cart-item">
+          <i class="fas fa-shopping-cart icon"></i>
+          <span class="badge">{{cartLength}}</span>
+      </div>
       </div>
   
       <!-- Mobile Menu Button -->
@@ -69,12 +83,13 @@
   
   <!-- Search Bar (Visible on Mobile) -->
   <div class="search-container d-lg-none px-2">
-    <div class="input-group">
-      <input type="text" class="form-control" placeholder="What are you looking for?" />
-      <button class="btn btn-dark">
+    <form class="input-group" (ngSubmit)="handleSearch()">
+      <input type="text"  [(ngModel)]="searchTerm" class="form-control" placeholder="What are you looking for?" />
+      <button class="btn btn-dark" >
         <i class="bi bi-search"></i> Search
       </button>
-    </div>
+     
+    </form>
   </div>
   <!-- [ngClass]="showToggle  == false? 'navbar navbar-expand-lg navbar-dark bg-dark  showtoggle' : 'navbar navbar-expand-lg navbar-dark bg-dark'" -->
   <!-- Bottom Navbar (Collapsible) -->
@@ -89,12 +104,12 @@
           <li class="nav-item"><a class="nav-link" href="#">Products Search</a></li>
           <li class="nav-item hide-only-desktop"><a class="nav-link" href="#"> Member's Area</a></li>
           <li class="nav-item hide-only-desktop"><a class="nav-link" href="#">Messages</a></li>
-          <li class="nav-item hide-only-desktop"><a class="nav-link" href="#">Need Help</a></li>
         </ul>
         
         <!-- Login & Join Free -->
         <ul class="navbar-nav">
-          
+          <a href="#" class="nav-icon"> Need Help</a>
+
         </ul>
       </div>
     </div>

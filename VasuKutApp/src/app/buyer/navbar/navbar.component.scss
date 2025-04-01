@@ -142,7 +142,7 @@ margin-top: 10px;
         display: block;
        }
     .topbars {  
-        height: 6%;
+        height: 8%;
         display: flex;
         align-items: center; /* Show only on mobile */
         justify-content: end;
@@ -207,3 +207,30 @@ margin-top: 10px;
     cursor: pointer;
     color: #aaa;
   }
+
+  .icon-container {
+    position: relative;
+    display: inline-block;
+}
+
+.icon {
+    font-size: 27px;
+    color: #333;
+}
+
+.badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: red;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transform: translate(30%, -30%);
+}

@@ -24,6 +24,7 @@ builder.Services.AddTransient<IProductCategoryService, ProductCategoryService>()
 builder.Services.AddTransient<IUserManagement, UserManagementService>();
 builder.Services.AddTransient<IBanner, BannerService>();
 builder.Services.AddTransient<SaveFile>();
+builder.Services.AddTransient<ICart, CartService>();
 
 
 

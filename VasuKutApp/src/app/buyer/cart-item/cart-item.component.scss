@@ -1,0 +1,35 @@
+.cart-item {
+  
+    margin: auto;
+    padding: 10px;
+  }
+  
+  .product-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .quantity-controls {
+    display: flex;
+    align-items: center;
+  }
+@media(max-width:760px){
+    .card-title{
+        font-size: 14px !important;
+        padding: 0px 10px;
+        margin: 0;
+        font-weight: bold;
+    }
+    .card-text{
+        font-size: 12px !important;
+        padding: 0px 10px;
+        margin: 0;
+    }
+    .product-image{
+        width: 80px;
+        height: 80px;
+        margin: 0;
+    }
+}

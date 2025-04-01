@@ -1,1 +1,40 @@
 @import '../../buyer/products/products.component.scss';
+
+@media (min-width: 992px) {  /* Desktop Mode */
+    .col-lg-5th {
+        width: 20%;  /* 100% / 5 = 20% */
+        display: inline-block;
+    }
+}
+.button-62 {
+    background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+    border: 0;
+    border-radius: 12px;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 2.5;
+    outline: transparent;
+    text-align: center;
+    text-decoration: none;
+    transition: box-shadow .2s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    width: 60%;
+  }
+  .viewmore{
+    color: #000;
+    font-size: 15px;
+    font-weight: 600;
+    background: none;
+    border: none;
+  }
+  .viewmore:hover{
+   cursor: pointer;
+   font-size: 16px;
+  }
