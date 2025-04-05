@@ -1,7 +1,41 @@
 <app-navbar ></app-navbar>
 <div class="container-fluid mt-2">
+  <div class="address">
+    <div class="container mt-4">
+      <h2 class="mb-3 text-center">Cart Page</h2>
+  
+      <div class="" *ngIf="address.length ">
+        <label class="form-label fw-bold">Please Select  Address:</label>
+        <div class="address-list">
+          <div *ngFor="let address of (showAll ? address : address.slice(0, 2)); let i = index" 
+               class="card mb-2 p-2  {{ selectedAddressId === address.id ? 'border-primary' : '' }}">
+    
+            <div class="form-check">
+              <input class="form-check-input" type="radio" 
+                     [value]="address.id" 
+                     [checked]="selectedAddressId === address.id" 
+                     (change)="onAddressSelect(address.id)" 
+                     name="addressRadio">
+              <label class="form-check-label w-100">
+                <strong>{{ address.name }}</strong> ({{ address.mobile }})
+                {{ address.streetAddress }}, {{ address.district }}, {{ address.state }}, {{ address.zipCode }}
+              </label>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Show More Button -->
+        <p *ngIf="address.length > 1" class="text-center" (click)="toggleShowAll()" style="cursor: pointer;">
+          {{ showAll ? 'View Less' : 'View More' }}
+        </p>
+      </div>
+      <div class="d-flex justify-content-end" *ngIf="!address.length ">
+        <h4 routerLink="/address" class="text-primary fs-6 underline" style="cursor: pointer;">+Add Address</h4>
+      </div>
+    </div>
+    
+  </div>
   <div class="text-center">
-    <h4>Your Cart</h4>
     <div class="mt-5" *ngIf="!cartItems.length">
       <p>Your cart is empty.</p>
 

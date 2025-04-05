@@ -1,0 +1,25 @@
+.address-form {
+    max-width: 600px;
+    margin: auto;
+  }
+  select, input {
+    height: 35px; /* Reduce input/select height */
+    font-size: 14px; /* Reduce text size */
+    border-radius: 0px;
+    padding: 0px 10px; /* Adjust padding */
+  }
+  
+  select::placeholder, input::placeholder {
+    font-size: 13px; /* Reduce placeholder text size */
+    color: #888; /* Light gray placeholder text */
+  }
+  
+  option {
+    font-size: 14px; /* Reduce option text size */
+  }
+  
+  select:disabled {
+    background-color: #f3f3f3; /* Light gray background for disabled select */
+    cursor: not-allowed;
+  }
+  

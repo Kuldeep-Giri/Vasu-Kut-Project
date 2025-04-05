@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { EnquiryService } from '../enquiry.service';
 @Component({
   selector: 'app-enquiry',
   imports: [MatDialogModule,MatFormFieldModule,MatButtonModule,MatInputModule,FormsModule,CommonModule,FormsModule],
@@ -15,7 +16,7 @@ import { CommonModule } from '@angular/common';
 export class EnquiryComponent {
   @ViewChild('enquiryDialog') enquiryDialog!: TemplateRef<any>;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog,private enquiryService:EnquiryService) {}
 
   openDialog() {
     this.dialog.open(this.enquiryDialog, {
@@ -28,11 +29,21 @@ export class EnquiryComponent {
     phone: '',
     industry: '',
     quantity: null,
-    requirement: ''
+    requirement: '',
+    UserId: null,
   };
 
   onSubmit() {
-    console.log('Form Submitted:', this.form);
-    // Handle your API call or logic here
+    this.enquiryService.AddEnquiry(this.form).subscribe(
+      response => { 
+        if(response) {
+          console.log('Enquiry submitted successfully', response);
+          this.dialog.closeAll(); // Close the dialog after submission
+        }
+      },
+      error => {
+        console.error('Error submitting enquiry', error);
+      }
+    );
   }
 }

@@ -8,11 +8,13 @@ import { SearchproductDisplayComponent } from './searchproduct-display/searchpro
 import { CartItemComponent } from './cart-item/cart-item.component';
 import { loginGuard } from '../auth/login.guard';
 import { CartGuard } from '../guards/cart.guard';
+import { ShimentAddressComponent } from './shiment-address/shiment-address.component';
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [BuyerGuard], canActivateChild: [BuyerGuard] },
   { path: 'productdetails/:id', component: ProductDetailsComponent },
   { path: 'products', component: SearchproductDisplayComponent },
   { path: 'cart-item', component: CartItemComponent  ,canActivate: [CartGuard] },
+  { path: 'address', component: ShimentAddressComponent },
   { path: '', redirectTo: '', pathMatch: 'full' }
 ];
 @NgModule({

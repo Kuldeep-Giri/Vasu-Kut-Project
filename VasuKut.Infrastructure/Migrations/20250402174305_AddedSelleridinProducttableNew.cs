@@ -5,7 +5,7 @@
 namespace VasuKut.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class AddedBannerTableUpdateSellerIdd : Migration
+    public partial class AddedSelleridinProducttableNew : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

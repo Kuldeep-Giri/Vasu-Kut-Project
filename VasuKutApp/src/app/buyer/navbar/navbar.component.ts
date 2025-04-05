@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { AdminService } from '../../admin/admin.service';
 import { ActivatedRoute, NavigationEnd, Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -50,7 +50,22 @@ this.router.events.subscribe(event => {
   }
 });
   }
- 
+  lastScrollTop = 0;
+  isNavbarHidden = false;
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (currentScroll > this.lastScrollTop && currentScroll > 100) {
+      // Scrolling down
+      this.isNavbarHidden = true;
+    } else {
+      // Scrolling up
+      this.isNavbarHidden = false;
+    }
+    this.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+  }
   handleSearch(): void {
     if (this.searchTerm.trim()) {
       this.router.navigate(['/products'], { queryParams: { searchTerm: this.searchTerm } });

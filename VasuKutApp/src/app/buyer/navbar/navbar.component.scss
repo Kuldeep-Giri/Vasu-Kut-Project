@@ -1,14 +1,23 @@
 @import '../../../styles.scss';/* Navbar Brand */
 @import '../../auth/seller-registration/seller-registration.component.scss';
-// .fixedNav{
+
+// .fixedNav {
 //   position: fixed;
-//   width: 100%;
 //   top: 0;
 //   left: 0;
-//   bottom: 0;
-//   right: 0;
-//   z-index: 1000;
+//   width: 100%;
+//   transition: transform 0.3s ease-in-out;
+//   z-index: 1050;
+//   background-color: #fff; /* Ensure it has a background */
+//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+//   /* Optional: Add shadow */
 // }
+
+// /* When navbar is hidden */
+// .fixedNav.hidden {
+//   transform: translateY(-100%); /* Hide without affecting layout */
+// }
+
 .navbar-brand {
     font-size: 1.5rem;
   }
@@ -151,7 +160,9 @@ margin-top: 10px;
         background: #f8f9fa;
         padding: 10px;
         background-color: $primary-color;
-        
+        // position: absolute;
+        // top: 0;
+        // left:0 ;
     }
     .handleBackground{
         background-color: #fff;

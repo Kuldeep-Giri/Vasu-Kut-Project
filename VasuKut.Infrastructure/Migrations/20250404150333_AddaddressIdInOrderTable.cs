@@ -5,24 +5,25 @@
 namespace VasuKut.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class AddedBannerTableUpdateSellerId : Migration
+    public partial class AddaddressIdInOrderTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "sellerId",
-                table: "CompanyProfiles",
-                newName: "SellerId");
+            migrationBuilder.AddColumn<int>(
+                name: "AddressId",
+                table: "Orders",
+                type: "int",
+                nullable: false,
+                defaultValue: 0);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "SellerId",
-                table: "CompanyProfiles",
-                newName: "sellerId");
+            migrationBuilder.DropColumn(
+                name: "AddressId",
+                table: "Orders");
         }
     }
 }

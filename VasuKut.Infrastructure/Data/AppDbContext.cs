@@ -21,6 +21,9 @@ namespace VasuKut.Infrastructure.Data
         public DbSet<ProductVideo> ProductVideos { get; set; }
         public DbSet<ProductSpecification> ProductSpecifications { get; set; }
         public DbSet<PriceRange> PriceRanges { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<OrderModel> Orders { get; set; }
+        public DbSet<UserEnquiry> UserEnquiry { get; set; }
         //public DbSet<CompleteSellerProfile> CompanyProfiles { get; set; }
         //public DbSet<CompanyImage> CompanyImages { get; set; }
         public DbSet<Cart>Carts { get; set; }
@@ -82,6 +85,15 @@ namespace VasuKut.Infrastructure.Data
           
 
             builder.Entity<Banner>().Ignore(b => b.FileName);
+
+
+            builder.Entity<OrderModel>()
+                .HasOne(o => o.Address)
+                .WithMany() // Assuming one Address can be linked to many Orders
+                .HasForeignKey(o => o.AddressId)
+                .OnDelete(DeleteBehavior.Restrict); // Or .Cascade, depending on desired behavior
+
+
         }
     }
 }

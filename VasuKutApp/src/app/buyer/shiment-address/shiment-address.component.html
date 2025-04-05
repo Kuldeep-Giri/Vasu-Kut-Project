@@ -1,0 +1,70 @@
+<div class="container mt-4">
+    <h4 class="text-center">Please add address</h4>
+
+    <form class="address-form" [formGroup]="locationForm" (ngSubmit)="onSubmit()">
+      <!-- Name Field -->
+      <div class="mb-3">
+        <label for="name" class="form-label">Full Name <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" formControlName="name" placeholder="Enter your full name">
+        <div *ngIf="locationForm.controls['name'].invalid && locationForm.controls['name'].touched" class="text-danger">
+          Name is required.
+        </div>
+      </div>
+
+      <!-- Mobile Number Field -->
+      <div class="mb-3">
+        <label for="mobile" class="form-label">Mobile Number <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" formControlName="mobile" placeholder="Enter your mobile number">
+        <div *ngIf="locationForm.controls['mobile'].invalid && locationForm.controls['mobile'].touched" class="text-danger">
+          Enter a valid 10-digit mobile number.
+        </div>
+      </div>
+
+      <!-- Address Fields -->
+      <div class="mb-3">
+        <label for="streetAddress" class="form-label">Address <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" formControlName="streetAddress" placeholder="Street Address">
+      </div>
+
+      <div class="mb-3">
+        <input type="text" class="form-control" formControlName="streetAddress2" placeholder="Street Address Line 2">
+      </div>
+
+      <!-- Country Selection -->
+      <div class="mb-3">
+        <label for="country" class="form-label">Country</label>
+        <select class="form-control" formControlName="country">
+          <option value="">Select Country</option>
+          <option *ngFor="let country of countries" [value]="country.name">{{ country.name }}</option>
+        </select>
+      </div>
+
+      <!-- State and District Selection -->
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="state" class="form-label">State / Province</label>
+          <select class="form-control" formControlName="state" [disabled]="states.length === 0">
+            <option value="">Select State</option>
+            <option *ngFor="let state of states" [value]="state.name">{{ state.name }}</option>
+          </select>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="district" class="form-label">District</label>
+          <select class="form-control" formControlName="district" [disabled]="cities.length === 0">
+            <option value="">Select District</option>
+            <option *ngFor="let district of cities" [value]="district">{{ district }}</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Zip Code -->
+      <div class="mb-3">
+        <label for="zipCode" class="form-label">Postal / Zip Code</label>
+        <input type="text" class="form-control" formControlName="zipCode" placeholder="Postal / Zip Code">
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary" [disabled]="locationForm.invalid">Submit</button>
+      
+    </form>
+</div>

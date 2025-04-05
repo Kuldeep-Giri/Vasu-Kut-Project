@@ -25,12 +25,13 @@ builder.Services.AddTransient<IUserManagement, UserManagementService>();
 builder.Services.AddTransient<IBanner, BannerService>();
 builder.Services.AddTransient<SaveFile>();
 builder.Services.AddTransient<ICart, CartService>();
-
-
+builder.Services.AddScoped<IAddressService, AddressService>();
+builder.Services.AddTransient<IOrderService, OrderService>();
+builder.Services.AddTransient<IEnquiryService, EnquiryService>();
 
 // Configure Database
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ProdConnectionString")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Configure Identity
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()

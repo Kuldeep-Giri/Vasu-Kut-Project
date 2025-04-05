@@ -4,20 +4,27 @@
   </div>
 
 <!-- Template-based Dialog -->
-<ng-template #enquiryDialog style="background-color: #fff;color: #000;">
-  <h2 mat-dialog-title>Enquiry Form</h2>
-  <mat-dialog-content>
-    <div class="card p-4 shadow-sm">      
+<ng-template #enquiryDialog  >
+  <h2 mat-dialog-title  class="bg-white">Enquiry Form</h2>
+  <mat-dialog-content class="bg-white 100-vh">
+    <div class="card p-4 shadow-sm" >      
         <form (ngSubmit)="onSubmit()" #quoteForm="ngForm">
       
-          <div class="mb-3">
-            <input type="text" class="form-control" name="fullName" placeholder="Full Name" required [(ngModel)]="form.fullName">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <input type="text" class="form-control" name="fullName" placeholder="Full Name" required [(ngModel)]="form.fullName">
+              </div>
+          
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <input type="email" class="form-control" name="email" placeholder="Email" required [(ngModel)]="form.email">
+              </div>
+            </div>
+
           </div>
-      
-          <div class="mb-3">
-            <input type="email" class="form-control" name="email" placeholder="Email" required [(ngModel)]="form.email">
-          </div>
-      
+
           <div class="mb-3">
             <input type="tel" class="form-control" name="phone" placeholder="Phone Number" required [(ngModel)]="form.phone">
           </div>
@@ -33,13 +40,12 @@
           <div class="mb-3">
             <textarea class="form-control" name="requirement" placeholder="Tell us Your Requirement" rows="3" [(ngModel)]="form.requirement"></textarea>
           </div>
-      
+          <button type="submit" class="btn btn-warning w-100" >Inquire Now</button>
+
           
         </form>
       </div>
       
   </mat-dialog-content>
-  <mat-dialog-actions align="end">
-    <button type="submit" class="btn btn-warning w-100">Inquire Now</button>
-  </mat-dialog-actions>
+
 </ng-template>
