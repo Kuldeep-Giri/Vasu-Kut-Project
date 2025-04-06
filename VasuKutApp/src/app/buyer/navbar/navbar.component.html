@@ -1,99 +1,112 @@
-
-<div class="topbars ">
-
-    <a (click)="navigatelogin()" class="nav-icon text-light"  style="cursor: pointer;" *ngIf="!UserName"><i class="bi bi-person"></i> Login/SignUp</a>
-    <a  class="nav-icon" *ngIf="UserName">
-      <div class="dropdown">
-        <span class="dropdown-toggle text-light" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"  >
-          <i class="bi bi-person "></i> Welcome,{{UserName}}
-        </span>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
-          <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="GetUser()">Update Profile</a></li>
-          <li><a class="dropdown-item" (click)="logOut()" >LogOut</a></li>
-        </ul>
-      </div>
-    </a>
-    <div class="icon-container" routerLink="/cart-item">
-      <i class="fas fa-shopping-cart icon text-light"></i>
-      <span class="badge">{{cartLength}}</span>
-  </div>
-   </div>
- 
-
-<div  class="fixedNav">
+<div class="fixedNav">
   <nav class="navbar navbar-light bg-light py-2">
     <div class="container-fluid d-flex align-items-center justify-content-between">
-      
-      <div>
-        <!-- Logo -->
-      <a class="navbar-brand fw-bold" routerLink="/" >
-        <!-- <img src="vasu-kutlogo.png" class="img-fluid" />-->
-        VASU<span class="text-warning">KUT</span>.COM 
-      </a>
-      </div>
-  
-      <!-- Search Bar (Visible on Desktop) -->
-      <div class="search-container MobileNone" style="width:50%;">
-        <form class="input-group rounded-search" (ngSubmit)="handleSearch()">
-          <!-- Search Input -->
-          <input
-            type="text"
-            class="form-control search-input"
-            [(ngModel)]="searchTerm"
-            name="search"
-            placeholder="What are you looking for?"
-            required
-          />
-        
-          <!-- Search Button -->
-          <button class="btn search-btn" type="submit">
-            <i class="bi bi-search"></i> Search
-          </button>
-        </form>
-      </div>
-  
-      <!-- Right-side icons (Visible on Desktop) -->
-      <div class="d-none d-lg-flex align-items-center">
-        
-        <a  class="nav-icon" (click)="navigatelogin()"  *ngIf="!UserName"  style="cursor: pointer;"><i class="bi bi-person"></i> Login/SignUp</a>
-        <a  class="nav-icon" *ngIf="UserName">
-          <div class="dropdown">
-            <span class="dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"  >
-              <i class="bi bi-person"></i> Welcome,{{UserName}}
-            </span>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
-              <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="GetUser()">Update Profile</a></li>
-              <li><a class="dropdown-item" (click)="logOut()" >LogOut</a></li>
-            </ul>
-          </div>
+
+      <!-- MOBILE ONLY HEADER (d-lg-none) -->
+      <div class="d-flex d-lg-none justify-content-between align-items-center w-100">
+
+        <!-- Hamburger Left -->
+        <button (click)="showHideToggle()" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mobileNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Centered Logo -->
+        <a class="navbar-brand fw-bold mx-auto text-start" routerLink="/" style="font-size: 1.2rem;">
+          VASU<span class="text-warning">KUT</span>.COM
         </a>
-        <a href="#" class="nav-icon"><i class="bi bi-envelope"></i > Messages</a>
-        <div class="icon-container" routerLink="/cart-item">
-          <i class="fas fa-shopping-cart icon"></i>
-          <span class="badge">{{cartLength}}</span>
+
+        <!-- Right Icons -->
+        <div class="d-flex align-items-center">
+          <div class="d-flex justify-content-center align-items-center me-2 mt-2">
+            <a (click)="navigatelogin()" *ngIf="!UserName" class="nav-icon me-2 d-flex " style="cursor: pointer; font-size: 16px;">
+              <i class="bi bi-person" ></i><p class="">Login</p>
+              
+            </a>
+          </div>
+          <a *ngIf="UserName" class="nav-icon me-2 mt-2">
+            <div class="dropdown me-2 " style="position: relative;">
+              <span *ngIf="UserName" class="dropdown-toggle d-flex " id="mobileDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                <i class="bi bi-person"></i><p>Welcome,{{UserName}}</p>
+              </span>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="mobileDropdown">
+                <li>
+                  <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="GetUser()">Update Profile</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" >My Order</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" (click)="logOut()">LogOut</a>
+                </li>
+              </ul>
+            </div>
+          </a>
+          <div class="icon-container me-2" routerLink="/cart-item">
+            <i class="fas fa-shopping-cart icon"></i>
+            <span class="badge">{{cartLength}}</span>
+          </div>
+        </div>
       </div>
+
+      <!-- DESKTOP ONLY HEADER (unchanged) -->
+      <div class="d-none d-lg-flex align-items-center justify-content-between w-100">
+        <!-- Logo -->
+        <a class="navbar-brand fw-bold" routerLink="/">
+          VASU<span class="text-warning">KUT</span>.COM
+        </a>
+
+        <!-- Search Bar (Desktop Only) -->
+        <div class="search-container" style="width: 50%;">
+          <form class="input-group rounded-search" (ngSubmit)="handleSearch()">
+            <input type="text" class="form-control search-input" [(ngModel)]="searchTerm" name="search" placeholder="What are you looking for?" required />
+            <button class="btn search-btn" type="submit">
+              <i class="bi bi-search"></i> Search
+            </button>
+          </form>
+        </div>
+
+        <!-- Right-side icons -->
+        <div class="d-flex align-items-center">
+          <a class="nav-icon me-2" (click)="navigatelogin()" *ngIf="!UserName" style="cursor: pointer;">
+            <i class="bi bi-person"></i> Login/SignUp
+          </a>
+          <a class="nav-icon me-2" *ngIf="UserName">
+            <div class="dropdown ">
+              <span class="dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;" >
+                <i class="bi bi-person"></i> Welcome, {{UserName}}
+              </span>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="GetUser()">Update Profile</a></li>
+                <li>
+                  <a class="dropdown-item" >My Order</a>
+                </li>
+                <li><a class="dropdown-item" (click)="logOut()">LogOut</a></li>
+              </ul>
+            </div>
+          </a>
+          <a href="#" class="nav-icon me-2"><i class="bi bi-envelope"></i> Messages</a>
+          <div class="icon-container me-2" routerLink="/cart-item">
+            <i class="fas fa-shopping-cart icon"></i>
+            <span class="badge">{{cartLength}}</span>
+          </div>
+        </div>
       </div>
-  
-      <!-- Mobile Menu Button -->
-      <button (click)="showHideToggle()" class="navbar-toggler d-lg-none ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#mobileNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+
     </div>
   </nav>
-  
-  <!-- Search Bar (Visible on Mobile) -->
+
+  <!-- Mobile Search -->
   <div class="search-container d-lg-none px-2">
     <form class="input-group" (ngSubmit)="handleSearch()">
-      <input type="text"  [(ngModel)]="searchTerm" class="form-control" placeholder="What are you looking for?" />
-      <button class="btn btn-dark" >
+      <input type="text" [(ngModel)]="searchTerm" class="form-control" placeholder="What are you looking for?" />
+      <button class="btn btn-dark">
         <i class="bi bi-search"></i> Search
       </button>
-     
     </form>
   </div>
-  <!-- [ngClass]="showToggle  == false? 'navbar navbar-expand-lg navbar-dark bg-dark  showtoggle' : 'navbar navbar-expand-lg navbar-dark bg-dark'" -->
-  <!-- Bottom Navbar (Collapsible) -->
-  <nav  [ngClass]="showToggle == false?'navbar navbar-expand-lg navbar-dark handleBackground': 'navbar navbar-expand-lg navbar-dark handleBackground1'">
+
+  <!-- Bottom Collapsible Navbar -->
+  <nav [ngClass]="showToggle == false ? 'navbar navbar-expand-lg navbar-dark handleBackground' : 'navbar navbar-expand-lg navbar-dark handleBackground1'">
     <div class="container-fluid">
       <div class="collapse navbar-collapse" id="mobileNav">
         <ul class="navbar-nav me-auto">
@@ -102,79 +115,13 @@
           <li class="nav-item"><a class="nav-link" href="#">Buyers</a></li>
           <li class="nav-item"><a class="nav-link" href="#">Suppliers</a></li>
           <li class="nav-item"><a class="nav-link" href="#">Products Search</a></li>
-          <li class="nav-item hide-only-desktop"><a class="nav-link" href="#"> Member's Area</a></li>
+          <li class="nav-item hide-only-desktop"><a class="nav-link" href="#">Member's Area</a></li>
           <li class="nav-item hide-only-desktop"><a class="nav-link" href="#">Messages</a></li>
         </ul>
-        
-        <!-- Login & Join Free -->
         <ul class="navbar-nav">
-          <a href="#" class="nav-icon"> Need Help</a>
-
+          <a href="#" class="nav-icon">Need Help</a>
         </ul>
       </div>
     </div>
   </nav>
-</div>
-<!-- modal start -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Hello,{{user?.userName}}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form #form="ngForm" (ngSubmit)="onRegister(form)" *ngIf="user">
-
-          <div class="row">
-            <div class="col-md-12">
-              <label class="form-label">Your name</label>
-              <input type="text" [(ngModel)]="user.userName" name="userName" class="form-control" placeholder="First and last name" required>
-            </div>
-        
-            <div class="col-md-12">
-              <label class="form-label">Country</label>
-              <select [(ngModel)]="user.country" name="country" class="form-select" required>
-                <option *ngFor="let country of countries" [value]="country.name">
-                  {{ country.name }}
-                </option>
-              </select>
-            </div>
-        
-            <div class="col-md-12">
-              <label class="form-label">Mobile number with Country Code</label>
-              <table style="width: 100%">
-                <tr>
-                  <td style="width: 40%;">
-                    <select [(ngModel)]="user.code" name="code" class="form-select" required>
-                      <option *ngFor="let country of countries" [value]="country.code">
-                        ({{ country.code }})
-                      </option>
-                    </select>
-                  </td>
-                  <td>
-                    <input type="text" [(ngModel)]="user.phoneNumber" name="phoneNumber" class="form-control" placeholder="Phone/Mobile Number" required>
-                  </td>
-                </tr>
-              </table>
-            </div>
-        
-            <div class="col-md-12">
-              <label class="form-label">Email</label>
-              <input type="email" [(ngModel)]="user.email" name="email" class="form-control" placeholder="Eg.abcd123@gmail.com" required email>
-            </div>
-        
-          
-            <div style="text-align: center;">
-              <button type="submit" class="amazon-btn regitrationbtn mt-2" style="padding: 7px 15px; background-color: black; color: white;" [disabled]="!form.valid">Update</button>
-            </div>
-          </div>
-        
-        </form>
-        
-        
-      </div>
-     
-    </div>
-  </div>
 </div>

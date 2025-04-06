@@ -24,11 +24,9 @@ namespace VasuKut.Core.Models
         public int? Quantity { get; set; }
         public string Requirement { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
         public string UserId { get; set; } = string.Empty;
+        public bool IsContacted { get; set; } = false;
 
-
-      
     }
 }
 

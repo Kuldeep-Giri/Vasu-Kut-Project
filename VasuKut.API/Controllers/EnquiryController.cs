@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VasuKut.Core.PayloadModel;
 using VasuKut.Infrastructure.Interfaces;
+using VasuKut.Infrastructure.Services;
 
 namespace VasuKut.API.Controllers
 {
@@ -29,12 +30,36 @@ namespace VasuKut.API.Controllers
             }
         }
 
-        //[HttpGet("{userId}")]
-        //public IActionResult GetByUser(string userId)
-        //{
-        //    var enquiries = _service.GetEnquiriesByUser(userId);
-        //    return Ok(enquiries);
-        //}
+        [HttpGet("getEnquiry")]
+        public IActionResult GetEnquiries(int pageNumber = 1, int pageSize = 10, bool? isContacted = null)
+        {
+            try
+            {
+                var result = _service.GetEnquiries(pageNumber, pageSize, isContacted);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+        }
+
+        [HttpPost("ContactEnquiry/{id}")]
+        public IActionResult ContactEnquiry(int id)
+        {
+            try
+            {
+                var result = _service.ContactEnquiry(id);
+                if (result == null)
+                    return NotFound("Enquiry not found.");
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+        }
 
         [HttpDelete("delete/{id}")]
         public IActionResult Delete(int id)

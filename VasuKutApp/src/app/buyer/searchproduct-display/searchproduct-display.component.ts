@@ -70,5 +70,18 @@ export class SearchproductDisplayComponent implements OnInit {
     this.toast.success('Product added to cart successfully!');
  
   }
+
+  activeFilter: string | null = null;
+  mobileFilterVisible = false;
+  selectedSort: string = 'popularity';
+
+  toggleFilter(filterName: string): void {
+    this.activeFilter = this.activeFilter === filterName ? null : filterName;
+  }
+
+  toggleMobileFilter(): void {
+    this.mobileFilterVisible = !this.mobileFilterVisible;
+  }
+  
   
 }

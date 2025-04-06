@@ -38,3 +38,267 @@
    cursor: pointer;
    font-size: 16px;
   }
+
+  .product-card {
+    border-radius: 12px;
+    background: #fff;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+    position: relative;
+    transition: transform 0.2s;
+  }
+
+  .product-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .badge-custom {
+    position: absolute;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 5px;
+    top: 10px;
+  }
+
+  .badge-left {
+    left: 10px;
+  }
+
+  .badge-right {
+    right: 10px;
+  }
+
+  .badge-lightning {
+    background-color: #28a745;
+  }
+
+  .badge-save {
+    background-color: #dc3545;
+  }
+
+  .product-image {
+    height: 150px;
+    object-fit: contain;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .product-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .product-desc {
+    font-size: 0.85rem;
+    color: #2d8659;
+    margin-bottom: 0.6rem;
+  }
+
+  .price {
+    color:  #2d8659;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .old-price {
+    color: #888;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-left: 5px;
+  }
+
+  .add-btn {
+    font-size: 0.875rem;
+    padding: 6px 10px;
+  }
+
+  @media (max-width: 768px) {
+    
+    .product-card {
+      padding: 0.75rem;
+    }
+
+    .product-image {
+      height: 120px;
+    }
+
+    .product-title {
+      font-size: 0.95rem;
+    }
+
+    .product-desc {
+      font-size: 0.8rem;
+    }
+
+    .price {
+      font-size: 0.9rem;
+    }
+.old-price {
+  font-size: 0.9rem;
+}
+    .add-btn {
+      font-size: 0.8rem;
+      padding: 5px 8px;
+    }
+    .filterForDesktop{
+      display: none;
+     }
+  }
+
+  @media (max-width: 576px) {
+   .filterForDesktop{
+    display: none;
+   }
+    .col-6 {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+
+    .product-image {
+      height: 100px;
+    }
+
+    .product-title {
+      font-size: 0.8rem;
+    }
+
+    .product-desc {
+      font-size: 0.7rem;
+    }
+
+    .price {
+      font-size: 0.7rem;
+    }
+    .old-price {
+      font-size: 0.9rem;
+    }
+    .add-btn {
+      font-size: 0.75rem;
+      padding: 4px 6px;
+    }
+  }
+
+  .filter-section {
+    max-width: 350px;
+    margin: 20px auto;
+    padding: 15px;
+  }
+  
+  .filter-group {
+    border-bottom: 1px solid #dcdcdc;
+    margin-bottom: 10px;
+  }
+  
+  .filter-button {
+    width: 100%;
+    text-align: left;
+    font-weight: bold;
+    padding: 10px 0;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  .filter-options {
+    display: none;
+    padding-left: 10px;
+  }
+  
+  .filter-options.show {
+    display: block;
+  }
+  
+  .filter-option {
+    color: #555;
+    padding: 5px 0;
+    cursor: pointer;
+  }
+  
+  .filter-option:hover {
+    color: #000;
+  }
+
+  .mobile-filter-btn {
+    position: sticky;
+    top: 0;
+    background: white;
+    padding: 10px;
+    z-index: 1040;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 1045;
+  }
+  
+  .overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  .filter-drawer {
+    position: fixed;
+    right: -100%;
+    top: 0;
+    height: 100%;
+    width: 80%;
+    max-width: 350px;
+    background: white;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+    transition: right 0.3s ease-in-out;
+    z-index: 1050;
+    overflow-y: auto;
+  }
+  
+  .filter-drawer.show {
+    right: 0;
+  }
+  
+  @media (min-width: 768px) {
+    .mobile-filter-btn {
+      display: none;
+    }
+    .mobileVisible {
+      display: none;
+    }
+    .filter-drawer,
+    .overlay {
+      display: none !important;
+    }
+  }
+  .custom-select {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0;
+    background-color: transparent;
+    padding-left: 0;
+    font-weight: 500;
+    color: #333;
+    box-shadow: none;
+    transition: border-color 0.3s;
+  }
+  
+  .custom-select:focus {
+    outline: none;
+    box-shadow: none;
+    border-bottom-color: #000;
+  }
+  
+  label.filter-button {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  

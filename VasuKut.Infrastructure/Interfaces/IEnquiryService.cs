@@ -11,7 +11,9 @@ namespace VasuKut.Infrastructure.Interfaces
     public interface IEnquiryService
     {
         UserEnquiry CreateEnquiry(EnquiryRequestModel model);
-        //IEnumerable<Enquiry> GetEnquiriesByUser(string userId);
+        object GetEnquiries(int pageNumber, int pageSize, bool? isContacted);
         void DeleteEnquiry(int id);
+        string ContactEnquiry(int id);
+
     }
 }

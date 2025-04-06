@@ -1,0 +1,48 @@
+@import '../all-products/all-products.component.scss';
+.table-container {
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+    -ms-overflow-style: none;
+  }
+  .pagination {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-top: 20px;
+    padding: 5px 20px;
+  }
+
+  .pagination button {
+   border: 0.5px solid #ccc;
+   padding: 0px 10px;
+  }
+  .pagination span {
+    font-size: 12px;
+    padding: 2px;
+   }
+
+   .active-filter {
+    background-color: rgb(26, 205, 133);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  .default-filter {
+    background-color: rgb(74, 230, 198);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+
+  .filter-container{
+  padding: 10px 10px;
+  }
+  .filter-container button{
+    padding: 3px 7px;
+    border: 0.5px solid #ccc;
+    cursor: pointer;
+  
+    }

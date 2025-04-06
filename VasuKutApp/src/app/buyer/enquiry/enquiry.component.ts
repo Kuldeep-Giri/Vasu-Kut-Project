@@ -7,6 +7,8 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { EnquiryService } from '../enquiry.service';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../auth/services/auth.service';
 @Component({
   selector: 'app-enquiry',
   imports: [MatDialogModule,MatFormFieldModule,MatButtonModule,MatInputModule,FormsModule,CommonModule,FormsModule],
@@ -15,29 +17,36 @@ import { EnquiryService } from '../enquiry.service';
 })
 export class EnquiryComponent {
   @ViewChild('enquiryDialog') enquiryDialog!: TemplateRef<any>;
-
-  constructor(private dialog: MatDialog,private enquiryService:EnquiryService) {}
-
-  openDialog() {
-    this.dialog.open(this.enquiryDialog, {
-      width: '400px'
-    });
-  }
-  form = {
+ userId: string = "null";
+ form:any;
+  constructor(private dialog: MatDialog,private enquiryService:EnquiryService,private toast:ToastrService,private authService:AuthService) {}
+ngOnInit() {
+   const token = localStorage.getItem('token');
+   if(token){
+     this.userId = this.authService.getLoggedInUserId(token);
+   }
+    this.form = {
     fullName: '',
     email: '',
     phone: '',
     industry: '',
     quantity: null,
     requirement: '',
-    UserId: null,
+    UserId:this.userId,
   };
+  }
+  openDialog() {
+    this.dialog.open(this.enquiryDialog, {
+      width: '400px'
+    });
+  }
+ 
 
   onSubmit() {
     this.enquiryService.AddEnquiry(this.form).subscribe(
       response => { 
         if(response) {
-          console.log('Enquiry submitted successfully', response);
+          this.toast.success('Enquiry submitted successfully');
           this.dialog.closeAll(); // Close the dialog after submission
         }
       },

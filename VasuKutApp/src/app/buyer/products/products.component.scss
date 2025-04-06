@@ -11,14 +11,14 @@
 .box{
   height: 220px;
   background-color: #fff;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
   margin-top: 10px;
   cursor: pointer;
 }
 .box img{
   width: 100%;
   height: 60%;
-
+ border-radius: 50px;
 }
 .box-body {
   // background-color: #181c16;
@@ -74,14 +74,6 @@
 
 }
 
-.box1 {
-  padding: 10px;
-  border-radius: 10px;
-  background: white;
- 
-}
-
-
 @media (max-width: 991px) {
   .product {
     flex: 0 0 auto;
@@ -135,9 +127,20 @@
   object-fit: cover;
   height: 276px;
   border-radius: 0;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
 
 }
 .scrolling-wrapper::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
+}
+.price {
+  color:  #2d8659;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.old-price {
+  color: #888;
+  font-weight: 700;
+  font-size: 0.8rem;
 }

@@ -1,0 +1,67 @@
+<app-spinner *ngIf="loading"></app-spinner>
+<div class="text-center mt-4">
+  <h3>Enquiries</h3>
+  <p>Manage all your enquiries from here.</p>
+</div>
+
+<div class="filter-container d-flex justify-content-end">
+  <button (click)="filterByContactStatus(null)"     [ngClass]="{'active-filter': filterIsContacted === null}">
+    All</button>
+  <button (click)="filterByContactStatus(true)"     [ngClass]="{'active-filter': filterIsContacted === true}">
+    Contacted</button>
+  <button (click)="filterByContactStatus(false)"  [ngClass]="{'active-filter': filterIsContacted === false}">Uncontacted</button>
+</div>
+<div class="enquiries-container">
+  <div class="table-container">
+    <table class="table table-striped table-bordered align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th>Full Name</th>
+          <th>User Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Industry</th>
+          <th>Quantity</th>
+          <th>Requirement</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let enquiry of enquiries">
+          <td>{{ enquiry.fullName }}</td>
+          <td>{{ enquiry.userName || 'Guest User' }}</td>
+          <td>{{ enquiry.email }}</td>
+          <td>{{ enquiry.phone }}</td>
+          <td>{{ enquiry.industry }}</td>
+          <td>{{ enquiry.quantity }}</td>
+          <td class="text-truncate" title="{{ enquiry.requirement }}" style="cursor: pointer;">
+            {{ enquiry.requirement | slice:0:32 }}{{ enquiry.requirement.length > 32 ? '...' : '' }}
+          </td>
+          <td>{{ enquiry.createdAt | date }}</td>
+          <td>
+            <button class="btn btn-success" *ngIf="!enquiry.isContacted" (click)="markAsContacted(enquiry.id, enquiry)">
+               Cantact
+            </button>
+            <button class="btn btn-secondary" *ngIf="enquiry.isContacted" disabled >
+              Cantacted
+           </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div class="pagination">
+    <div>
+      <button (click)="prevPage()" [disabled]="pageNumber === 1">Previous</button>
+    <span>Page {{ pageNumber }}</span>
+    <button (click)="nextPage()" [disabled]="pageNumber * pageSize >= totalRecords">Next</button>
+    </div>
+  </div>
+
+  <ng-template #noEnquiries>
+    <p>No enquiries available.</p>
+  </ng-template>
+</div>
