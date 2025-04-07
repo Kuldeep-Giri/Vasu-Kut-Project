@@ -20,10 +20,50 @@ namespace VasuKut.Infrastructure.Services
             _context = context;
         }
 
-        public Task<object> GetUserOrdersAsync(string userId)
+        public async Task<object> GetUserOrdersAsync(string userId)
         {
-            throw new NotImplementedException();
+            var orders = await _context.Orders
+                .Where(o => o.UserId == userId)
+                .GroupBy(o => o.TransactionId)
+                .Select(orderGroup => new
+                {
+                    transactionId = orderGroup.Key,
+                    orderDate = orderGroup.Max(o => o.OrderDate),
+                    userId = userId,
+                    selectedAddressId = orderGroup.First().AddressId,
+                    address = _context.Addresses
+                                .Where(a => a.Id == orderGroup.First().AddressId)
+                                .Select(a => new
+                                {
+                                    a.Name,
+                                    a.Mobile,
+                                    a.Country,
+                                    a.State,
+                                    a.District,
+                                    a.ZipCode
+                                }).FirstOrDefault(),
+                    items = orderGroup.Select(o => new
+                    {
+                        productId = o.ProductId,
+                        quantity = o.Quantity,
+                        product = _context.Products
+                            .Where(p => p.Id == o.ProductId)
+                            .Select(p => new
+                            {
+                                p.Id,
+                                p.Name,
+                                p.MinimumOrderQuantity,
+                                firstImage = _context.ProductImages
+                                                .Where(img => img.ProductId == p.Id)
+                                                .Select(img => img.ImageUrl)
+                                                .FirstOrDefault()
+                            }).FirstOrDefault()
+                    }).ToList()
+                }).ToListAsync();
+
+            return new { success = true, orders };
         }
+
 
         public async Task<(bool Success, string Message, Guid TransactionId)> ProcessOrderAsync(OrderRequest request)
         {

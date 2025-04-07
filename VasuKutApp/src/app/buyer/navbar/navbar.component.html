@@ -33,7 +33,7 @@
                   <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="GetUser()">Update Profile</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" >My Order</a>
+                  <a class="dropdown-item"  routerLink="/my-order">My Order</a>
                 </li>
                 <li>
                   <a class="dropdown-item" (click)="logOut()">LogOut</a>
@@ -78,7 +78,7 @@
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="GetUser()">Update Profile</a></li>
                 <li>
-                  <a class="dropdown-item" >My Order</a>
+                  <a class="dropdown-item"  routerLink="/my-order">My Order</a>
                 </li>
                 <li><a class="dropdown-item" (click)="logOut()">LogOut</a></li>
               </ul>
@@ -124,4 +124,68 @@
       </div>
     </div>
   </nav>
+</div>
+
+<!-- modal start -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Hello,{{user?.userName}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #form="ngForm" (ngSubmit)="onRegister(form)" *ngIf="user">
+
+          <div class="row">
+            <div class="col-md-12">
+              <label class="form-label">Your name</label>
+              <input type="text" [(ngModel)]="user.userName" name="userName" class="form-control" placeholder="First and last name" required>
+            </div>
+        
+            <div class="col-md-12">
+              <label class="form-label">Country</label>
+              <select [(ngModel)]="user.country" name="country" class="form-select" required>
+                <option *ngFor="let country of countries" [value]="country.name">
+                  {{ country.name }}
+                </option>
+              </select>
+            </div>
+        
+            <div class="col-md-12">
+              <label class="form-label">Mobile number with Country Code</label>
+              <table style="width: 100%">
+                <tr>
+                  <td style="width: 40%;">
+                    <select [(ngModel)]="user.code" name="code" class="form-select" required>
+                      <option *ngFor="let country of countries" [value]="country.code">
+                        ({{ country.code }})
+                      </option>
+                    </select>
+                  </td>
+                  <td>
+                    <input type="text" [(ngModel)]="user.phoneNumber" name="phoneNumber" class="form-control" placeholder="Phone/Mobile Number" required>
+                  </td>
+                </tr>
+              </table>
+            </div>
+        
+            <div class="col-md-12">
+              <label class="form-label">Email</label>
+              <input type="email" [(ngModel)]="user.email" name="email" class="form-control" placeholder="Eg.abcd123@gmail.com" required email>
+            </div>
+        
+          
+            <div style="text-align: center;">
+              <button type="submit" class="amazon-btn regitrationbtn mt-2" style="padding: 6px 20px; background-color: black; color: white; border: none; border-radius: 15px; " [disabled]="!form.valid">Update</button>
+            </div>
+          </div>
+        
+        </form>
+        
+        
+      </div>
+     
+    </div>
+  </div>
 </div>

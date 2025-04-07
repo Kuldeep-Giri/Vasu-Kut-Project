@@ -1,46 +1,36 @@
-<div class="">
-    <div class="container py-5">
-        <div class="row g-4 justify-content-center">
-    
-          <!-- Card 1 -->
-          <div class="col-6 col-md-6 col-lg-4">
-            <div class="position-relative product-card">
-             <span class="badge badge-custom badge-lightning">LIGHTNING SALE</span>
-              <span class="badge badge-custom badge-save">SAVE 35%</span>
-              <img src="https://www.khadinatural.com/cdn/shop/products/herbalfacewash_1024x1024.jpg?v=1625111795" alt="Herbal Face Wash" class="img-fluid product-image mx-auto d-block">
-              <h6 class="mt-3">Khadi Natural Herbal Face Wash - 210 ml</h6>
-              <p><span class="price">RS. 162.00</span> <span class="old-price">RS. 249.00</span></p>
-              <button class="btn btn-dark w-100">Add to cart</button>
-            </div>
+<app-spinner *ngIf="loading"></app-spinner>
+<app-navbar></app-navbar>
+<div class="container py-3">
+  <h4 class="text-center">My Orders</h4>
+  <div class="order-card mb-3" *ngFor="let order of myOrders">
+    <div class="order-header">
+      <div><strong>ID:</strong> {{ order.transactionId }}</div>
+      <div><strong>Date:</strong> {{ order.orderDate | date: 'short' }}</div>
+    </div>
+
+    <div class="order-body">
+      <div class="order-address">
+        <strong>Delivery To:</strong> {{ order.address.name }} | {{ order.address.mobile }}<br>
+        {{ order.address.district }}, {{ order.address.state }}, {{ order.address.country }} - {{ order.address.zipCode }}
+      </div>
+
+      <div *ngFor="let item of order.items" class="order-item">
+        <div class="item-img">
+          <img [src]="imageUrl + item.product.firstImage" alt="Product">
+        </div>
+        <div class="item-details">
+          <div class="item-name">{{ item.product.name }}</div>
+          <div class="item-meta">
+            <span>Qty: {{ item.quantity }}</span>
           </div>
-    
-          <!-- Card 2 -->
-          <div class="col-6 col-md-6 col-lg-4">
-            <div class="position-relative product-card">
-              <span class="badge badge-custom badge-save">SAVE 35%</span>
-              <span class="badge badge-custom badge-lightning">BESTSELLER</span>
-              <img src="https://www.khadinatural.com/cdn/shop/products/neemfacewash_1024x1024.jpg?v=1625111842" alt="Neem Face Wash" class="img-fluid product-image mx-auto d-block">
-              <h6 class="mt-3">Khadi Natural Neem Face Wash SLS & Paraben Free</h6>
-              <p class="text-success small">Gently removes oil & dirt, Prevents acne, Hydrates Skin</p>
-              <p><span class="price">RS. 162.00</span> <span class="old-price">RS. 249.00</span></p>
-              <button class="btn btn-dark w-100">Add to cart</button>
-            </div>
-          </div>
-    
-          <!-- Card 3 -->
-          <div class="col-6 col-md-6 col-lg-4">
-            <div class="position-relative product-card">
-              <span class="badge badge-custom badge-save">SAVE 35%</span>
-              <span class="badge badge-custom badge-lightning">BESTSELLER</span>
-              <img src="https://www.khadinatural.com/cdn/shop/products/sandalwoodpack_1024x1024.jpg?v=1625111795" alt="Sandalwood Face Wash" class="img-fluid product-image mx-auto d-block">
-              <h6 class="mt-3">Khadi Natural Sandalwood & Honey Face Wash (Pack of 2)</h6>
-              <p class="text-success small">Gently cleanses dirt and impurities, Reduces premature ageing signs</p>
-              <p><span class="price">RS. 273.00</span> <span class="old-price">RS. 420.00</span></p>
-              <button class="btn btn-dark w-100">Add to cart</button>
-            </div>
-          </div>
-    
         </div>
       </div>
-    
+    </div>
+  </div>
+
+  <ng-template #noOrders>
+    <div class="text-center text-muted small mt-4">
+      No orders found.
+    </div>
+  </ng-template>
 </div>

@@ -23,4 +23,8 @@ export class OrderService {
   placeOrder(order: OrderRequest): Observable<any> {
     return this.http.post<any>(this.apiUrl, order);
   }
+
+  myOrders(userId: string): Observable<any> {
+    return this.http.get<any>(`${environment.apiBaseUrl}/order/get/${userId}`);
+  }
 }

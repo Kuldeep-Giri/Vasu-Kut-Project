@@ -94,7 +94,7 @@ export class CartItemComponent {
       userId: this.UserId,
       selectedAddressId: this.selectedAddressId,
       items: this.cartItems.map(item => ({
-        productId: item.id,
+        productId: item.productId,
         quantity: item.quantity
       }))
     };
@@ -106,7 +106,7 @@ export class CartItemComponent {
         this.router.navigate(['/']);
       },
       error: (error) => {
-        this.toast.error(error);
+        console.error(error);
       },
       complete: () => {
         this.isLoading = false;

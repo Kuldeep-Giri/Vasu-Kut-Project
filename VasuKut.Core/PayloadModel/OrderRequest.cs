@@ -18,13 +18,10 @@ namespace VasuKut.Core.PayloadModel
 
     }
     public class OrderItem
-    {
-
-        [Key]
-        public int Id { get; set; }
+    {  
         public int ProductId { get; set; }
         public int Quantity { get; set; }
-        public virtual ICollection<Product> Product { get; set; } = new List<Product>();
+   //     public virtual ICollection<Product> Product { get; set; } = new List<Product>();
 
     }
 }
